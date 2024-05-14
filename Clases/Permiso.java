@@ -14,7 +14,6 @@ private int id;
 private String titulo;
 
 
-
 public Permiso() {
 }
 

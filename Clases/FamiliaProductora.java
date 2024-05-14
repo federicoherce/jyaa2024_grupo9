@@ -12,12 +12,16 @@ public class FamiliaProductora {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
-@Column(unique=true, nullable=false, length=64, name="nombre", updatable=true)
-private String nombre ;
-@Column(unique=false, nullable=false, length=64, name="fecha_inicio", updatable=false)
+
+@Column(unique=true, nullable=false, length=64, name="nombre")
+private String nombre;
+
+@Column(nullable=false, updatable=false)
 private LocalDate fecha_inicio;
-@Column(unique=false, nullable=false, length=64, name="fecha_inicio", updatable=false)
+
+@Column(nullable=false, updatable=false)
 private String zona;
+
 private boolean activo;
 
 

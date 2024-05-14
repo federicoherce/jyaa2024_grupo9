@@ -10,18 +10,25 @@ public class MateriaPrima {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
-@Column(unique=true, nullable=false, length=64, name="nombre", updatable=true)
+
+@Column(unique=true, nullable=false, length=64, updatable=true)
 private String nombre;
-@Column(unique=false, nullable=false, length=64, name="peso", updatable=false)
+
+@Column(nullable=false)
 private double peso;
-@Column(unique=false, nullable=false, length=64, name="fecha_compra", updatable=false)
+
+@Columnnullable=false, length=64)
 private LocalDate fecha_compra;
-@Column(unique=false, nullable=false, length=64, name="fecha_vencimiento", updatable=false)
+
+@Columnnullable=false, length=64)
 private LocalDate fecha_vencimiento; 
-@Column(unique=false, nullable=false, length=64, name="costo_por_kg", updatable=true)
+
+@Column(nullable=false)
 private double costo_por_kg;
-@Column(unique=false, nullable=false, length=64, name="forma_almacenamiento", updatable=true)
+
+@Column(nullable=false, length=64)
 private String forma_almacenamiento;
+
 private boolean activo;
 
 @ManyToOne
