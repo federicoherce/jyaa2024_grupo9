@@ -21,7 +21,7 @@ public class Receta {
     @Column(unique=true, nullable=false, length=32, name="titulo", updatable=false)
     private String titulo;
     
-    @Column(unique=false, nullable=false, length=32, name="texto", updatable=true)
+    @Column(unique=false, nullable=false, length=512, name="texto")
     private String texto;
     
     @OneToOne

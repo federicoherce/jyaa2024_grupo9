@@ -23,19 +23,22 @@ public class Lote {
     @Column(unique=true, nullable=false, length=32, name="codigo", updatable=false)
     private String codigo;
     
-    @Column(unique=false, nullable=false, length=32, name="nombre", updatable=true)
+    @Column(unique=false, nullable=false, length=64, name="nombre")
     private String nombre;
     
-    @Column(unique=false, nullable=false, length=16, name="fecha_elaboracion", updatable=false)
+    @Column(unique=false, nullable=false, name="fecha_elaboracion", updatable=false)
     private Date fecha_elaboracion;
     
-    @Column(unique=false, nullable=false, length=8, name="cantidad_producida", updatable=true)
+    @Column(unique=false, nullable=false, name="cantidad_producida")
     private double cantidad_producida;
     
-    @Column(unique=false, nullable=false, length=8, name="costo_lote", updatable=true)
+    @Column(unique=false, nullable=false, name="costo_lote")
     private double costo_lote;
     
-    @OneToMany(mappedBy = "lote", fetch = FetchType.LAZY)
+    @ManyToMany
+    @JoinTable(name = "lote_materia",
+    joinColumns = @JoinColumn(name = "lote_id"),
+    inverseJoinColumns = @JoinColumn(name = "materia_id"))
     private List<MateriaPrima> materia_prima;
     
     private boolean activo;

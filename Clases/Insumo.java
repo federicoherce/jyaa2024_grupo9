@@ -14,13 +14,13 @@ public class Insumo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique=true, nullable=false, length=32, name="nombre", updatable=false)
+    @Column(unique=true, nullable=false, length=64, updatable=false)
     private String nombre;
     
-    @Column(unique=false, nullable=false, length=32, name="cantidad", updatable=true)
+    @Column(unique=false, nullable=false, updatable=true)
     private double cantidad;
     
-    @Column(unique=false, nullable=false, length=32, name="costo_unitario", updatable=true)
+    @Column(unique=false, nullable=false, updatable=true)
     private double costo_unitario;
 
     private boolean activo;
