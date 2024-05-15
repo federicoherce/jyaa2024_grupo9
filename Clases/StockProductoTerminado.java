@@ -26,40 +26,42 @@ public class StockProductoTerminado {
 	private String nombre;
 	
 	@Column(nullable=false)
-	private Date fecha_envasado;
+	private Date fechaEnvasado;
 	
 	@Column(nullable=false)
-	private double costo_unidad;
+	private double costoUnidad;
 	
 	@Column(nullable=false)
-	private double precio_venta;
+	private double precioVenta;
 	
 	@Column(nullable=false)
-	private Date fecha_vencimiento;
+	private Date fechaVencimiento;
 	
 	@Column(nullable=false)
-	private int cantidad_productos;
+	private int cantidadProductos;
 	
 	private boolean activo;
 	
 	@OneToMany(mappedBy = "stock_producto_terminado", fetch = FetchType.LAZY)
 	private List<Insumo> insumos;
 	
+	@OneToOne
+	@JoinColumn(name = "lote_id")  
 	private Lote lote;
 
 	
-	public StockProductoTerminado() {}
 	
+	public StockProductoTerminado() {}
 	
 	
 	public StockProductoTerminado(String nombre, Date fecha_envasado, double costo_unidad, double precio_venta,
 			Date fecha_vencimiento, int cantidad_productos, Lote lote) {
 		this.nombre = nombre;
-		this.fecha_envasado = fecha_envasado;
-		this.costo_unidad = costo_unidad;
-		this.precio_venta = precio_venta;
-		this.fecha_vencimiento = fecha_vencimiento;
-		this.cantidad_productos = cantidad_productos;
+		this.fechaEnvasado = fecha_envasado;
+		this.costoUnidad = costo_unidad;
+		this.precioVenta = precio_venta;
+		this.fechaVencimiento = fecha_vencimiento;
+		this.cantidadProductos = cantidad_productos;
 		this.insumos = insumos;
 		this.lote = lote;
 		activo = true;
@@ -76,44 +78,44 @@ public class StockProductoTerminado {
 		this.nombre = nombre;
 	}
 
-	public Date getFecha_envasado() {
-		return fecha_envasado;
+	public Date getFechaEnvasado() {
+		return fechaEnvasado;
 	}
 
-	public void setFecha_envasado(Date fecha_envasado) {
-		this.fecha_envasado = fecha_envasado;
+	public void setFechaEnvasado(Date fecha_envasado) {
+		this.fechaEnvasado = fecha_envasado;
 	}
 
-	public double getCosto_unidad() {
-		return costo_unidad;
+	public double getCostoUnidad() {
+		return costoUnidad;
 	}
 
-	public void setCosto_unidad(double costo_unidad) {
-		this.costo_unidad = costo_unidad;
+	public void setCostoUnidad(double costo_unidad) {
+		this.costoUnidad = costo_unidad;
 	}
 
-	public double getPrecio_venta() {
-		return precio_venta;
+	public double getPrecioVenta() {
+		return precioVenta;
 	}
 
-	public void setPrecio_venta(double precio_venta) {
-		this.precio_venta = precio_venta;
+	public void setPrecioVenta(double precio_venta) {
+		this.precioVenta = precio_venta;
 	}
 
 	public Date getFecha_vencimiento() {
 		return fecha_vencimiento;
 	}
 
-	public void setFecha_vencimiento(Date fecha_vencimiento) {
-		this.fecha_vencimiento = fecha_vencimiento;
+	public void setFechaVencimiento(Date fecha_vencimiento) {
+		this.fechaVencimiento = fecha_vencimiento;
 	}
 
-	public int getCantidad_productos() {
-		return cantidad_productos;
+	public int getCantidadProductos() {
+		return cantidadProductos;
 	}
 
-	public void setCantidad_productos(int cantidad_productos) {
-		this.cantidad_productos = cantidad_productos;
+	public void setCantidadProductos(int cantidad_productos) {
+		this.cantidadProductos = cantidad_productos;
 	}
 
 	public boolean isActivo() {

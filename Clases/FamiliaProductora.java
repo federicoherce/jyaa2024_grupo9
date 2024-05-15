@@ -13,11 +13,11 @@ public class FamiliaProductora {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
 
-@Column(unique=true, nullable=false, length=64, name="nombre")
+@Column(unique=true, nullable=false, length=64)
 private String nombre;
 
 @Column(nullable=false, updatable=false)
-private LocalDate fecha_inicio;
+private LocalDate fechaInicio;
 
 @Column(nullable=false, updatable=false)
 private String zona;
@@ -34,7 +34,7 @@ public FamiliaProductora() {
 
 public FamiliaProductora(String nombre, LocalDate fecha_inicio, String zona) {
 	this.nombre = nombre;
-	this.fecha_inicio = fecha_inicio;
+	this.fechaInicio = fecha_inicio;
 	this.zona = zona;
 	this.activo = true;
 }
@@ -44,11 +44,11 @@ public String getNombre() {
 public void setNombre(String nombre) {
 	this.nombre = nombre;
 }
-public LocalDate getFecha_inicio() {
-	return fecha_inicio;
+public LocalDate getFechaInicio() {
+	return fechaInicio;
 }
-public void setFecha_inicio(LocalDate fecha_inicio) {
-	this.fecha_inicio = fecha_inicio;
+public void setFechaInicio(LocalDate fecha_inicio) {
+	this.fechaInicio = fecha_inicio;
 }
 public String getZona() {
 	return zona;

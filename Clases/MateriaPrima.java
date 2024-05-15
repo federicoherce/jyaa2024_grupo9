@@ -17,17 +17,17 @@ private String nombre;
 @Column(nullable=false)
 private double peso;
 
-@Columnnullable=false, length=64)
-private LocalDate fecha_compra;
+@Column(nullable=false, length=64)
+private LocalDate fechaCompra;
 
 @Columnnullable=false, length=64)
-private LocalDate fecha_vencimiento; 
+private LocalDate fechaVencimiento; 
 
 @Column(nullable=false)
-private double costo_por_kg;
+private double costoPorKg;
 
 @Column(nullable=false, length=64)
-private String forma_almacenamiento;
+private String formaAlmacenamiento;
 
 private boolean activo;
 
@@ -40,10 +40,10 @@ public MateriaPrima(String nombre, double peso, LocalDate fecha_compra, LocalDat
 	super();
 	this.nombre = nombre;
 	this.peso = peso;
-	this.fecha_compra = fecha_compra;
-	this.fecha_vencimiento = fecha_vencimiento;
-	this.costo_por_kg = costo_por_kg;
-	this.forma_almacenamiento = forma_almacenamiento;
+	this.fechaCompra = fecha_compra;
+	this.fechaVencimiento = fecha_vencimiento;
+	this.costoPorKg = costo_por_kg;
+	this.formaAlmacenamiento = forma_almacenamiento;
 	this.productor = productor;
 	this.activo = true;
 }
@@ -67,36 +67,36 @@ public void setPeso(double peso) {
 	this.peso = peso;
 }
 
-public LocalDate getFecha_compra() {
-	return fecha_compra;
+public LocalDate getFechaCompra() {
+	return fechaCompra;
 }
 
-public void setFecha_compra(LocalDate fecha_compra) {
-	this.fecha_compra = fecha_compra;
+public void setFechaCompra(LocalDate fecha_compra) {
+	this.fechaCompra = fecha_compra;
 }
 
-public LocalDate getFecha_vencimiento() {
-	return fecha_vencimiento;
+public LocalDate getFechaVencimiento() {
+	return fechaVencimiento;
 }
 
-public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
-	this.fecha_vencimiento = fecha_vencimiento;
+public void setFechaVencimiento(LocalDate fecha_vencimiento) {
+	this.fechaVencimiento = fecha_vencimiento;
 }
 
-public double getCosto_por_kg() {
-	return costo_por_kg;
+public double getCostoPorKg() {
+	return costoPorKg;
 }
 
-public void setCosto_por_kg(double costo_por_kg) {
-	this.costo_por_kg = costo_por_kg;
+public void setCostoPorKg(double costo_por_kg) {
+	this.costoPorKg = costo_por_kg;
 }
 
-public String getForma_almacenamiento() {
-	return forma_almacenamiento;
+public String getFormaAlmacenamiento() {
+	return formaAlmacenamiento;
 }
 
-public void setForma_almacenamiento(String forma_almacenamiento) {
-	this.forma_almacenamiento = forma_almacenamiento;
+public void setFormaAlmacenamiento(String forma_almacenamiento) {
+	this.formaAlmacenamiento = forma_almacenamiento;
 }
 
 public boolean isActivo() {

@@ -21,7 +21,7 @@ public class Insumo {
     private double cantidad;
     
     @Column(unique=false, nullable=false, updatable=true)
-    private double costo_unitario;
+    private double costoUnitario;
 
     private boolean activo;
     
@@ -32,7 +32,7 @@ public class Insumo {
 	public Insumo(String nombre, double cantidad, double costo_unitario) {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
-		this.costo_unitario = costo_unitario;
+		this.costoUnitario = costo_unitario;
 		this.activo = true;
 	}
 
@@ -52,12 +52,12 @@ public class Insumo {
 		this.cantidad = cantidad;
 	}
 
-	public double getCosto_unitario() {
-		return costo_unitario;
+	public double getCostoUnitario() {
+		return costoUnitario;
 	}
 
-	public void setCosto_unitario(double costo_unitario) {
-		this.costo_unitario = costo_unitario;
+	public void setCostoUnitario(double costo_unitario) {
+		this.costoUnitario = costo_unitario;
 	}
 
 	public boolean isActivo() {
