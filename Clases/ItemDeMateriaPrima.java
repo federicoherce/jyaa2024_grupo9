@@ -14,7 +14,7 @@ public class ItemDeMateriaPrima {
 	private int cantidadEnKg;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario_id", updatable = false)  
+	@JoinColumn(name = "lote_id", updatable = false)  
 	private Lote lote;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

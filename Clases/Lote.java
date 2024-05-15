@@ -40,6 +40,10 @@ public class Lote {
     private List<ItemDeMateriaPrima> listaItemsDeMateriaPrima;
     
     private boolean activo;
+    
+    @ManyToOne()
+    @JoinColumn(name = "usuario_id", updatable = false)  
+    private Usuario usuario;
 
     
 	public Lote() {
@@ -48,7 +52,7 @@ public class Lote {
 
 
 	public Lote(String nombre, String codigo, Date fecha_elaboracion, double cantidad_producida, double costo_lote,
-			List<MateriaPrima> materia_prima) {
+			List<MateriaPrima> materia_prima, Usuario usuario) {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.fechaElaboracion = fecha_elaboracion;
@@ -56,6 +60,7 @@ public class Lote {
 		this.costoLote = costo_lote;
 		this.materiaPrima = materia_prima;
 		this.activo = true;
+		this.usuario = usuario;
 	}
 
 
@@ -129,7 +134,14 @@ public class Lote {
 	}
 	
 	
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
     
     

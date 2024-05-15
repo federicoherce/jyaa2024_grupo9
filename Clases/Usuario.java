@@ -36,6 +36,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Permiso> permisos;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Lote> lotes;
+	
 	private boolean activo;
 	
 	public Usuario() {}
@@ -48,6 +51,7 @@ public class Usuario {
 		this.password = password;
 		activo = true;
 		permisos = new ArrayList<Permiso>();
+		lotes = new ArrayList<Lote>();
 	}
 
 	public String getEmail() {
@@ -98,7 +102,12 @@ public class Usuario {
 		this.activo = activo;
 	}
 	
-	
+	public List<Lote> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
 	
 	
 }
