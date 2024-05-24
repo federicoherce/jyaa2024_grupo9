@@ -1,5 +1,6 @@
 package bd;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,8 +45,8 @@ public class StockProductoTerminado {
 	
 	private boolean activo;
 	
-	@OneToMany(mappedBy = "stock_producto_terminado", fetch = FetchType.LAZY)
-	private List<Insumo> insumos;
+	@OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
+	private List<ItemDeInsumo> insumos;
 	
 	@OneToOne
 	@JoinColumn(name = "lote_id")  
@@ -64,9 +65,9 @@ public class StockProductoTerminado {
 		this.precioVenta = precio_venta;
 		this.fechaVencimiento = fecha_vencimiento;
 		this.cantidadProductos = cantidad_productos;
-		this.insumos = insumos;
 		this.lote = lote;
-		activo = true;
+		this.insumos = new ArrayList<ItemDeInsumo>();
+		this.activo = true;
 	}
 
 
@@ -128,11 +129,11 @@ public class StockProductoTerminado {
 		this.activo = activo;
 	}
 
-	public List<Insumo> getInsumos() {
+	public List<ItemDeInsumo> getInsumos() {
 		return insumos;
 	}
 
-	public void setInsumos(List<Insumo> insumos) {
+	public void setInsumos(List<ItemDeInsumo> insumos) {
 		this.insumos = insumos;
 	}
 

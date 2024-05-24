@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="stock_productos_terminados")
+@Table(name="canales_de_venta")
 public class CanalDeVenta {
 	
 	@Id

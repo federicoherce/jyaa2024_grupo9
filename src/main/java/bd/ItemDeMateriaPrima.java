@@ -2,8 +2,9 @@ package bd;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "materias_primas")
+@Table(name = "items_de_materias_primas")
 public class ItemDeMateriaPrima {
 	
 	@Id
@@ -31,7 +32,7 @@ public class ItemDeMateriaPrima {
 		this.cantidadEnKg = cantidadEnKg;
 		this.lote = lote;
 		this.materiaPrima = materiaPrima;
-		activo = true;
+		this.activo = true;
 	}
 	
 	

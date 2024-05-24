@@ -38,7 +38,7 @@ public class Lote {
     @Column(unique=false, nullable=false, name="costo_lote")
     private double costoLote;
     
-    @OneToMany(mappedBy = "items_de_materia_prima")
+    @OneToMany(mappedBy = "lote")
     private List<ItemDeMateriaPrima> listaItemsDeMateriaPrima;
     
     private boolean activo;
