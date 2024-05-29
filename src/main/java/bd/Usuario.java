@@ -17,36 +17,36 @@ import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name="usuarios")
+@Table(name = "usuarios")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(unique=true, nullable=false, length=64, updatable=false)
+
+	@Column(unique = true, nullable = false, length = 64, updatable = false)
 	private String email;
-	
-	@Column(unique=true, nullable=false, length=64)
+
+	@Column(unique = true, nullable = false, length = 64)
 	private String nombre;
-	
-	@Column(unique=true, nullable=false, length=64)
+
+	@Column(unique = true, nullable = false, length = 64)
 	private String apellido;
-	
-	@Column(unique=true, nullable=false, length=64)
+
+	@Column(unique = true, nullable = false, length = 64)
 	private String password;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_permisos", joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn(name = "permiso_id"))
+	@JoinTable(name = "usuario_permisos", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
 	private List<Permiso> permisos;
-	
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Lote> lotes;
-	
+
 	private boolean activo;
-	
-	public Usuario() {}
+
+	public Usuario() {
+	}
 
 	public Usuario(String email, String nombre, String apellido, String password) {
 		super();
@@ -106,14 +106,14 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
+
 	public List<Lote> getLotes() {
 		return lotes;
 	}
 
 	public void setLotes(List<Lote> lotes) {
 		this.lotes = lotes;
-	
+
 	}
-	
+
 }

@@ -9,36 +9,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "recetas")
 public class Receta {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(unique=true, nullable=false, length=32, name="titulo", updatable=false)
-    private String titulo;
-    
-    @Column(unique=false, nullable=false, length=512, name="texto")
-    private String texto;
-    
-    @OneToOne
-    @JoinColumn(name = "usuario_id")  
-    private Usuario usuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(unique = true, nullable = false, length = 32, name = "titulo", updatable = false)
+	private String titulo;
+
+	@Column(unique = false, nullable = false, length = 512, name = "texto")
+	private String texto;
+
+	@OneToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
 	private boolean activo;
 
-    public Receta() {
-    	
-    }
+	public Receta() {
+
+	}
 
 	public Receta(String titulo, String texto, Usuario usuario) {
 		this.titulo = titulo;
 		this.texto = texto;
 		this.usuario = usuario;
-		this.activo = true;    
+		this.activo = true;
 	}
 
 	public String getTitulo() {
@@ -72,7 +71,5 @@ public class Receta {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-    
-	
 
 }

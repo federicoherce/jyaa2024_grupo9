@@ -1,38 +1,35 @@
 package bd;
-import javax.persistence.*;
 
+import javax.persistence.*;
 
 @Entity
 @Table(name = "permisos")
 public class Permiso {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-@Column(unique=true, nullable=false, length=64, name="titulo", updatable=false)
-private String titulo;
+	@Column(unique = true, nullable = false, length = 64, name = "titulo", updatable = false)
+	private String titulo;
 
+	public Permiso() {
+	}
 
-public Permiso() {
-}
+	public Permiso(String titulo) {
+		this.titulo = titulo;
+	}
 
-public Permiso(String titulo) {
-	this.titulo = titulo;
-}
+	public String getTitulo() {
+		return titulo;
+	}
 
-public String getTitulo() {
-	return titulo;
-}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-public void setTitulo(String titulo) {
-	this.titulo = titulo;
-}
+	public int getId() {
+		return this.id;
+	}
 
-public int getId() {
-	return this.id;
-}
-
-
-	
 }

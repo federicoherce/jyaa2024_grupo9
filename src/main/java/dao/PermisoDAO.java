@@ -1,25 +1,17 @@
 package dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import bd.Permiso;
 
-public class PermisoDAO extends GenericDAOImpl<Permiso, Long> {
-	 
-	@PersistenceContext
-	private EntityManager entityManager;
+public class PermisoDAO extends GenericDAOImpl<Permiso, Integer> {
 
-	public PermisoDAO() {
-		super(Permiso.class);
+
+
+	public PermisoDAO(EntityManager entityManager) {
+		super(Permiso.class, entityManager);
 	}
 
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-		
-	}
 
 
 }
-
-	
-

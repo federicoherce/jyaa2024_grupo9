@@ -2,41 +2,37 @@ package bd;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "items_de_materias_primas")
 public class ItemDeMateriaPrima {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(nullable=false, length=64)
+
+	@Column(nullable = false, length = 64)
 	private int cantidadEnKg;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "lote_id", updatable = false)  
+	@JoinColumn(name = "lote_id", updatable = false)
 	private Lote lote;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "materia_prima_id", updatable = false)
 	private MateriaPrima materiaPrima;
-	
-	private boolean activo; 
-	
-	
-	
-	public ItemDeMateriaPrima( ) {}
-	
+
+	private boolean activo;
+
+	public ItemDeMateriaPrima() {
+	}
+
 	public ItemDeMateriaPrima(int cantidadEnKg, Lote lote, MateriaPrima materiaPrima) {
 		this.cantidadEnKg = cantidadEnKg;
 		this.lote = lote;
 		this.materiaPrima = materiaPrima;
 		this.activo = true;
 	}
-	
-	
-	
+
 	public int getCantidadEnKg() {
 		return cantidadEnKg;
 	}
@@ -67,5 +63,5 @@ public class ItemDeMateriaPrima {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
-	} 
+	}
 }

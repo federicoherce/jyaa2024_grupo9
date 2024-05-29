@@ -2,33 +2,30 @@ package bd;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "items_de_insumos")
 public class ItemDeInsumo {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(nullable=false, length=64)
+
+	@Column(nullable = false, length = 64)
 	private int cantidad;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "stock_id", updatable = false)  
+	@JoinColumn(name = "stock_id", updatable = false)
 	private StockProductoTerminado stock;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "insumo_id", updatable = false)
 	private Insumo insumo;
-	
-	private boolean activo; 
-	
+
+	private boolean activo;
+
 	public ItemDeInsumo() {
-		
+
 	}
-	
-	
 
 	public ItemDeInsumo(int id, int cantidad, StockProductoTerminado stock, Insumo insumo) {
 		this.cantidad = cantidad;
@@ -36,8 +33,6 @@ public class ItemDeInsumo {
 		this.insumo = insumo;
 		this.activo = true;
 	}
-
-
 
 	public int getCantidad() {
 		return cantidad;
@@ -70,7 +65,5 @@ public class ItemDeInsumo {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
-	
-	
+
 }

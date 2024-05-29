@@ -10,24 +10,24 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "insumos")
 public class Insumo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(unique=true, nullable=false, length=64, updatable=false)
-    private String nombre;
-    
-    @Column(unique=false, nullable=false, updatable=true)
-    private double cantidad;
-    
-    @Column(unique=false, nullable=false, updatable=true)
-    private double costoUnitario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private boolean activo;
-    
-    public Insumo() {
-    	
-    }
+	@Column(unique = true, nullable = false, length = 64, updatable = false)
+	private String nombre;
+
+	@Column(unique = false, nullable = false, updatable = true)
+	private double cantidad;
+
+	@Column(unique = false, nullable = false, updatable = true)
+	private double costoUnitario;
+
+	private boolean activo;
+
+	public Insumo() {
+
+	}
 
 	public Insumo(String nombre, double cantidad, double costo_unitario) {
 		this.nombre = nombre;
@@ -67,10 +67,5 @@ public class Insumo {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-    
-	
-	
-    
-    
-    
+
 }

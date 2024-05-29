@@ -1,6 +1,5 @@
 package bd;
 
-
 import java.sql.Date;
 import java.util.List;
 
@@ -18,40 +17,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "lotes")
 public class Lote {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(unique=true, nullable=false, length=32, name="codigo", updatable=false)
-    private String codigo;
-    
-    @Column(unique=false, nullable=false, length=64, name="nombre")
-    private String nombre;
-    
-    @Column(unique=false, nullable=false, name="fecha_elaboracion", updatable=false)
-    private Date fechaElaboracion;
-    
-    @Column(unique=false, nullable=false, name="cantidad_producida")
-    private double cantidadProducida;
-    
-    @Column(unique=false, nullable=false, name="costo_lote")
-    private double costoLote;
-    
-    @OneToMany(mappedBy = "lote")
-    private List<ItemDeMateriaPrima> listaItemsDeMateriaPrima;
-    
-    private boolean activo;
-    
-    @ManyToOne()
-    @JoinColumn(name = "usuario_id", updatable = false)  
-    private Usuario usuario;
 
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(unique = true, nullable = false, length = 32, name = "codigo", updatable = false)
+	private String codigo;
+
+	@Column(unique = false, nullable = false, length = 64, name = "nombre")
+	private String nombre;
+
+	@Column(unique = false, nullable = false, name = "fecha_elaboracion", updatable = false)
+	private Date fechaElaboracion;
+
+	@Column(unique = false, nullable = false, name = "cantidad_producida")
+	private double cantidadProducida;
+
+	@Column(unique = false, nullable = false, name = "costo_lote")
+	private double costoLote;
+
+	@OneToMany(mappedBy = "lote")
+	private List<ItemDeMateriaPrima> listaItemsDeMateriaPrima;
+
+	private boolean activo;
+
+	@ManyToOne()
+	@JoinColumn(name = "usuario_id", updatable = false)
+	private Usuario usuario;
+
 	public Lote() {
-		
-	}
 
+	}
 
 	public Lote(String nombre, String codigo, Date fecha_elaboracion, double cantidad_producida, double costo_lote,
 			List<ItemDeMateriaPrima> materia_prima, Usuario usuario) {
@@ -65,86 +62,68 @@ public class Lote {
 		this.usuario = usuario;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
 	public String getCodigo() {
 		return codigo;
 	}
-
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
-
 	public Date getFechaElaboracion() {
 		return fechaElaboracion;
 	}
-
 
 	public void setFechaElaboracion(Date fecha_elaboracion) {
 		this.fechaElaboracion = fecha_elaboracion;
 	}
 
-
 	public double getCantidadProducida() {
 		return cantidadProducida;
 	}
-
 
 	public void setCantidadProducida(double cantidad_producida) {
 		this.cantidadProducida = cantidad_producida;
 	}
 
-
 	public double getCostoLote() {
 		return costoLote;
 	}
-
 
 	public void setCostoLote(double costo_lote) {
 		this.costoLote = costo_lote;
 	}
 
-
 	public List<ItemDeMateriaPrima> getMateriaPrima() {
 		return listaItemsDeMateriaPrima;
 	}
-
 
 	public void setMateriaPrima(List<ItemDeMateriaPrima> materia_prima) {
 		this.listaItemsDeMateriaPrima = materia_prima;
 	}
 
-
 	public boolean isActivo() {
 		return activo;
 	}
 
-
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-    
-    
+
 }

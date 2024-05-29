@@ -15,48 +15,44 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name="stocks_productos_terminados")
+@Table(name = "stocks_productos_terminados")
 public class StockProductoTerminado {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(nullable=false, length=64)
+
+	@Column(nullable = false, length = 64)
 	private String nombre;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Date fechaEnvasado;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private double costoUnidad;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private double precioVenta;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Date fechaVencimiento;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private int cantidadProductos;
-	
+
 	private boolean activo;
-	
+
 	@OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
 	private List<ItemDeInsumo> insumos;
-	
+
 	@OneToOne
-	@JoinColumn(name = "lote_id")  
+	@JoinColumn(name = "lote_id")
 	private Lote lote;
 
-	
-	
-	public StockProductoTerminado() {}
-	
-	
+	public StockProductoTerminado() {
+	}
+
 	public StockProductoTerminado(String nombre, Date fecha_envasado, double costo_unidad, double precio_venta,
 			Date fecha_vencimiento, int cantidad_productos, Lote lote) {
 		this.nombre = nombre;
@@ -69,9 +65,6 @@ public class StockProductoTerminado {
 		this.insumos = new ArrayList<ItemDeInsumo>();
 		this.activo = true;
 	}
-
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -144,9 +137,5 @@ public class StockProductoTerminado {
 	public void setLote(Lote lote) {
 		this.lote = lote;
 	}
-	
-	
-	
-	
-	
+
 }

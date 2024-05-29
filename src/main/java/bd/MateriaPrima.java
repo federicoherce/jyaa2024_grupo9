@@ -6,118 +6,113 @@ import javax.persistence.*;
 @Entity
 @Table(name = "materias_primas")
 public class MateriaPrima {
-	
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
 
-@Column(unique=true, nullable=false, length=64, updatable=true)
-private String nombre;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-@Column(nullable=false)
-private double peso;
+	@Column(unique = true, nullable = false, length = 64, updatable = true)
+	private String nombre;
 
-@Column(nullable=false, length=64)
-private LocalDate fechaCompra;
+	@Column(nullable = false)
+	private double peso;
 
-@Column(nullable=false, length=64)
-private LocalDate fechaVencimiento; 
+	@Column(nullable = false, length = 64)
+	private LocalDate fechaCompra;
 
-@Column(nullable=false)
-private double costoPorKg;
+	@Column(nullable = false, length = 64)
+	private LocalDate fechaVencimiento;
 
-@Column(nullable=false, length=64)
-private String formaAlmacenamiento;
+	@Column(nullable = false)
+	private double costoPorKg;
 
-private boolean activo;
+	@Column(nullable = false, length = 64)
+	private String formaAlmacenamiento;
 
-@ManyToOne
-@JoinColumn(name = "productor_id") 
-private FamiliaProductora productor;
+	private boolean activo;
 
-public MateriaPrima(String nombre, double peso, LocalDate fecha_compra, LocalDate fecha_vencimiento,
-		double costo_por_kg, String forma_almacenamiento, FamiliaProductora productor) {
-	super();
-	this.nombre = nombre;
-	this.peso = peso;
-	this.fechaCompra = fecha_compra;
-	this.fechaVencimiento = fecha_vencimiento;
-	this.costoPorKg = costo_por_kg;
-	this.formaAlmacenamiento = forma_almacenamiento;
-	this.productor = productor;
-	this.activo = true;
-}
+	@ManyToOne
+	@JoinColumn(name = "productor_id")
+	private FamiliaProductora productor;
 
-public MateriaPrima() {
-}
+	public MateriaPrima(String nombre, double peso, LocalDate fecha_compra, LocalDate fecha_vencimiento,
+			double costo_por_kg, String forma_almacenamiento, FamiliaProductora productor) {
+		super();
+		this.nombre = nombre;
+		this.peso = peso;
+		this.fechaCompra = fecha_compra;
+		this.fechaVencimiento = fecha_vencimiento;
+		this.costoPorKg = costo_por_kg;
+		this.formaAlmacenamiento = forma_almacenamiento;
+		this.productor = productor;
+		this.activo = true;
+	}
 
-public String getNombre() {
-	return nombre;
-}
+	public MateriaPrima() {
+	}
 
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	public String getNombre() {
+		return nombre;
+	}
 
-public double getPeso() {
-	return peso;
-}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-public void setPeso(double peso) {
-	this.peso = peso;
-}
+	public double getPeso() {
+		return peso;
+	}
 
-public LocalDate getFechaCompra() {
-	return fechaCompra;
-}
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
 
-public void setFechaCompra(LocalDate fecha_compra) {
-	this.fechaCompra = fecha_compra;
-}
+	public LocalDate getFechaCompra() {
+		return fechaCompra;
+	}
 
-public LocalDate getFechaVencimiento() {
-	return fechaVencimiento;
-}
+	public void setFechaCompra(LocalDate fecha_compra) {
+		this.fechaCompra = fecha_compra;
+	}
 
-public void setFechaVencimiento(LocalDate fecha_vencimiento) {
-	this.fechaVencimiento = fecha_vencimiento;
-}
+	public LocalDate getFechaVencimiento() {
+		return fechaVencimiento;
+	}
 
-public double getCostoPorKg() {
-	return costoPorKg;
-}
+	public void setFechaVencimiento(LocalDate fecha_vencimiento) {
+		this.fechaVencimiento = fecha_vencimiento;
+	}
 
-public void setCostoPorKg(double costo_por_kg) {
-	this.costoPorKg = costo_por_kg;
-}
+	public double getCostoPorKg() {
+		return costoPorKg;
+	}
 
-public String getFormaAlmacenamiento() {
-	return formaAlmacenamiento;
-}
+	public void setCostoPorKg(double costo_por_kg) {
+		this.costoPorKg = costo_por_kg;
+	}
 
-public void setFormaAlmacenamiento(String forma_almacenamiento) {
-	this.formaAlmacenamiento = forma_almacenamiento;
-}
+	public String getFormaAlmacenamiento() {
+		return formaAlmacenamiento;
+	}
 
-public boolean isActivo() {
-	return activo;
-}
+	public void setFormaAlmacenamiento(String forma_almacenamiento) {
+		this.formaAlmacenamiento = forma_almacenamiento;
+	}
 
-public void setActivo(boolean activo) {
-	this.activo = activo;
-}
+	public boolean isActivo() {
+		return activo;
+	}
 
-public FamiliaProductora getProductor() {
-	return productor;
-}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 
-public void setProductor(FamiliaProductora productor) {
-	this.productor = productor;
-}
+	public FamiliaProductora getProductor() {
+		return productor;
+	}
 
-
-
-
-	
+	public void setProductor(FamiliaProductora productor) {
+		this.productor = productor;
+	}
 
 }
