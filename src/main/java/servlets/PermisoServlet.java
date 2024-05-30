@@ -2,18 +2,13 @@ package servlets;
 
 import jakarta.servlet.ServletException;
 
-import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 
 import bd.Permiso;
 import dao.PermisoDAO;
@@ -25,37 +20,35 @@ import dao.PermisoDAO;
 public class PermisoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
-    private PermisoDAO permisoDAO;
-
-    @Override
-    public void init() throws ServletException {
-        entityManagerFactory = Persistence.createEntityManagerFactory("miUP"); 
-        entityManager = entityManagerFactory.createEntityManager();
-        permisoDAO = new PermisoDAO(entityManager);
-    }
-
-    @Override
-    public void destroy() {
-        entityManager.close();
-        entityManagerFactory.close();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        Permiso permiso = new Permiso("otro");
+    	
+        PermisoDAO permisoDAO = new PermisoDAO();
+    	Permiso permiso = new Permiso("admin");
+        Permiso otroPermiso = new Permiso("visitante");
         permisoDAO.persist(permiso);
+        permisoDAO.persist(otroPermiso);
         List<Permiso> permisos = permisoDAO.findAll();
         for (Permiso p : permisos) {
         	System.out.println(p.getTitulo());
         }
-        permisoDAO.delete(permiso);
+        
+       	System.out.println("----------------");
+        
+        permisoDAO.delete(otroPermiso);
         permisos = permisoDAO.findAll();
         for (Permiso p : permisos) {
         	System.out.println(p.getTitulo());
         }
+        
+        Permiso encontrado = permisoDAO.findById(permiso.getId());
+        System.out.println("Titulo viejo " + encontrado.getTitulo());
+        encontrado.setTitulo("Administrador");
+        permisoDAO.update(encontrado);
+        encontrado = permisoDAO.findById(1);
+        System.out.println("Titulo nuevo " + encontrado.getTitulo());
+        
         
     }
 }
