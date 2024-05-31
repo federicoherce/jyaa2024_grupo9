@@ -13,4 +13,6 @@ public class PermisoDAO extends GenericDAOImpl<Permiso, Integer> {
 
 
 
+
+
 }

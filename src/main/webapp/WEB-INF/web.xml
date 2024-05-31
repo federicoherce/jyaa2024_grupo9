@@ -22,4 +22,14 @@
   <listener>
     <listener-class>entityManager.AppContextListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>RecetaServlet</display-name>
+    <servlet-name>RecetaServlet</servlet-name>
+    <servlet-class>servlets.RecetaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecetaServlet</servlet-name>
+    <url-pattern>/RecetaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
