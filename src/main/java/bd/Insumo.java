@@ -12,13 +12,13 @@ import javax.persistence.Table;
 public class Insumo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@Column(unique = true, nullable = false, length = 64, updatable = false)
 	private String nombre;
 
 	@Column(unique = false, nullable = false, updatable = true)
-	private double cantidad;
+	private int cantidad;
 
 	@Column(unique = false, nullable = false, updatable = true)
 	private double costoUnitario;
@@ -29,7 +29,7 @@ public class Insumo {
 
 	}
 
-	public Insumo(String nombre, double cantidad, double costo_unitario) {
+	public Insumo(String nombre, int cantidad, double costo_unitario) {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.costoUnitario = costo_unitario;
@@ -44,11 +44,11 @@ public class Insumo {
 		this.nombre = nombre;
 	}
 
-	public double getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(double cantidad) {
+	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 

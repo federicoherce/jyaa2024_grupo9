@@ -34,7 +34,7 @@ public class PermisoServlet extends HttpServlet {
         	System.out.println(p.getTitulo());
         }
         
-       	System.out.println("----------------");
+       	System.out.println("---Eliminacion-----");
         
         permisoDAO.delete(otroPermiso);
         permisos = permisoDAO.findAll();
@@ -42,13 +42,12 @@ public class PermisoServlet extends HttpServlet {
         	System.out.println(p.getTitulo());
         }
         
-        Permiso encontrado = permisoDAO.findById(permiso.getId());
-        System.out.println("Titulo viejo " + encontrado.getTitulo());
-        encontrado.setTitulo("Administrador");
-        permisoDAO.update(encontrado);
-        encontrado = permisoDAO.findById(1);
+
+        System.out.println("Titulo viejo " + permiso.getTitulo());
+        permiso.setTitulo("Administrador");
+        permisoDAO.update(permiso);
+        Permiso encontrado = permisoDAO.findById(1);
         System.out.println("Titulo nuevo " + encontrado.getTitulo());
-        
         
     }
 }

@@ -1,6 +1,8 @@
 package entityManager;
 
 
+import bd.CanalDeVenta;
+import dao.CanalDeVentaDAO;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -11,7 +13,7 @@ public class AppContextListener implements ServletContextListener {
 
 
     public void contextInitialized(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
+
     }
 
 

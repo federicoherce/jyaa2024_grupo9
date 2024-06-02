@@ -3,6 +3,7 @@ package bd;
 import javax.persistence.*;
 
 @Entity
+
 @Table(name = "permisos")
 public class Permiso {
 
@@ -10,7 +11,7 @@ public class Permiso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false, length = 64, name = "titulo", updatable = false)
+	@Column(unique = true, nullable = false, length = 64, name = "titulo", updatable = true)
 	private String titulo;
 
 	public Permiso() {

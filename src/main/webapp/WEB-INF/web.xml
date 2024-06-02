@@ -22,4 +22,24 @@
   <listener>
     <listener-class>entityManager.AppContextListener</listener-class>
   </listener>
+  <servlet>
+    <description></description>
+    <display-name>InsumoServlet</display-name>
+    <servlet-name>InsumoServlet</servlet-name>
+    <servlet-class>servlets.InsumoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsumoServlet</servlet-name>
+    <url-pattern>/InsumoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CanalDeVentaServlet</display-name>
+    <servlet-name>CanalDeVentaServlet</servlet-name>
+    <servlet-class>servlets.CanalDeVentaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CanalDeVentaServlet</servlet-name>
+    <url-pattern>/CanalDeVentaServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

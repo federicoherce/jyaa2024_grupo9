@@ -1,10 +1,15 @@
 package bd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +25,10 @@ public class CanalDeVenta {
 
 	@Column(nullable = false, length = 64)
 	private String ubicacion;
+	
+    @OneToMany
+    @JoinColumn(name = "canalDeVenta_id") 
+    private List<StockProductoTerminado> productos;
 
 	private boolean activo;
 
@@ -30,6 +39,7 @@ public class CanalDeVenta {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		activo = true;
+		productos = new ArrayList<StockProductoTerminado>();
 	}
 
 	public String getNombre() {

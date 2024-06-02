@@ -1,7 +1,6 @@
 package dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import entityManager.EntityManagerFactorySingleton;
 import java.util.List;
 

@@ -27,13 +27,13 @@ public class Usuario {
 	@Column(unique = true, nullable = false, length = 64, updatable = false)
 	private String email;
 
-	@Column(unique = true, nullable = false, length = 64)
+	@Column(unique = false, nullable = false, length = 64)
 	private String nombre;
 
-	@Column(unique = true, nullable = false, length = 64)
+	@Column(unique = false, nullable = false, length = 64)
 	private String apellido;
 
-	@Column(unique = true, nullable = false, length = 64)
+	@Column(unique = false, nullable = false, length = 64)
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
