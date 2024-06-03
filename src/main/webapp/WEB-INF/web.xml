@@ -24,7 +24,6 @@
   </listener>
   <servlet>
     <description></description>
-<<<<<<< HEAD
     <display-name>InsumoServlet</display-name>
     <servlet-name>InsumoServlet</servlet-name>
     <servlet-class>servlets.InsumoServlet</servlet-class>
@@ -52,7 +51,9 @@
   <servlet-mapping>
     <servlet-name>MateriaPrimaDAO</servlet-name>
     <url-pattern>/MateriaPrimaDAO</url-pattern>
-=======
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>RecetaServlet</display-name>
     <servlet-name>RecetaServlet</servlet-name>
     <servlet-class>servlets.RecetaServlet</servlet-class>
@@ -60,6 +61,15 @@
   <servlet-mapping>
     <servlet-name>RecetaServlet</servlet-name>
     <url-pattern>/RecetaServlet</url-pattern>
->>>>>>> 6c0d7f25549e6035f113cedf4c54f2565d63981d
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UsuarioServlet</display-name>
+    <servlet-name>UsuarioServlet</servlet-name>
+    <servlet-class>servlets.UsuarioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsuarioServlet</servlet-name>
+    <url-pattern>/UsuarioServlet</url-pattern>
   </servlet-mapping>
 </web-app>

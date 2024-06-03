@@ -1,6 +1,7 @@
 package servlets;
 import java.util.List;
 
+
 import bd.Receta;
 import bd.Usuario;
 import dao.RecetaDAO;
@@ -22,15 +23,22 @@ public class RecetaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		RecetaDAO recetaDAO = new RecetaDAO();
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		Usuario usuario= new Usuario("aaa", "bbb", "ccc", "ddd");
-		usuarioDAO.persist(usuario);
+		
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+		Usuario usuario = usuarioDao.findById(1);
 		Receta receta = new Receta("Tarta de manzana", "Mezclar los ingredientes y hornear", usuario);
 		Receta otraReceta = new Receta("Milanesa", "Empanar la carne y freir", usuario);	
 		recetaDAO.persist(receta);
 		recetaDAO.persist(otraReceta);
 		List<Receta> recetas = recetaDAO.findAll();
 		for (Receta r : recetas) {
+			System.out.println(r.getTitulo());
+		}
+	   	System.out.println("---Eliminacion-----");
+	   	
+	   	recetaDAO.delete(receta);
+	    recetas = recetaDAO.findAll();
+	   	for (Receta r : recetas) {
 			System.out.println(r.getTitulo());
 		}
 		
