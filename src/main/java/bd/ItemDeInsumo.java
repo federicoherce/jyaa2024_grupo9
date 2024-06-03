@@ -27,7 +27,7 @@ public class ItemDeInsumo {
 
 	}
 
-	public ItemDeInsumo(int id, int cantidad, StockProductoTerminado stock, Insumo insumo) {
+	public ItemDeInsumo(int cantidad, StockProductoTerminado stock, Insumo insumo) {
 		this.cantidad = cantidad;
 		this.stock = stock;
 		this.insumo = insumo;

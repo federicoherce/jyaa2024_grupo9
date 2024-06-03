@@ -4,12 +4,16 @@ package entityManager;
 import bd.Usuario;
 import bd.Lote;
 import bd.MateriaPrima;
+import bd.StockProductoTerminado;
 import bd.FamiliaProductora;
+import bd.Insumo;
 import bd.ItemDeMateriaPrima;
 import dao.UsuarioDAO;
 import dao.LoteDAO;
 import dao.MateriaPrimaDAO;
+import dao.StockProductoTerminadoDAO;
 import dao.FamiliaProductoraDAO;
+import dao.InsumoDAO;
 import dao.ItemDeMateriaPrimaDAO;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -57,6 +61,15 @@ public class AppContextListener implements ServletContextListener {
     	lote.setMateriaPrima(lista);
     	loteDAO.update(lote);
     	
+    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 50.0, 70.0, LocalDate.of(2024, 12, 3), 20, lote);
+    	StockProductoTerminadoDAO stockDAO = new StockProductoTerminadoDAO();
+    	stockDAO.persist(stock);
+    	
+    	Insumo insumo = new Insumo("Frascos 360cc", 200, 45.0);
+    	Insumo otroInsumo = new Insumo("Tapitas", 1000, 50);
+    	InsumoDAO insumoDAO = new InsumoDAO();
+    	insumoDAO.persist(insumo);
+    	insumoDAO.persist(otroInsumo);
     }
 
 

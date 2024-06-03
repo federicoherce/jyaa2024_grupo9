@@ -1,5 +1,6 @@
 package bd;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class StockProductoTerminado {
 	private String nombre;
 
 	@Column(nullable = false)
-	private Date fechaEnvasado;
+	private LocalDate fechaEnvasado;
 
 	@Column(nullable = false)
 	private double costoUnidad;
@@ -36,7 +37,7 @@ public class StockProductoTerminado {
 	private double precioVenta;
 
 	@Column(nullable = false)
-	private Date fechaVencimiento;
+	private LocalDate fechaVencimiento;
 
 	@Column(nullable = false)
 	private int cantidadProductos;
@@ -53,8 +54,8 @@ public class StockProductoTerminado {
 	public StockProductoTerminado() {
 	}
 
-	public StockProductoTerminado(String nombre, Date fecha_envasado, double costo_unidad, double precio_venta,
-			Date fecha_vencimiento, int cantidad_productos, Lote lote) {
+	public StockProductoTerminado(String nombre, LocalDate fecha_envasado, double costo_unidad, double precio_venta,
+			LocalDate fecha_vencimiento, int cantidad_productos, Lote lote) {
 		this.nombre = nombre;
 		this.fechaEnvasado = fecha_envasado;
 		this.costoUnidad = costo_unidad;
@@ -75,11 +76,11 @@ public class StockProductoTerminado {
 		this.nombre = nombre;
 	}
 
-	public Date getFechaEnvasado() {
+	public LocalDate getFechaEnvasado() {
 		return fechaEnvasado;
 	}
 
-	public void setFechaEnvasado(Date fecha_envasado) {
+	public void setFechaEnvasado(LocalDate fecha_envasado) {
 		this.fechaEnvasado = fecha_envasado;
 	}
 
@@ -99,11 +100,11 @@ public class StockProductoTerminado {
 		this.precioVenta = precio_venta;
 	}
 
-	public Date getFecha_vencimiento() {
+	public LocalDate getFecha_vencimiento() {
 		return fechaVencimiento;
 	}
 
-	public void setFechaVencimiento(Date fecha_vencimiento) {
+	public void setFechaVencimiento(LocalDate fecha_vencimiento) {
 		this.fechaVencimiento = fecha_vencimiento;
 	}
 

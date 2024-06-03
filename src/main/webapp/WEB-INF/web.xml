@@ -72,4 +72,14 @@
     <servlet-name>UsuarioServlet</servlet-name>
     <url-pattern>/UsuarioServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ItemDeInsumoServlet</display-name>
+    <servlet-name>ItemDeInsumoServlet</servlet-name>
+    <servlet-class>servlets.ItemDeInsumoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemDeInsumoServlet</servlet-name>
+    <url-pattern>/ItemDeInsumoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
