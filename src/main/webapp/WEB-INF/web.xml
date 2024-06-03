@@ -42,4 +42,14 @@
     <servlet-name>CanalDeVentaServlet</servlet-name>
     <url-pattern>/CanalDeVentaServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MateriaPrimaDAO</display-name>
+    <servlet-name>MateriaPrimaDAO</servlet-name>
+    <servlet-class>dao.MateriaPrimaDAO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MateriaPrimaDAO</servlet-name>
+    <url-pattern>/MateriaPrimaDAO</url-pattern>
+  </servlet-mapping>
 </web-app>

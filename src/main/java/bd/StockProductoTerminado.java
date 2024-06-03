@@ -66,6 +66,7 @@ public class StockProductoTerminado {
 		this.activo = true;
 	}
 
+
 	public String getNombre() {
 		return nombre;
 	}

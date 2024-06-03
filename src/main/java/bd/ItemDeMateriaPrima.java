@@ -31,6 +31,7 @@ public class ItemDeMateriaPrima {
 		this.lote = lote;
 		this.materiaPrima = materiaPrima;
 		this.activo = true;
+		//materiaPrima.setPeso(materiaPrima.getPeso() - cantidadEnKg);
 	}
 
 	public int getCantidadEnKg() {

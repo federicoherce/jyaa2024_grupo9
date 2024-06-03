@@ -1,7 +1,8 @@
 package bd;
 
 import java.sql.Date;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Lote {
 	private String nombre;
 
 	@Column(unique = false, nullable = false, name = "fecha_elaboracion", updatable = false)
-	private Date fechaElaboracion;
+	private LocalDate fechaElaboracion;
 
 	@Column(unique = false, nullable = false, name = "cantidad_producida")
 	private double cantidadProducida;
@@ -50,14 +51,14 @@ public class Lote {
 
 	}
 
-	public Lote(String nombre, String codigo, Date fecha_elaboracion, double cantidad_producida, double costo_lote,
-			List<ItemDeMateriaPrima> materia_prima, Usuario usuario) {
+	public Lote(String nombre, String codigo, LocalDate fecha_elaboracion, double cantidad_producida, double costo_lote,
+			Usuario usuario) {
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.fechaElaboracion = fecha_elaboracion;
 		this.cantidadProducida = cantidad_producida;
 		this.costoLote = costo_lote;
-		this.listaItemsDeMateriaPrima = materia_prima;
+		this.listaItemsDeMateriaPrima = new ArrayList<ItemDeMateriaPrima>();
 		this.activo = true;
 		this.usuario = usuario;
 	}
@@ -78,11 +79,11 @@ public class Lote {
 		this.codigo = codigo;
 	}
 
-	public Date getFechaElaboracion() {
+	public LocalDate getFechaElaboracion() {
 		return fechaElaboracion;
 	}
 
-	public void setFechaElaboracion(Date fecha_elaboracion) {
+	public void setFechaElaboracion(LocalDate fecha_elaboracion) {
 		this.fechaElaboracion = fecha_elaboracion;
 	}
 
