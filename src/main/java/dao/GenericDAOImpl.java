@@ -1,8 +1,14 @@
 package dao;
 
+
 import javax.persistence.EntityManager;
 import entityManager.EntityManagerFactorySingleton;
+
 import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import entityManager.EntityManagerFactorySingleton;
 
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
@@ -24,13 +30,13 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw e; 
+            throw e;
         } finally {
             em.close();
         }
     }
 
-	
+
     @Override
     public T findById(ID id) {
     	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
@@ -85,4 +91,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             em.close();
         }
     }
+    
+
+    
 }
