@@ -18,8 +18,8 @@ public class InsumoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		InsumoDAO insumoDAO = new InsumoDAO();
-		Insumo insumo = new Insumo("Frascos", 100, 100);
-		Insumo otroInsumo = new Insumo("Tapitas", 1000, 50);
+		Insumo insumo = new Insumo("Frascos 500cc", 100, 100);
+		Insumo otroInsumo = new Insumo("Botellas", 1000, 50);
 		insumoDAO.persist(insumo);
 		insumoDAO.persist(otroInsumo);
         List<Insumo> insumos = insumoDAO.findAll();
@@ -36,11 +36,11 @@ public class InsumoServlet extends HttpServlet {
         }
         
 
-        System.out.println("Cantidad vieja de frascos " + insumo.getCantidad());
+        System.out.println("Cantidad vieja de frascos 500cc: " + insumo.getCantidad());
         insumo.setCantidad(50);
         insumoDAO.update(insumo);
-        Insumo encontrado = insumoDAO.findById(1);
-        System.out.println("Cantidad nueva de frascos " + encontrado.getCantidad());
+        Insumo encontrado = insumoDAO.findById(3);
+        System.out.println("Cantidad nueva de frascos 500cc: " + encontrado.getCantidad());
 
 	}
 

@@ -10,7 +10,7 @@ public class InsumoDAO extends GenericDAOImpl<Insumo, Integer> {
 	public InsumoDAO() {
 		super(Insumo.class);
 	}
-	
+	/*
     @Override
     public void persist(Insumo entity) {
         if (!exists(entity.getNombre())) 
@@ -30,6 +30,7 @@ public class InsumoDAO extends GenericDAOImpl<Insumo, Integer> {
                                   .getSingleResult(); 
         return count > 0; 
     }
+    */
 }
 	
 

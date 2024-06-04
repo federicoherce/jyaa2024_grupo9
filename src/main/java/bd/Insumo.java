@@ -14,7 +14,7 @@ public class Insumo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false, length = 64, updatable = false)
+	@Column(unique = true, nullable = false, length = 64, updatable = true)
 	private String nombre;
 
 	@Column(unique = false, nullable = false, updatable = true)
