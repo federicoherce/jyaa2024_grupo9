@@ -82,4 +82,44 @@
     <servlet-name>ItemDeInsumoServlet</servlet-name>
     <url-pattern>/ItemDeInsumoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+  <description></description>
+  <display-name>StockProductoTerminadoServlet</display-name>
+  <servlet-name>StockProductoTerminadoServlet</servlet-name>
+  <servlet-class>servlets.StockProductoTerminadoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>StockProductoTerminadoServlet</servlet-name>
+  <url-pattern>/StockProductoTerminadoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <description></description>
+  <display-name>LoteServlet</display-name>
+  <servlet-name>LoteServlet</servlet-name>
+  <servlet-class>servlets.LoteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>LoteServlet</servlet-name>
+  <url-pattern>/LoteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <description></description>
+  <display-name>ItemDeMateriaPrimaServlet</display-name>
+  <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
+  <servlet-class>servlets.ItemDeMateriaPrimaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
+  <url-pattern>/ItemDeMateriaPrimaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <description></description>
+  <display-name>FamiliaProductoraServlet</display-name>
+  <servlet-name>FamiliaProductoraServlet</servlet-name>
+  <servlet-class>servlets.FamiliaProductoraServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>FamiliaProductoraServlet</servlet-name>
+  <url-pattern>/FamiliaProductoraServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

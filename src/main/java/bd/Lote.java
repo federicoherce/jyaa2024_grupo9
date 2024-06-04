@@ -21,7 +21,7 @@ public class Lote {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@Column(unique = true, nullable = false, length = 32, name = "codigo", updatable = false)
 	private String codigo;
