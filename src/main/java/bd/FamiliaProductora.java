@@ -18,7 +18,7 @@ public class FamiliaProductora {
 	@Column(nullable = false, updatable = false)
 	private LocalDate fechaInicio;
 
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false, updatable = true)
 	private String zona;
 
 	private boolean activo;

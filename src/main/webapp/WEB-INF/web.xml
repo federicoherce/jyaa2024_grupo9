@@ -49,8 +49,8 @@
     <servlet-class>servlets.MateriaPrimaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MateriaPrimaDAO</servlet-name>
-    <url-pattern>/MateriaPrimaDAO</url-pattern>
+    <servlet-name>MateriaPrimaServlet</servlet-name>
+    <url-pattern>/MateriaPrimaServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
