@@ -44,9 +44,9 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MateriaPrimaDAO</display-name>
-    <servlet-name>MateriaPrimaDAO</servlet-name>
-    <servlet-class>dao.MateriaPrimaDAO</servlet-class>
+    <display-name>MateriaPrimaServlet</display-name>
+    <servlet-name>MateriaPrimaServlet</servlet-name>
+    <servlet-class>servlets.MateriaPrimaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MateriaPrimaDAO</servlet-name>

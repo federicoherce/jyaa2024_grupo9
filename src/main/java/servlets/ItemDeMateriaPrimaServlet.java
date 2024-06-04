@@ -49,7 +49,7 @@ public class ItemDeMateriaPrimaServlet extends HttpServlet {
         System.out.println("Cantidad vieja del item " + otroItem.getCantidadEnKg());
         otroItem.setCantidadEnKg(5);
         itemDeMateriaPrimaDAO.update(otroItem);
-        ItemDeMateriaPrima encontrado = itemDeMateriaPrimaDAO.findById(2);
+        ItemDeMateriaPrima encontrado = itemDeMateriaPrimaDAO.findById(4);
         System.out.println("Cantidad nueva del item " + encontrado.getCantidadEnKg());
 
 	}
