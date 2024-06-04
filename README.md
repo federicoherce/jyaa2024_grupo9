@@ -21,6 +21,12 @@ java
 
 Clonar el repositorio con el comando git clone git@gitlab.catedras.linti.unlp.edu.ar:jyaa_2024/jyaa2024_grupo9.git
 
+Levantar servidor tomcat 
+
+Correr los servlets en el servidor 
+
+
+
 
 
 
