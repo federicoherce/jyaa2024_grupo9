@@ -8,14 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-
-import bd.ItemDeMateriaPrima;
 import bd.Lote;
-import bd.MateriaPrima;
 import bd.Usuario;
-import dao.ItemDeMateriaPrimaDAO;
 import dao.LoteDAO;
-import dao.MateriaPrimaDAO;
 import dao.UsuarioDAO;
 
 

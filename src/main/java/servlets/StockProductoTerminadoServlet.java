@@ -9,16 +9,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import bd.ItemDeMateriaPrima;
 import bd.Lote;
-import bd.MateriaPrima;
 import bd.StockProductoTerminado;
-import bd.Usuario;
-import dao.ItemDeMateriaPrimaDAO;
 import dao.LoteDAO;
-import dao.MateriaPrimaDAO;
 import dao.StockProductoTerminadoDAO;
-import dao.UsuarioDAO;
 
 
 public class StockProductoTerminadoServlet extends HttpServlet {

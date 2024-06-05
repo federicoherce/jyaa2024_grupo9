@@ -1,10 +1,7 @@
 package dao;
 
-import javax.persistence.EntityManager;
 
 import bd.CanalDeVenta;
-import bd.Insumo;
-import entityManager.EntityManagerFactorySingleton;
 
 public class CanalDeVentaDAO extends GenericDAOImpl<CanalDeVenta, Integer> {
 
@@ -12,6 +9,8 @@ public class CanalDeVentaDAO extends GenericDAOImpl<CanalDeVenta, Integer> {
 	public CanalDeVentaDAO() {
 		super(CanalDeVenta.class);
 	}
+	
+	/*
 	
     @Override
     public void persist(CanalDeVenta entity) {
@@ -32,5 +31,7 @@ public class CanalDeVentaDAO extends GenericDAOImpl<CanalDeVenta, Integer> {
                                   .getSingleResult(); 
         return count > 0; 
     }
+    
+    */
 
 }

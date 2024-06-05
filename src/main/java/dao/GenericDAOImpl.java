@@ -3,12 +3,8 @@ package dao;
 
 import javax.persistence.EntityManager;
 import entityManager.EntityManagerFactorySingleton;
-
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import entityManager.EntityManagerFactorySingleton;
 
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
