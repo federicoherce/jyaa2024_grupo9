@@ -4,26 +4,28 @@
 
 ## Requisitos para correr la app
 
+-Linux OS/MACos/Windows
 
-Linux OS/MACos/Windows
+-Firefox/Chrome
 
-Firefox/Chrome
+-Git clone git@gitlab.catedras.linti.unlp.edu.ar:jyaa_2024/jyaa2024_grupo9.git
 
-Git clone git@gitlab.catedras.linti.unlp.edu.ar:jyaa_2024/jyaa2024_grupo9.git
+-MySQL
 
-MySQL
+-Tomcat 
 
-Tomcat 
+-java 
 
-java 
 
 ## Pasos para correr la app localmente :
 
-Clonar el repositorio con el comando git clone git@gitlab.catedras.linti.unlp.edu.ar:jyaa_2024/jyaa2024_grupo9.git
+-1. Clonar el repositorio con el comando git clone git@gitlab.catedras.linti.unlp.edu.ar:jyaa_2024/jyaa2024_grupo9.git
 
-Levantar servidor tomcat 
+-2. Levantar servidor tomcat 
 
-Correr los servlets en el servidor 
+-3. Correr los servlets en el servidor 
+
+-4. Prestar atención a la consola, donde se desplegarán mensajes de log de las operaciones CRUD
 
 
 
