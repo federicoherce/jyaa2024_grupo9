@@ -47,6 +47,8 @@ public class LoteServlet extends HttpServlet {
         loteDAO.update(lote1);
         Lote encontrado = loteDAO.findById(1);
         System.out.println("Nombre nuevo del lote " + encontrado.getNombre());
+        
+        System.out.println("-----------------");
 
 	}
 

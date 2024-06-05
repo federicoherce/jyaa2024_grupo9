@@ -1,8 +1,6 @@
 package servlets;
 import java.util.List;
 
-
-
 import bd.Receta;
 import bd.Usuario;
 import dao.RecetaDAO;
@@ -30,18 +28,29 @@ public class RecetaServlet extends HttpServlet {
 		Receta otraReceta = new Receta("Milanesa", "Empanar la carne y freir", usuario);	
 		recetaDAO.persist(receta);
 		recetaDAO.persist(otraReceta);
+		System.out.println("Recetas en la BD: ");
 		List<Receta> recetas = recetaDAO.findAll();
 		for (Receta r : recetas) {
 			System.out.println(r.getTitulo());
 		}
 	   	System.out.println("---Eliminacion-----");
 	   	
-	   	recetaDAO.delete(receta);
+	   	recetaDAO.delete(otraReceta);
 	    recetas = recetaDAO.findAll();
+	    System.out.println("Recetas en la BD: ");
 	   	for (Receta r : recetas) {
 			System.out.println(r.getTitulo());
 		}
 		
+        System.out.println("Actualización de una receta");
+        System.out.println("Titulo viejo " + receta.getTitulo());
+        receta.setTitulo("Tarta de manzana y pera");
+        recetaDAO.update(receta);
+        Receta encontrada = recetaDAO.findById(1);
+        System.out.println("Titulo nuevo " + encontrada.getTitulo());
+        
+	   
+		System.out.println("----------------");
 	}
 
 

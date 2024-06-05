@@ -51,6 +51,8 @@ public class ItemDeMateriaPrimaServlet extends HttpServlet {
         itemDeMateriaPrimaDAO.update(otroItem);
         ItemDeMateriaPrima encontrado = itemDeMateriaPrimaDAO.findById(4);
         System.out.println("Cantidad nueva del item " + encontrado.getCantidadEnKg());
+        
+        System.out.println("-----------------");
 
 	}
 

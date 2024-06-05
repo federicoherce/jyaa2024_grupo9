@@ -51,6 +51,8 @@ public class ItemDeInsumoServlet extends HttpServlet {
         itemDeInsumoDAO.update(otroItem);
         ItemDeInsumo encontrado = itemDeInsumoDAO.findById(2);
         System.out.println("Cantidad nueva del item " + encontrado.getCantidad());
+        
+        System.out.println("-----------------");
 
 	}
 

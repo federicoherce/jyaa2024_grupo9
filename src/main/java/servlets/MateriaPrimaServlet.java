@@ -51,6 +51,8 @@ public class MateriaPrimaServlet extends HttpServlet {
         materiaPrimaDAO.update(materia1);
         MateriaPrima encontrado = materiaPrimaDAO.findById(1);
         System.out.println("Peso nuevo en kilos " + encontrado.getPeso());
+        
+        System.out.println("-----------------");
 
 	}
 

@@ -30,31 +30,34 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	//Creo un usuario de prueba
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
     	Usuario user = new Usuario("fede@gmail.com", "Fede", "Lopez", "1234");
     	usuarioDAO.persist(user);
     	List<Usuario> usuarios = usuarioDAO.findAll();
+		System.out.println("Usuarios en la BD: ");
 		for (Usuario u : usuarios) {
 			System.out.println(u.getNombre());
 		}
-		//actualizo el usuario
+
 		System.out.println("---Actualizacion-----");
+        System.out.println("Nombre viejo: " + user.getNombre());
 		user.setNombre("Federico");
 		usuarioDAO.update(user);
-		System.out.println(user.getNombre());
+		Usuario encontrado = usuarioDAO.findById(2);
+		System.out.println("Nombre nuevo: " + encontrado.getNombre());
 		
 		
 		
 		System.out.println("---Eliminacion-----");
 		usuarioDAO.delete(user);
 		usuarios = usuarioDAO.findAll();
+		System.out.println("Usuarios en la BD: ");
 		for (Usuario u : usuarios) {
 			System.out.println(u.getNombre());
 		}
-    	
-    	
-    	
+		
+		System.out.println("------------------");
+   	
 	}
 
 

@@ -23,14 +23,17 @@ public class InsumoServlet extends HttpServlet {
 		insumoDAO.persist(insumo);
 		insumoDAO.persist(otroInsumo);
         List<Insumo> insumos = insumoDAO.findAll();
+        System.out.println("Insumos  en BD");
         for (Insumo i : insumos) {
         	System.out.println(i.getNombre());
         }
         
        	System.out.println("---Eliminacion-----");
         
+       	
         insumoDAO.delete(otroInsumo);
         insumos = insumoDAO.findAll();
+        System.out.println("Insumos  en BD");
         for (Insumo i : insumos) {
         	System.out.println(i.getNombre());
         }
@@ -41,6 +44,8 @@ public class InsumoServlet extends HttpServlet {
         insumoDAO.update(insumo);
         Insumo encontrado = insumoDAO.findById(3);
         System.out.println("Cantidad nueva de frascos 500cc: " + encontrado.getCantidad());
+        
+        System.out.println("-----------------");
 
 	}
 

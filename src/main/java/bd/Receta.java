@@ -15,9 +15,9 @@ public class Receta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
-	@Column(unique = true, nullable = false, length = 32, name = "titulo", updatable = false)
+	@Column(unique = true, nullable = false, length = 32, name = "titulo", updatable = true)
 	private String titulo;
 
 	@Column(unique = false, nullable = false, length = 512, name = "texto")

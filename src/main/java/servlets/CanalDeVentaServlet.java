@@ -24,25 +24,31 @@ public class CanalDeVentaServlet extends HttpServlet {
 		canalDAO.persist(canal);
 		canalDAO.persist(otroCanal);
 		List<CanalDeVenta> canales = canalDAO.findAll();
+		System.out.println("Canales de venta en la base de datos:");
 		for (CanalDeVenta cdv : canales) {
 			System.out.println(cdv.getNombre());
 		}
 		
-       	System.out.println("---Eliminacion-----");
+       	System.out.println("Eliminacion de un canal de venta");
         
        	canalDAO.delete(otroCanal);
        	canales = canalDAO.findAll();
+       	System.out.println("Canales de venta en la base de datos:");
 		for (CanalDeVenta cdv : canales) {
 			System.out.println(cdv.getNombre());
 		}
        	
 		
-        System.out.println("Nombre de canal viejo " + canal.getNombre());
+		System.out.println("Actualizacion de un canal de venta: ");
+        System.out.println("Nombre antiguo: " + canal.getNombre());
         canal.setNombre("La Justa");
         canalDAO.update(canal);
         CanalDeVenta encontrado = canalDAO.findById(1);
-        System.out.println("Nombre de canal nuevo " + encontrado.getNombre());
-
+        System.out.println("Nuevo nombre: " + encontrado.getNombre());
+        
+        System.out.println("-----------------");
+        
+        
 	}
 
 

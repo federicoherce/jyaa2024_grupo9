@@ -48,6 +48,9 @@ public class StockProductoTerminadoServlet extends HttpServlet {
         stockDAO.update(stock1);
         StockProductoTerminado encontrado = stockDAO.findById(1);
         System.out.println("Nombre nuevo del stock " + encontrado.getNombre());
+        
+		System.out.println("----------------");
+
 
 	}
 

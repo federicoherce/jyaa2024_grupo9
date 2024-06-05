@@ -46,6 +46,8 @@ public class FamiliaProductoraServlet extends HttpServlet {
         fDAO.update(familia1);
         FamiliaProductora encontrado = fDAO.findById(1);
         System.out.println("Zona nueva de la familia " + encontrado.getZona());
+        
+        System.out.println("-----------------");
 
 	}
 
