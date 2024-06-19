@@ -121,18 +121,5 @@
   <servlet-mapping>
   <servlet-name>FamiliaProductoraServlet</servlet-name>
   <url-pattern>/FamiliaProductoraServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-	 <servlet-name>jersey-servlet</servlet-name>
-	 <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-	 <init-param>
-	 <param-name>javax.ws.rs.Application</param-name>
-	 <param-value>config.AppConfig</param-value>
-	 </init-param>
- </servlet>
- <servlet-mapping>
-	 <servlet-name>jersey-servlet</servlet-name>
-	 <url-pattern>/api/*</url-pattern>
- </servlet-mapping>
-  
+  </servlet-mapping> 
 </web-app>

@@ -27,9 +27,12 @@ public class AppContextListener implements ServletContextListener {
 
 
     public void contextInitialized(ServletContextEvent sce)  { 
+    	
     	UsuarioDAO usuarioDAO = new UsuarioDAO();
     	Usuario user = new Usuario("jose@gmail.com", "Jose", "Perez", "1234");
     	usuarioDAO.persist(user);
+    	
+    	/*
     	
     	FamiliaProductoraDAO familiaDAO = new FamiliaProductoraDAO();
     	LocalDate date = LocalDate.of(2020, 1, 8);
@@ -70,6 +73,7 @@ public class AppContextListener implements ServletContextListener {
     	InsumoDAO insumoDAO = new InsumoDAO();
     	insumoDAO.persist(insumo);
     	insumoDAO.persist(otroInsumo);
+    	*/
     }
 
 
