@@ -8,7 +8,8 @@ import jakarta.ws.rs.ApplicationPath;
 public class JerseyApplication extends ResourceConfig {
 
 	public JerseyApplication() {
-		packages("api");
+		register(new MyApplicationBinder());
+		packages(true, "api");
 	}
 
 }

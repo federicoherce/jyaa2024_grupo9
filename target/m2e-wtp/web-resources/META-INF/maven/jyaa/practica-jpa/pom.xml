@@ -90,6 +90,11 @@
 <artifactId>javax.ws.rs-api</artifactId>
 <version>2.1.1</version>
 </dependency>
+	<dependency>
+		<groupId>DI-HK2</groupId>
+		<artifactId>DI-HK2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
 </dependencies>
 <build>
 <plugins>

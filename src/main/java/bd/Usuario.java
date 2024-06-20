@@ -14,6 +14,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -41,6 +45,7 @@ public class Usuario {
 	private List<Permiso> permisos;
 
 	@OneToMany(mappedBy = "usuario")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Lote> lotes;
 
 	private boolean activo;

@@ -1,16 +1,19 @@
 package dao;
 
 
+
 import javax.persistence.EntityManager;
+
 import entityManager.EntityManagerFactorySingleton;
+
+
 import java.util.List;
 
 
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
 	private Class<T> entityClass;
-
-
+	
 	public GenericDAOImpl(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
