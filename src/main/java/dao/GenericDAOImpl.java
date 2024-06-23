@@ -3,9 +3,10 @@ package dao;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+
 
 import entityManager.EntityManagerFactorySingleton;
-
 
 import java.util.List;
 
@@ -21,16 +22,16 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     @Override
     public void persist(T entity) {
         EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-        try {
+    	try {
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
-        } catch (RuntimeException e) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             throw e;
-        } finally {
+        }  finally {
             em.close();
         }
     }
@@ -41,6 +42,19 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
     	try {
             return em.find(entityClass, id);
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public T findActiveById(ID id) {
+    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+    	try {
+    		List<T> result = em.createQuery(
+    	            "SELECT e FROM " + entityClass.getName() + " e WHERE e.id = :id AND e.activo = true", entityClass)
+    	            .setParameter("id", id).getResultList();
+    	            return result.isEmpty() ? null : result.get(0);
         } finally {
             em.close();
         }

@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "stocks_productos_terminados")
 public class StockProductoTerminado {
@@ -45,12 +48,20 @@ public class StockProductoTerminado {
 	private boolean activo;
 
 	@OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ItemDeInsumo> insumos;
 
 	@OneToOne
 	@JoinColumn(name = "lote_id")
 	private Lote lote;
 
+    {
+        // Bloque de inicialización
+		this.insumos = new ArrayList<ItemDeInsumo>();
+		this.activo = true;
+    }
+	
+	
 	public StockProductoTerminado() {
 	}
 
@@ -63,8 +74,7 @@ public class StockProductoTerminado {
 		this.fechaVencimiento = fecha_vencimiento;
 		this.cantidadProductos = cantidad_productos;
 		this.lote = lote;
-		this.insumos = new ArrayList<ItemDeInsumo>();
-		this.activo = true;
+
 	}
 
 

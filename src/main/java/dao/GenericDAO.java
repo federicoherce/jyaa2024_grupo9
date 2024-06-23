@@ -8,6 +8,8 @@ public interface GenericDAO<T, ID> {
 
 	T findById(ID id);
 
+	T findActiveById(ID id);
+	
 	List<T> findAll();
 
 	void update(T entity);

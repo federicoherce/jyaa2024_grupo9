@@ -42,6 +42,10 @@ public class CanalDeVenta {
 		productos = new ArrayList<StockProductoTerminado>();
 	}
 
+	public void agregarProductoTerminado(StockProductoTerminado producto) {
+		this.productos.add(producto);
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

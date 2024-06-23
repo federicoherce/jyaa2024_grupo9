@@ -2,6 +2,7 @@ package bd;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,6 +18,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import javax.persistence.JoinColumn;
 
@@ -44,12 +49,22 @@ public class Usuario {
 	@JoinTable(name = "usuario_permisos", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
 	private List<Permiso> permisos;
 
+	
 	@OneToMany(mappedBy = "usuario")
 	@LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
 	private List<Lote> lotes;
 
+     
 	private boolean activo;
 
+    {
+        // Bloque de inicialización
+        this.activo = true;
+        this.permisos = new ArrayList<>();
+        this.lotes = new ArrayList<>();
+    }
+	
 	public Usuario() {
 	}
 
@@ -59,9 +74,10 @@ public class Usuario {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.password = password;
-		activo = true;
-		permisos = new ArrayList<Permiso>();
-		lotes = new ArrayList<Lote>();
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	public String getEmail() {
@@ -111,6 +127,8 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+	
+	
 
 	public List<Lote> getLotes() {
 		return lotes;
@@ -121,4 +139,5 @@ public class Usuario {
 
 	}
 
+    
 }

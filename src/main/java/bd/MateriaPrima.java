@@ -1,7 +1,10 @@
 package bd;
 
 import java.time.LocalDate;
+
 import javax.persistence.*;
+
+
 
 @Entity
 @Table(name = "materias_primas")

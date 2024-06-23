@@ -2,6 +2,9 @@ package bd;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
 @Entity
 @Table(name = "items_de_materias_primas")
 public class ItemDeMateriaPrima {
@@ -15,6 +18,7 @@ public class ItemDeMateriaPrima {
 
 	@ManyToOne
 	@JoinColumn(name = "lote_id", updatable = false)
+	@JsonBackReference
 	private Lote lote;
 
 	@ManyToOne(fetch = FetchType.EAGER)
