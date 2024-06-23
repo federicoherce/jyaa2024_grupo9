@@ -5,7 +5,11 @@ import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 
+import bd.FamiliaProductora;
+import bd.Insumo;
 import bd.Usuario;
+import dao.FamiliaProductoraDAO;
+import dao.InsumoDAO;
 import dao.UsuarioDAO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -19,65 +23,67 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/users")
-public class Usuarios {
+@Path("/insumos")
+public class InsumosApi {
 	
 	@Inject
-	private UsuarioDAO userDao;
+	private InsumoDAO insumoDao;
 	
 	@GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuarioById(@PathParam("id") int id) {
-    	Usuario usuario = userDao.findActiveById(id);
-        if (usuario == null) {
-        	String mensaje= "No se encontró el usuario";
+    public Response getInsumoById(@PathParam("id") int id) {
+    	Insumo insumo = insumoDao.findActiveById(id);
+        if (insumo == null) {
+        	String mensaje= "No se encontró el insumo con id: " + id;
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
-        return Response.ok(usuario).build();
+        return Response.ok(insumo).build();
     }
 	
 	
-    @POST
+	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(Usuario usuario)  {
+    public Response createInsumo(Insumo insumo) {
     	try {
-        	userDao.persist(usuario);
+        	insumoDao.persist(insumo);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El email ya se encuentra registrado").build();	
+            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
             if (cause instanceof PropertyValueException) 
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
     }
-    	return Response.status(Response.Status.CREATED).entity(usuario).build();
+    	return Response.status(Response.Status.CREATED).entity(insumo).build();
    }
-    
-    @PUT
+	
+
+	@PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(Usuario usuario){
-    	Usuario aux = userDao.findActiveById(usuario.getId());
+    public Response updateInsumo(Insumo insumo){
+    	Insumo aux = insumoDao.findActiveById(insumo.getId());
     	if (aux != null) {
-    		userDao.update(usuario);
-    		return Response.ok().entity(usuario).build();
+    		insumoDao.update(insumo);
+    		return Response.ok().entity(insumo).build();
     	}
 	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("El usuario no existe").build(); 
+	    	return Response.status(Response.Status.NOT_FOUND).entity("El insumo no existe").build(); 
     }
-    
-    @DELETE
+	
+	@DELETE
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteUser(@PathParam("id") Integer id){
-    	Usuario aux = userDao.findActiveById(id);
+    public Response deleteInsumo(@PathParam("id") Integer id){
+    	Insumo aux = insumoDao.findActiveById(id);
     	if (aux != null){
     		aux.setActivo(false);
-    		userDao.update(aux);
-    		return  Response.ok().entity("Usuario eliminado").build();
+    		insumoDao.update(aux);
+    		return  Response.ok().entity("Insumo eliminado").build();
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+		    return Response.status(Response.Status.NOT_FOUND).entity("Insumo no encontrado").build();
 	  	}
 	}
+
 }

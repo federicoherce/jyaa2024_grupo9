@@ -68,4 +68,8 @@ public class Insumo {
 		this.activo = activo;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 }

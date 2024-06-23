@@ -15,7 +15,7 @@ public class FamiliaProductora {
 	@Column(unique = true, nullable = false, length = 64)
 	private String nombre;
 
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	private LocalDate fechaInicio;
 
 	@Column(nullable = false, updatable = true)
@@ -63,6 +63,10 @@ public class FamiliaProductora {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 }
