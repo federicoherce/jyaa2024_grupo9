@@ -36,6 +36,10 @@ public class Insumo {
 		this.activo = true;
 	}
 
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

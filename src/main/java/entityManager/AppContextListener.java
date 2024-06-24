@@ -65,8 +65,8 @@ public class AppContextListener implements ServletContextListener {
     	lote.setMateriaPrima(lista);
     	loteDAO.update(lote);
     
-    	 
-    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 50.0, 70.0, LocalDate.of(2024, 12, 3), 20, lote);
+    	
+    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 70.0, LocalDate.of(2024, 12, 3), 20, lote);
     	StockProductoTerminadoDAO stockDAO = new StockProductoTerminadoDAO();
     	stockDAO.persist(stock);
     	
@@ -76,6 +76,7 @@ public class AppContextListener implements ServletContextListener {
     	canalDAO.persist(canal);
     	canal.agregarProductoTerminado(stock);
     	canalDAO.update(canal);
+    	
     	
     	Insumo insumo = new Insumo("Frascos 360cc", 200, 45.0);
     	Insumo otroInsumo = new Insumo("Tapitas", 1000, 50);
