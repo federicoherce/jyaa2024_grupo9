@@ -118,4 +118,8 @@ public class MateriaPrima {
 		this.productor = productor;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 }

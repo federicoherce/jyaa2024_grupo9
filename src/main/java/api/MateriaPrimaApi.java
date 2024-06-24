@@ -1,6 +1,7 @@
 package api;
 
 import jakarta.inject.Inject;
+import bd.MateriaPrima;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -25,7 +26,7 @@ import org.hibernate.PropertyValueException;
 import bd.FamiliaProductora;
 
 @Path("/materiasPrimas")
-public class MateriaPrima {
+public class MateriaPrimaApi {
 
 	@Inject
 	MateriaPrimaDAO materiaPrimaDAO;
@@ -35,7 +36,7 @@ public class MateriaPrima {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearMateriaPrima(bd.MateriaPrima materiaPrima) {
+	public Response crearMateriaPrima(MateriaPrima materiaPrima) {
 		FamiliaProductora productor = materiaPrima.getProductor();
 		if (productor == null || productor.getNombre() == null || productor.getNombre().isEmpty()) {
 			return Response.status(Status.BAD_REQUEST).entity("El nombre del productor es requerido").build();
@@ -67,7 +68,7 @@ public class MateriaPrima {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteMateriaPrima(@PathParam("id") int id) {
-		bd.MateriaPrima materiaPrima = materiaPrimaDAO.findById(id);
+		MateriaPrima materiaPrima = materiaPrimaDAO.findById(id);
 		if (materiaPrima == null) {
 			String mensaje = "No se encontró la materia prima";
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
@@ -77,4 +78,33 @@ public class MateriaPrima {
 		return Response.ok(materiaPrima).build();
 	}
 
+
+
+
+
+
+// Editar materia prima
+@PUT
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public Response updateMateriaPrima(MateriaPrima materiaPrima) {
+	MateriaPrima aux = materiaPrimaDAO.findById(materiaPrima.getId());
+	if (aux != null) {
+		materiaPrimaDAO.update(materiaPrima);
+		return Response.ok().entity(materiaPrima).build();
+	} else
+		return Response.status(Response.Status.NOT_FOUND).entity("La materia prima no existe").build();
 }
+
+
+
+
+}
+
+
+
+
+
+
+
+
