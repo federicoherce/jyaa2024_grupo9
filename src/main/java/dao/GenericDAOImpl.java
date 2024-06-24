@@ -66,7 +66,10 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     public List<T> findAll() {
     	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
     	try {
-            return em.createQuery("from " + entityClass.getName(), entityClass).getResultList();
+    		List<T> result = em.createQuery(
+    	            "SELECT e FROM " + entityClass.getName() + " e WHERE e.activo = true", entityClass)
+    	            .getResultList();
+    	    return result.isEmpty() ? null : result;
         } finally {
             em.close();
         }
