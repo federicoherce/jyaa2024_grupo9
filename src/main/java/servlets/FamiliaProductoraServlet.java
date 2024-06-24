@@ -48,6 +48,9 @@ public class FamiliaProductoraServlet extends HttpServlet {
         System.out.println("Zona nueva de la familia " + encontrado.getZona());
         
         System.out.println("-----------------");
+        
+        System.out.println("Busqueda por nombre de familia"+ fDAO.getByName("flia"));
+ 
 
 	}
 

@@ -7,4 +7,7 @@ public class FamiliaProductoraDAO  extends GenericDAOImpl<FamiliaProductora, Int
 	public FamiliaProductoraDAO() {
 		super(FamiliaProductora.class);
 	}
+	
+
+	
 }

@@ -39,7 +39,7 @@ public class AppContextListener implements ServletContextListener {
     	LocalDate date = LocalDate.of(2020, 1, 8);
     	FamiliaProductora familia = new FamiliaProductora("flia", date, "centro");
     	familiaDAO.persist(familia);
-    	
+
     	MateriaPrimaDAO materiaDAO = new MateriaPrimaDAO();
     	LocalDate compra = LocalDate.of(2024, 5, 25);
     	LocalDate vencimiento = LocalDate.of(2024, 6, 25);
@@ -84,7 +84,6 @@ public class AppContextListener implements ServletContextListener {
     	insumoDAO.persist(insumo);
     	insumoDAO.persist(otroInsumo);
 
-    	
     	
     }
 

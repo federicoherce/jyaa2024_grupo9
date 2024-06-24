@@ -72,4 +72,8 @@ public class Receta {
 		this.activo = activo;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 }
