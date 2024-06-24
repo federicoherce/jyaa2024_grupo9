@@ -3,6 +3,7 @@ package dao;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import entityManager.EntityManagerFactorySingleton;
 
@@ -91,6 +92,25 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         }
     }
     
+    @Override
+    public T getByName(String name) {
+        EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+        try {
+            return em.createQuery("SELECT e FROM " + entityClass.getName() + " e WHERE e.nombre = :name", entityClass)
+                     .setParameter("name", name)
+                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null; 
+        } catch (Exception e) {
+            throw new RuntimeException("Error al ejecutar la consulta", e);
+        } finally {
+            em.close();
+        }
+    }
+
+
+
 
     
-}
+
+	}

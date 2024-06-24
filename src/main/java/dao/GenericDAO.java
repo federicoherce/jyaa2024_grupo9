@@ -14,5 +14,7 @@ public interface GenericDAO<T, ID> {
 
 	void delete(T entity);
 	
+	T getByName(String name);
+	
 
 }
