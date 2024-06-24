@@ -1,6 +1,7 @@
 package bd;
 
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "lotes")
@@ -38,12 +47,15 @@ public class Lote {
 	private double costoLote;
 
 	@OneToMany(mappedBy = "lote")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonIgnore
 	private List<ItemDeMateriaPrima> listaItemsDeMateriaPrima;
 
 	private boolean activo;
 
 	@ManyToOne()
 	@JoinColumn(name = "usuario_id", updatable = false)
+    @JsonBackReference
 	private Usuario usuario;
 
 	public Lote() {
@@ -60,6 +72,10 @@ public class Lote {
 		this.listaItemsDeMateriaPrima = new ArrayList<ItemDeMateriaPrima>();
 		this.activo = true;
 		this.usuario = usuario;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	public String getNombre() {

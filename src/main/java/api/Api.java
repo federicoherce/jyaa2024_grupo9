@@ -13,7 +13,7 @@ import dao.FamiliaProductoraDAO;
 import dao.UsuarioDAO;
 import bd.Usuario;
 
-@Path("/usuarios")
+@Path("/pruebas")
 public class Api {
 	
 	@Inject
@@ -36,7 +36,6 @@ public class Api {
         	String mensaje= "No se encontró el usuario";
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
-        return Response.ok(usuario).build();
-        
+        return Response.ok(usuario).build();  
     }
 }
