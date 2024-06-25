@@ -14,7 +14,7 @@ public class MateriaPrima {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false, length = 64, updatable = true)
+	@Column(nullable = false, length = 64, updatable = true)
 	private String nombre;
 
 	@Column(nullable = false)
@@ -33,9 +33,11 @@ public class MateriaPrima {
 	private String formaAlmacenamiento;
 
 	private boolean activo;
+	
+	{this.activo = true;}
 
 	@ManyToOne
-	@JoinColumn(name = "productor_id")
+	@JoinColumn(name = "productor_id",updatable = false)
 	private FamiliaProductora productor;
 
 	public MateriaPrima(String nombre, double peso, LocalDate fecha_compra, LocalDate fecha_vencimiento,
@@ -48,7 +50,6 @@ public class MateriaPrima {
 		this.costoPorKg = costo_por_kg;
 		this.formaAlmacenamiento = forma_almacenamiento;
 		this.productor = productor;
-		this.activo = true;
 	}
 
 	public MateriaPrima() {

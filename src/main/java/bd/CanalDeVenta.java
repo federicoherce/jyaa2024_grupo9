@@ -31,6 +31,7 @@ public class CanalDeVenta {
     private List<StockProductoTerminado> productos;
 
 	private boolean activo;
+	{activo = true;}
 
 	public CanalDeVenta() {
 	}
@@ -38,7 +39,6 @@ public class CanalDeVenta {
 	public CanalDeVenta(String nombre, String ubicacion) {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
-		activo = true;
 		productos = new ArrayList<StockProductoTerminado>();
 	}
 
@@ -69,5 +69,10 @@ public class CanalDeVenta {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+	public Integer getId() {
+		return id;
+    }
+	
 
 }
