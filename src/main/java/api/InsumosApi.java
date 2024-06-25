@@ -1,5 +1,7 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
@@ -38,6 +40,18 @@ public class InsumosApi {
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(insumo).build();
+    }
+	
+	@GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllInsumos(@PathParam("id") int id) {
+    	List<Insumo> insumos = insumoDao.findAll();
+        if (insumos == null) {
+        	String mensaje= "No se encontraron insumos";
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(insumos).build();
     }
 	
 	

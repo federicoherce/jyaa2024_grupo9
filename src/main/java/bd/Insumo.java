@@ -36,6 +36,10 @@ public class Insumo {
 		this.activo = true;
 	}
 
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -66,10 +70,6 @@ public class Insumo {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
-	}
-
-	public Integer getId() {
-		return id;
 	}
 
 }

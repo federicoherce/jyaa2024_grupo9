@@ -2,6 +2,8 @@ package bd;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "items_de_insumos")
 public class ItemDeInsumo {
@@ -15,6 +17,7 @@ public class ItemDeInsumo {
 
 	@ManyToOne
 	@JoinColumn(name = "stock_id", updatable = false)
+	@JsonBackReference
 	private StockProductoTerminado stock;
 
 	@ManyToOne()
@@ -65,5 +68,6 @@ public class ItemDeInsumo {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
 
 }
