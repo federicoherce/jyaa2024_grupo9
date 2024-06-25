@@ -6,7 +6,6 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
-
 import bd.FamiliaProductora;
 import bd.Insumo;
 import bd.Usuario;

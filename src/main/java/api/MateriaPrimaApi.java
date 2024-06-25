@@ -19,6 +19,7 @@ import dao.MateriaPrimaDAO;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 
 import org.hibernate.PropertyValueException;
@@ -41,27 +42,26 @@ public class MateriaPrimaApi {
 		if (productor == null || productor.getNombre() == null || productor.getNombre().isEmpty()) {
 			return Response.status(Status.BAD_REQUEST).entity("El nombre del productor es requerido").build();
 		}
-
 		try {
-
 			FamiliaProductora productorEncontrado = familiaProductoraDAO.getByName(productor.getNombre());
 			if (productorEncontrado == null) {
 				return Response.status(Status.NOT_FOUND).entity("El productor especificado no existe").build();
 			}
 			materiaPrima.setProductor(productorEncontrado);
-
 			materiaPrimaDAO.persist(materiaPrima);
 			return Response.status(Status.CREATED).entity("Materia prima creada exitosamente").build();
-		} catch (ConstraintViolationException e) {
-			return Response.status(Status.CONFLICT).entity("Error: llave duplicada o violación de restricciones")
-					.build();
-		} catch (PropertyValueException e) {
-			return Response.status(Status.BAD_REQUEST).entity("Faltan datos para crear la materia prima").build();
-		} catch (Exception e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR)
-					.entity("Ocurrió un error inesperado al crear la materia prima").build();
-		}
+	   	} catch (PersistenceException e) {
+	        Throwable cause = e.getCause();
+	        if (cause instanceof ConstraintViolationException) 
+	        	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
+	        if (cause instanceof PropertyValueException) 
+	        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
 	}
+	return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Error interno del servidor").build();
+}
+		
+
+	
 
 // baja logica de materia prima
 	@DELETE
