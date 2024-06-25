@@ -2,20 +2,20 @@ package dao;
 
 
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
-
 import javax.persistence.NoResultException;
-
 import javax.persistence.PersistenceException;
 
 import entityManager.EntityManagerFactorySingleton;
-
-import java.util.List;
+import jakarta.inject.Inject;
 
 
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
 	private Class<T> entityClass;
+
 	
 	public GenericDAOImpl(Class<T> entityClass) {
 		this.entityClass = entityClass;

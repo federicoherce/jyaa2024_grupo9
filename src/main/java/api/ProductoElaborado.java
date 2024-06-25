@@ -14,6 +14,7 @@ import dao.InsumoDAO;
 import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -42,6 +43,7 @@ public class ProductoElaborado {
 	@GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Obtener un producto por su ID")
     public Response getProductoById(@PathParam("id") int id) {
     	StockProductoTerminado producto = stockDao.findActiveById(id);
         if (producto == null) {
@@ -55,6 +57,7 @@ public class ProductoElaborado {
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Agregar insumos a un stock de productos")
 	public Response agregarInsumos(@PathParam("productoId") int productoId, List<ItemDeInsumo> insumos) {
 		StockProductoTerminado producto = stockDao.findActiveById(productoId);
 		if (producto == null)
@@ -79,6 +82,7 @@ public class ProductoElaborado {
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Crear un producto")
 	public Response entregarProducto(StockProductoTerminado producto, @PathParam("idLote") int idLote) {
     	try {
     		Lote lote = loteDao.findActiveById(idLote);

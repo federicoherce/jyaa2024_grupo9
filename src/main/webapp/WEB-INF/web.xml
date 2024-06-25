@@ -83,43 +83,73 @@
     <url-pattern>/ItemDeInsumoServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-  <description></description>
-  <display-name>StockProductoTerminadoServlet</display-name>
-  <servlet-name>StockProductoTerminadoServlet</servlet-name>
-  <servlet-class>servlets.StockProductoTerminadoServlet</servlet-class>
+    <description></description>
+    <display-name>StockProductoTerminadoServlet</display-name>
+    <servlet-name>StockProductoTerminadoServlet</servlet-name>
+    <servlet-class>servlets.StockProductoTerminadoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>StockProductoTerminadoServlet</servlet-name>
-  <url-pattern>/StockProductoTerminadoServlet</url-pattern>
+    <servlet-name>StockProductoTerminadoServlet</servlet-name>
+    <url-pattern>/StockProductoTerminadoServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-  <description></description>
-  <display-name>LoteServlet</display-name>
-  <servlet-name>LoteServlet</servlet-name>
-  <servlet-class>servlets.LoteServlet</servlet-class>
+    <description></description>
+    <display-name>LoteServlet</display-name>
+    <servlet-name>LoteServlet</servlet-name>
+    <servlet-class>servlets.LoteServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>LoteServlet</servlet-name>
-  <url-pattern>/LoteServlet</url-pattern>
+    <servlet-name>LoteServlet</servlet-name>
+    <url-pattern>/LoteServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-  <description></description>
-  <display-name>ItemDeMateriaPrimaServlet</display-name>
-  <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
-  <servlet-class>servlets.ItemDeMateriaPrimaServlet</servlet-class>
+    <description></description>
+    <display-name>ItemDeMateriaPrimaServlet</display-name>
+    <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
+    <servlet-class>servlets.ItemDeMateriaPrimaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
-  <url-pattern>/ItemDeMateriaPrimaServlet</url-pattern>
+    <servlet-name>ItemDeMateriaPrimaServlet</servlet-name>
+    <url-pattern>/ItemDeMateriaPrimaServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-  <description></description>
-  <display-name>FamiliaProductoraServlet</display-name>
-  <servlet-name>FamiliaProductoraServlet</servlet-name>
-  <servlet-class>servlets.FamiliaProductoraServlet</servlet-class>
+    <description></description>
+    <display-name>FamiliaProductoraServlet</display-name>
+    <servlet-name>FamiliaProductoraServlet</servlet-name>
+    <servlet-class>servlets.FamiliaProductoraServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  <servlet-name>FamiliaProductoraServlet</servlet-name>
-  <url-pattern>/FamiliaProductoraServlet</url-pattern>
-  </servlet-mapping> 
+    <servlet-name>FamiliaProductoraServlet</servlet-name>
+    <url-pattern>/FamiliaProductoraServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OpenApi</servlet-name>
+    <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
+    <init-param>
+      <param-name>openApi.configuration.resourcePackages</param-name>
+      <param-value>api</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OpenApi</servlet-name>
+    <url-pattern>/openapi/*</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>ApiOriginFilter</filter-name>
+    <filter-class>ar.com.java.applicaciones.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ApiOriginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>ServletFilter</display-name>
+    <filter-name>ServletFilter</filter-name>
+    <filter-class>ar.com.java.applicaciones.filter.ServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServletFilter</filter-name>
+    <url-pattern>/ServletFilter</url-pattern>
+  </filter-mapping>
 </web-app>

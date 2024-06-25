@@ -7,6 +7,12 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import bd.Usuario;
 import dao.UsuarioDAO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -28,7 +34,8 @@ public class Usuarios {
 	@GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsuarioById(@PathParam("id") int id) {
+    @Operation(summary = "Obtener a un usuario por su ID")
+	public Response getUsuarioById(@PathParam("id") int id) {
     	Usuario usuario = userDao.findActiveById(id);
         if (usuario == null) {
         	String mensaje= "No se encontró el usuario";
@@ -38,10 +45,11 @@ public class Usuarios {
     }
 	
 	
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(Usuario usuario)  {
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Creacion de un nuevo usuario")
+	public Response createUser(@RequestBody Usuario usuario) {
     	try {
         	userDao.persist(usuario);
     	} catch (PersistenceException e) {
@@ -57,6 +65,7 @@ public class Usuarios {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Actualización de un usuario")
     public Response updateUser(Usuario usuario){
     	Usuario aux = userDao.findActiveById(usuario.getId());
     	if (aux != null) {
@@ -70,6 +79,7 @@ public class Usuarios {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
+    @Operation(summary = "Eliminacion de un usuario por su ID")
     public Response deleteUser(@PathParam("id") Integer id){
     	Usuario aux = userDao.findActiveById(id);
     	if (aux != null){
