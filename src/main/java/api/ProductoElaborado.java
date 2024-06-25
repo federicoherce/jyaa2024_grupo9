@@ -1,12 +1,17 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
-import org.hibernate.exception.ConstraintViolationException;
 
+import bd.Insumo;
+import bd.ItemDeInsumo;
 import bd.Lote;
 import bd.StockProductoTerminado;
+import dao.InsumoDAO;
+import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
 import jakarta.inject.Inject;
@@ -28,6 +33,12 @@ public class ProductoElaborado {
 	@Inject
 	private LoteDAO loteDao;
 	
+	@Inject
+	private ItemDeInsumoDAO itemDao;
+	
+	@Inject
+	private InsumoDAO insumoDao;
+	
 	@GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,6 +50,30 @@ public class ProductoElaborado {
         }
         return Response.ok(producto).build();
     }
+		
+	@Path("/{productoId}/agregarInsumos")
+	@POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response agregarInsumos(@PathParam("productoId") int productoId, List<ItemDeInsumo> insumos) {
+		StockProductoTerminado producto = stockDao.findActiveById(productoId);
+		if (producto == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+		double valorInsumos = 0;
+		for (ItemDeInsumo item : insumos) {
+			ItemDeInsumo itemInsumo = new ItemDeInsumo(item.getCantidad(), producto, item.getInsumo());
+			Insumo insumo = insumoDao.findActiveById(item.getInsumo().getId());
+			insumo.setCantidad(insumo.getCantidad() - item.getCantidad());
+			valorInsumos += item.getCantidad() * insumo.getCostoUnitario();
+			insumoDao.update(insumo);
+			itemDao.persist(itemInsumo);		
+		}
+		producto.setInsumos(insumos);
+		producto.setCostoTotal(producto.getCostoTotal() + valorInsumos);
+		stockDao.update(producto);
+		return Response.ok().entity("Insumos agregados").build();
+	}
+	
 	
 	@Path("/{idLote}")
 	@POST
@@ -49,7 +84,8 @@ public class ProductoElaborado {
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
     			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
-        	producto.setLote(lote);
+    		producto.setLote(lote);
+    		producto.setCostoTotal(lote.getCostoLote());
     		stockDao.persist(producto);
     		lote.setActivo(false);
     		loteDao.update(lote);

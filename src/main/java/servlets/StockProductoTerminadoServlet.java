@@ -24,7 +24,7 @@ public class StockProductoTerminadoServlet extends HttpServlet {
 		LoteDAO loteDAO = new LoteDAO();
 		Lote lote = loteDAO.findById(1);
 		
-		StockProductoTerminado stock = new StockProductoTerminado("Frascos 360cc Mermelada Naranja", LocalDate.of(2024, 5, 30), 400, 750, LocalDate.of(2024, 8, 30), 100, lote);
+		StockProductoTerminado stock = new StockProductoTerminado("Frascos 360cc Mermelada Naranja", LocalDate.of(2024, 5, 30), 750, LocalDate.of(2024, 8, 30), 100, lote);
 
 		stockDAO.persist(stock);
 		

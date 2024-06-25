@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "stocks_productos_terminados")
 public class StockProductoTerminado {
@@ -34,7 +36,7 @@ public class StockProductoTerminado {
 	private LocalDate fechaEnvasado;
 
 	@Column(nullable = false)
-	private double costoUnidad;
+	private double costoTotal;
 
 	@Column(nullable = false)
 	private double precioVenta;
@@ -49,6 +51,7 @@ public class StockProductoTerminado {
 
 	@OneToMany(mappedBy = "stock", fetch = FetchType.LAZY)
 	@LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
 	private List<ItemDeInsumo> insumos;
 
 	@OneToOne
@@ -65,11 +68,10 @@ public class StockProductoTerminado {
 	public StockProductoTerminado() {
 	}
 
-	public StockProductoTerminado(String nombre, LocalDate fecha_envasado, double costo_unidad, double precio_venta,
+	public StockProductoTerminado(String nombre, LocalDate fecha_envasado, double precio_venta,
 			LocalDate fecha_vencimiento, int cantidad_productos, Lote lote) {
 		this.nombre = nombre;
 		this.fechaEnvasado = fecha_envasado;
-		this.costoUnidad = costo_unidad;
 		this.precioVenta = precio_venta;
 		this.fechaVencimiento = fecha_vencimiento;
 		this.cantidadProductos = cantidad_productos;
@@ -94,12 +96,12 @@ public class StockProductoTerminado {
 		this.fechaEnvasado = fecha_envasado;
 	}
 
-	public double getCostoUnidad() {
-		return costoUnidad;
+	public double getCostoTotal() {
+		return costoTotal;
 	}
 
-	public void setCostoUnidad(double costo_unidad) {
-		this.costoUnidad = costo_unidad;
+	public void setCostoTotal(double costoTotal) {
+		this.costoTotal = costoTotal;
 	}
 
 	public double getPrecioVenta() {
