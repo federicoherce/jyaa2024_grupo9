@@ -79,6 +79,7 @@ public class StockProductoTerminado {
 	}
 
 
+
 	public String getNombre() {
 		return nombre;
 	}
