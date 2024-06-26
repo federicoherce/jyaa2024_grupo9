@@ -60,9 +60,18 @@ public class MateriaPrimaApi {
 		        schema = @Schema(implementation = MateriaPrima.class))),
 		    @ApiResponse(responseCode = "404", description = "Materia prima no encontrado")
 		})
-	public Response crearMateriaPrima(MateriaPrima materiaPrima) {
+	public Response crearMateriaPrima(MateriaPrimaRequest materiaPrima) {
 		
-		FamiliaProductora productor = materiaPrima.getProductor();
+		
+		
+		FamiliaProductora productor = familiaProductoraDAO.getByName(materiaPrima.getNombreProductor());
+		
+		MateriaPrima materia = new MateriaPrima(materiaPrima.getNombre(), materiaPrima.getPeso()
+				,materiaPrima.getFechaCompra(),materiaPrima.getFechaVencimiento(), materiaPrima.getCostoPorKg(), 
+				materiaPrima.getFormaAlmacenamiento(), productor);
+		
+		
+		//FamiliaProductora productor = materiaPrima.getProductor();
 		if (productor == null || productor.getNombre() == null || productor.getNombre().isEmpty()) {
 			return Response.status(Status.BAD_REQUEST).entity("El nombre del productor es requerido").build();
 		}
@@ -71,8 +80,8 @@ public class MateriaPrimaApi {
 			if (productorEncontrado == null) {
 				return Response.status(Status.NOT_FOUND).entity("El productor especificado no existe").build();
 			}
-			materiaPrima.setProductor(productorEncontrado);
-			materiaPrimaDAO.persist(materiaPrima);
+			materia.setProductor(productorEncontrado);
+			materiaPrimaDAO.persist(materia);
 			return Response.status(Status.CREATED).entity("Materia prima creada exitosamente").build();
 	   	} catch (PersistenceException e) {
 	        Throwable cause = e.getCause();
