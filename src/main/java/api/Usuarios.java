@@ -30,8 +30,8 @@ import jakarta.ws.rs.core.Response;
 import requests.UsuarioRequest;
 
 @OpenAPIDefinition(
-	    info = @Info(title = "API de Usuarios", version = "1.0.0"),
-	    servers = @Server(url = "http://localhost:8080/Sala/")
+	    info = @Info(title = "API", version = "1.0.0"),
+	    servers = @Server(url = "http://localhost:8080/sala/")
 	)
 
 
