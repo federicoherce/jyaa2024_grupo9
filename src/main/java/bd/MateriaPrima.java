@@ -34,7 +34,9 @@ public class MateriaPrima {
 
 	private boolean activo;
 	
-	{this.activo = true;}
+	{this.activo = true;
+	
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "productor_id",updatable = false)
