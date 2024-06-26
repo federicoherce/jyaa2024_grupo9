@@ -1,5 +1,7 @@
 package bd;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "recetas")
 public class Receta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(access = Access.READ_ONLY )
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 32, name = "titulo", updatable = true)
@@ -27,17 +34,20 @@ public class Receta {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
+	@JsonIgnore
 	private boolean activo;
 
-	public Receta() {
-
-	}
+	{
+        // Bloque de inicialización
+        this.activo = true;
+    }
+	
+	public Receta() {}
 
 	public Receta(String titulo, String texto, Usuario usuario) {
 		this.titulo = titulo;
 		this.texto = texto;
 		this.usuario = usuario;
-		this.activo = true;
 	}
 
 	public String getTitulo() {

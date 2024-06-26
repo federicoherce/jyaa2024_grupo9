@@ -12,6 +12,12 @@ import bd.Usuario;
 import dao.FamiliaProductoraDAO;
 import dao.InsumoDAO;
 import dao.UsuarioDAO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -31,9 +37,16 @@ public class InsumosApi {
 	private InsumoDAO insumoDao;
 	
 	@GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getInsumoById(@PathParam("id") int id) {
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener un insumo por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Insumo encontrado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Insumo.class))),
+	    @ApiResponse(responseCode = "404", description = "Insumo no encontrado")
+	})
+    public Response getInsumoById(@Parameter(description = "ID del insumo", required = true) @PathParam("id") int id) {
     	Insumo insumo = insumoDao.findActiveById(id);
         if (insumo == null) {
         	String mensaje= "No se encontró el insumo con id: " + id;
@@ -43,9 +56,14 @@ public class InsumosApi {
     }
 	
 	@GET
-    @Path("/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllInsumos(@PathParam("id") int id) {
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todos los insumos")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Insumos encontrados"),
+	    @ApiResponse(responseCode = "404", description = "Insumos no encontrados")
+	})
+    public Response getAllInsumos() {
     	List<Insumo> insumos = insumoDao.findAll();
         if (insumos == null) {
         	String mensaje= "No se encontraron insumos";
@@ -56,9 +74,16 @@ public class InsumosApi {
 	
 	
 	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createInsumo(Insumo insumo) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Creacion de un nuevo insumo")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "201", description = "Insumo creado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Insumo.class))),
+	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
+	})
+    public Response createInsumo(@Parameter(description = "Datos del insumo", required = true) Insumo insumo) {
     	try {
         	insumoDao.persist(insumo);
     	} catch (PersistenceException e) {
@@ -73,9 +98,16 @@ public class InsumosApi {
 	
 
 	@PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateInsumo(Insumo insumo){
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Actualización de un insumo")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Insumo actualizado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Insumo.class))),
+	    @ApiResponse(responseCode = "404", description = "Insumo no encontrado")
+	})
+    public Response updateInsumo(@Parameter(description = "Datos del insumo a actualizar", required = true) Insumo insumo){
     	Insumo aux = insumoDao.findActiveById(insumo.getId());
     	if (aux != null) {
     		insumoDao.update(insumo);
@@ -86,9 +118,14 @@ public class InsumosApi {
     }
 	
 	@DELETE
-    @Path("/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteInsumo(@PathParam("id") Integer id){
+	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Operation(summary = "Eliminar un insumo por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Insumo eliminado"),
+	    @ApiResponse(responseCode = "404", description = "Insumo no encontrado")
+	})
+    public Response deleteInsumo(@Parameter(description = "ID del insumo", required = true) @PathParam("id") Integer id){
     	Insumo aux = insumoDao.findActiveById(id);
     	if (aux != null){
     		aux.setActivo(false);

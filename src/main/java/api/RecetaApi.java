@@ -13,6 +13,12 @@ import dao.FamiliaProductoraDAO;
 import dao.InsumoDAO;
 import dao.RecetaDAO;
 import dao.UsuarioDAO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -32,9 +38,16 @@ public class RecetaApi {
 	private RecetaDAO recetaDao;
 	
 	@GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getInsumoById(@PathParam("id") int id) {
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener una receta por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Receta encontrada",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Receta.class))),
+	    @ApiResponse(responseCode = "404", description = "Receta no encontrada")
+	})
+    public Response getRecetaById(@Parameter(description = "ID de la receta", required = true) @PathParam("id") int id) {
     	Receta receta = recetaDao.findActiveById(id);
         if (receta == null) {
         	String mensaje= "No se encontró la receta con id: " + id;
@@ -44,9 +57,16 @@ public class RecetaApi {
     }
 	
 	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createReceta(Receta receta) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Creacion de una receta")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "201", description = "Receta creada",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Receta.class))),
+	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
+	})
+    public Response createReceta(@Parameter(description = "Datos de la receta", required = true) Receta receta) {
     	try {
         	recetaDao.persist(receta);
     	} catch (PersistenceException e) {
@@ -61,9 +81,16 @@ public class RecetaApi {
 	
 
 	@PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateReceta(Receta receta){
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Actualización de una receta")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Receta actualizada",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Receta.class))),
+	    @ApiResponse(responseCode = "404", description = "Receta no encontrada")
+	})
+    public Response updateReceta(@Parameter(description = "Datos de la receta a actualizar", required = true) Receta receta){
     	Receta aux = recetaDao.findActiveById(receta.getId());
     	if (aux != null) {
     		recetaDao.update(receta);
@@ -74,9 +101,14 @@ public class RecetaApi {
     }
 	
 	@DELETE
-    @Path("/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteReceta(@PathParam("id") Integer id){
+	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Operation(summary = "Eliminar una receta por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Receta eliminada"),
+	    @ApiResponse(responseCode = "404", description = "Receta no encontrada")
+	})
+    public Response deleteReceta(@Parameter(description = "ID de la receta", required = true) @PathParam("id") Integer id){
     	Receta aux = recetaDao.findActiveById(id);
     	if (aux != null){
     		aux.setActivo(false);

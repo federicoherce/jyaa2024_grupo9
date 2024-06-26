@@ -1,5 +1,7 @@
 package bd;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "insumos")
 public class Insumo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(access = Access.READ_ONLY )
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64, updatable = true)
@@ -23,17 +30,20 @@ public class Insumo {
 	@Column(unique = false, nullable = false, updatable = true)
 	private double costoUnitario;
 
+	@JsonIgnore
 	private boolean activo;
 
-	public Insumo() {
-
-	}
+	{
+        // Bloque de inicialización
+        this.activo = true;
+    }
+	
+	public Insumo() {}
 
 	public Insumo(String nombre, int cantidad, double costo_unitario) {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.costoUnitario = costo_unitario;
-		this.activo = true;
 	}
 
 	public int getId() {

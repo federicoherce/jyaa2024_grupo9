@@ -31,7 +31,8 @@ public class CanalDeVenta {
     private List<StockProductoTerminado> productos;
 
 	private boolean activo;
-	{activo = true;}
+	{activo = true;
+	productos = new ArrayList<StockProductoTerminado>();}
 
 	public CanalDeVenta() {
 	}
@@ -39,7 +40,6 @@ public class CanalDeVenta {
 	public CanalDeVenta(String nombre, String ubicacion) {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
-		productos = new ArrayList<StockProductoTerminado>();
 	}
 
 	public void agregarProductoTerminado(StockProductoTerminado producto) {
