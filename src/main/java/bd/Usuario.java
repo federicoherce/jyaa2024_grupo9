@@ -1,8 +1,6 @@
 package bd;
 
 import java.util.ArrayList;
-
-
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -19,11 +18,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
-import javax.persistence.JoinColumn;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "usuarios")
@@ -34,6 +31,7 @@ public class Usuario {
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64, updatable = false)
+	@Schema(description = "Correo electrónico del usuario", example = "usuario@example.com", required = true)
 	private String email;
 
 	@Column(unique = false, nullable = false, length = 64)

@@ -67,7 +67,8 @@ public class AppContextListener implements ServletContextListener {
     	loteDAO.update(lote);
     
     	
-    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 70.0, LocalDate.of(2024, 12, 3), 20, lote);
+    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 70.0, LocalDate.of(2024, 12, 3), 20);
+    	stock.setLote(lote);
     	StockProductoTerminadoDAO stockDAO = new StockProductoTerminadoDAO();
     	stockDAO.persist(stock);
     	

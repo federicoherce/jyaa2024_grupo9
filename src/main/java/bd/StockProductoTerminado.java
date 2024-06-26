@@ -69,13 +69,12 @@ public class StockProductoTerminado {
 	}
 
 	public StockProductoTerminado(String nombre, LocalDate fecha_envasado, double precio_venta,
-			LocalDate fecha_vencimiento, int cantidad_productos, Lote lote) {
+			LocalDate fecha_vencimiento, int cantidad_productos) {
 		this.nombre = nombre;
 		this.fechaEnvasado = fecha_envasado;
 		this.precioVenta = precio_venta;
 		this.fechaVencimiento = fecha_vencimiento;
 		this.cantidadProductos = cantidad_productos;
-		this.lote = lote;
 
 	}
 

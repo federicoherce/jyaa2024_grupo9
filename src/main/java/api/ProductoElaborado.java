@@ -15,6 +15,11 @@ import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -24,6 +29,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import requests.ProductoTerminadoRequest;
 
 @Path("/productos")
 public class ProductoElaborado {
@@ -41,10 +47,16 @@ public class ProductoElaborado {
 	private InsumoDAO insumoDao;
 	
 	@GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Obtener un producto por su ID")
-    public Response getProductoById(@PathParam("id") int id) {
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener un producto por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Producto encontrado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = StockProductoTerminado.class))),
+	    @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+	})
+    public Response getProductoById(@Parameter(description = "ID del producto", required = true) @PathParam("id") int id) {
     	StockProductoTerminado producto = stockDao.findActiveById(id);
         if (producto == null) {
         	String mensaje= "No se encontró el producto";
@@ -80,24 +92,31 @@ public class ProductoElaborado {
 	
 	@Path("/{idLote}")
 	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Crear un producto")
-	public Response entregarProducto(StockProductoTerminado producto, @PathParam("idLote") int idLote) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Creacion de un producto a partir de un ID de lote")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "201", description = "Producto creado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = StockProductoTerminado.class))),
+	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
+	})
+	public Response entregarProducto(@Parameter(description = "ID del lote", required = true) @PathParam("idLote") int idLote,
+			@Parameter(description="Datos del producto") ProductoTerminadoRequest producto) {
     	try {
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
     			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
-    		producto.setLote(lote);
-    		producto.setCostoTotal(lote.getCostoLote());
-    		stockDao.persist(producto);
+    		StockProductoTerminado prod = new StockProductoTerminado(producto.getNombre(), producto.getFechaEnvasado(),
+    				producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getCantidadProductos());
+    		prod.setLote(lote);
+    		prod.setCostoTotal(lote.getCostoLote());
+    		stockDao.persist(prod);
     		lote.setActivo(false);
     		loteDao.update(lote);
+    		return Response.status(Response.Status.CREATED).entity(prod).build();
     	} catch (PersistenceException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof PropertyValueException) 
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
-    }
-    	return Response.status(Response.Status.CREATED).entity(producto).build();
+    	} 	
 	}
 }

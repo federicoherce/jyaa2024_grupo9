@@ -7,12 +7,15 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import bd.Usuario;
 import dao.UsuarioDAO;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -24,6 +27,13 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import requests.UsuarioRequest;
+
+@OpenAPIDefinition(
+	    info = @Info(title = "API de Usuarios", version = "1.0.0"),
+	    servers = @Server(url = "http://localhost:8080/Sala/")
+	)
+
 
 @Path("/users")
 public class Usuarios {
@@ -32,10 +42,16 @@ public class Usuarios {
 	private UsuarioDAO userDao;
 	
 	@GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Obtener a un usuario por su ID")
-	public Response getUsuarioById(@PathParam("id") int id) {
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener un usuario por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Usuario encontrado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Usuario.class))),
+	    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+	})
+	public Response getUsuarioById(@Parameter(description = "ID del usuario", required = true) @PathParam("id") int id) {
     	Usuario usuario = userDao.findActiveById(id);
         if (usuario == null) {
         	String mensaje= "No se encontró el usuario";
@@ -49,8 +65,16 @@ public class Usuarios {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Creacion de un nuevo usuario")
-	public Response createUser(@RequestBody Usuario usuario) {
-    	try {
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "201", description = "Usuario creado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Usuario.class))),
+	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
+	})
+	public Response createUser(@Parameter(description = "Datos del nuevo usuario", required = true) UsuarioRequest usuarioRequest) {
+	    Usuario usuario = new Usuario(usuarioRequest.getEmail(), usuarioRequest.getNombre(),
+	    		usuarioRequest.getApellido(), usuarioRequest.getPassword());
+		try {
         	userDao.persist(usuario);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
@@ -62,25 +86,39 @@ public class Usuarios {
     	return Response.status(Response.Status.CREATED).entity(usuario).build();
    }
     
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Actualización de un usuario")
-    public Response updateUser(Usuario usuario){
-    	Usuario aux = userDao.findActiveById(usuario.getId());
-    	if (aux != null) {
-    		userDao.update(usuario);
-    		return Response.ok().entity(usuario).build();
-    	}
-	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("El usuario no existe").build(); 
-    }
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Actualización de un usuario")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Usuario actualizado",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = Usuario.class))),
+	    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+	})
+	public Response updateUser(@Parameter(description = "Datos del usuario a actualizar", required = true) UsuarioRequest usuarioRequest) {
+	    Usuario aux = userDao.findActiveByEmail(usuarioRequest.getEmail());
+	    if (aux != null) {
+	        aux.setEmail(usuarioRequest.getEmail());
+	        aux.setNombre(usuarioRequest.getNombre());
+	        aux.setApellido(usuarioRequest.getApellido());
+	        aux.setPassword(usuarioRequest.getPassword());
+	        userDao.update(aux);
+	        return Response.ok().entity(aux).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("El usuario no existe").build();
+	    }
+	}
     
-    @DELETE
-    @Path("/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Operation(summary = "Eliminacion de un usuario por su ID")
-    public Response deleteUser(@PathParam("id") Integer id){
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Operation(summary = "Eliminar un usuario por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Usuario eliminado"),
+	    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+	})
+	public Response deleteUser(@Parameter(description = "ID del usuario", required = true) @PathParam("id") Integer id) {
     	Usuario aux = userDao.findActiveById(id);
     	if (aux != null){
     		aux.setActivo(false);
