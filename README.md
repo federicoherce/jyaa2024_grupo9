@@ -23,9 +23,9 @@
 
 -2. Levantar servidor tomcat 
 
--3. Correr los servlets en el servidor 
+-3. Ingresar al index.html de Swagger y apuntar al http://localhost:8080/sala/openapi
 
--4. Prestar atención a la consola, donde se desplegarán mensajes de log de las operaciones CRUD
+-4. A través de la interfaz, probar los distintos endpoints respetando los esquemas especificados
 
 
 
