@@ -1,10 +1,13 @@
 package bd;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "familias_productoras")
@@ -12,6 +15,7 @@ public class FamiliaProductora {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(access = Access.READ_ONLY )
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64)
@@ -26,14 +30,17 @@ public class FamiliaProductora {
 	@JsonIgnore
 	private boolean activo;
 
-	public FamiliaProductora() {
-	}
+	{
+        // Bloque de inicialización
+        this.activo = true;
+    }
+	
+	public FamiliaProductora() {}
 
 	public FamiliaProductora(String nombre, LocalDate fecha_inicio, String zona) {
 		this.nombre = nombre;
 		this.fechaInicio = fecha_inicio;
 		this.zona = zona;
-		this.activo = true;
 	}
 
 	public String getNombre() {
