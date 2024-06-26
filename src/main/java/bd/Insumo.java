@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "insumos")
 public class Insumo {
@@ -23,6 +25,7 @@ public class Insumo {
 	@Column(unique = false, nullable = false, updatable = true)
 	private double costoUnitario;
 
+	@JsonIgnore
 	private boolean activo;
 
 	public Insumo() {

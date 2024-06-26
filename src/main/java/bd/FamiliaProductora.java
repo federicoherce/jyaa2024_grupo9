@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "familias_productoras")
 public class FamiliaProductora {
@@ -21,6 +23,7 @@ public class FamiliaProductora {
 	@Column(nullable = false, updatable = true)
 	private String zona;
 
+	@JsonIgnore
 	private boolean activo;
 
 	public FamiliaProductora() {
