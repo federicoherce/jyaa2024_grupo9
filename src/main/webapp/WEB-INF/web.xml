@@ -152,4 +152,14 @@
     <filter-name>ServletFilter</filter-name>
     <url-pattern>/ServletFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CargarBD</display-name>
+    <servlet-name>CargarBD</servlet-name>
+    <servlet-class>api.CargarBD</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CargarBD</servlet-name>
+    <url-pattern>/CargarBD</url-pattern>
+  </servlet-mapping>
 </web-app>

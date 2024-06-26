@@ -1,6 +1,6 @@
-package entityManager;
+package api;
 
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +21,25 @@ import dao.LoteDAO;
 import dao.MateriaPrimaDAO;
 import dao.StockProductoTerminadoDAO;
 import dao.UsuarioDAO;
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebListener
-public class AppContextListener implements ServletContextListener {
 
+public class CargarBD extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    @Inject
+    private UsuarioDAO usuarioDAO;
 	
+	public CargarBD() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-    public void contextInitialized(ServletContextEvent sce)  { 
-    	
-    	
-    	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Usuario user = new Usuario("jose@gmail.com", "Jose", "Perez", "1234");
     	usuarioDAO.persist(user);
     	
@@ -86,14 +92,8 @@ public class AppContextListener implements ServletContextListener {
     	InsumoDAO insumoDAO = new InsumoDAO();
     	insumoDAO.persist(insumo);
     	insumoDAO.persist(otroInsumo);
-
-	
-    	
-    }
+	}
 
 
-    public void contextDestroyed(ServletContextEvent sce)  { 
-        EntityManagerFactorySingleton.close();
-    }
-	
+
 }

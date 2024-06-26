@@ -16,6 +16,10 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
 	private Class<T> entityClass;
 
+	/*
+	@Inject
+	private EntityManager em;
+	*/
 	
 	public GenericDAOImpl(Class<T> entityClass) {
 		this.entityClass = entityClass;

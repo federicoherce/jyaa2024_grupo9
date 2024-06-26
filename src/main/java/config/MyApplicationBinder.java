@@ -1,6 +1,9 @@
 package config;
+import javax.persistence.EntityManager;
+
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
+
 import dao.CanalDeVentaDAO;
 import dao.FamiliaProductoraDAO;
 import dao.InsumoDAO;
@@ -12,6 +15,7 @@ import dao.PermisoDAO;
 import dao.RecetaDAO;
 import dao.StockProductoTerminadoDAO;
 import dao.UsuarioDAO;
+import entityManager.EntityManagerFactoryProvider;
 
 
 public class MyApplicationBinder extends AbstractBinder {
@@ -20,7 +24,7 @@ public class MyApplicationBinder extends AbstractBinder {
 	protected void configure() {
 	//	bind(UsuarioDAO.class).to(IUsuarioDAO.class).in(RequestScoped.class);
 	//	bind(UsuarioDAO.class).to(new TypeLiteral<GenericDAO<Usuario, Integer>>() {}).in(RequestScoped.class);
-    //  bindFactory(EntityManagerFactoryProvider.class).to(EntityManager.class).in(Singleton.class);
+    // bindFactory(EntityManagerFactoryProvider.class).to(EntityManager.class).in(RequestScoped.class);
 		bind(UsuarioDAO.class).to(UsuarioDAO.class).in(RequestScoped.class);
 		bind(CanalDeVentaDAO.class).to(CanalDeVentaDAO.class).in(RequestScoped.class);
 		bind(FamiliaProductoraDAO.class).to(FamiliaProductoraDAO.class).in(RequestScoped.class);

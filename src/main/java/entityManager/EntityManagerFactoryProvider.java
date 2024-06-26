@@ -1,12 +1,13 @@
 package entityManager;
 
-import jakarta.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.glassfish.hk2.api.Factory;
 
-@Singleton
+import org.glassfish.hk2.api.Factory;
+import org.glassfish.jersey.process.internal.RequestScoped;
+
+@RequestScoped
 public class EntityManagerFactoryProvider implements Factory<EntityManager> {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUP");
 
