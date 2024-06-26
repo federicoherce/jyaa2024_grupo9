@@ -32,7 +32,7 @@ import requests.UsuarioRequest;
 @OpenAPIDefinition(
 
 	    info = @Info(title = "API", version = "1.0.0"),
-	    servers = @Server(url = "http://localhost:8080/sala/")
+	    servers = @Server(url = "http://localhost:8080/Sala/")
 	)
 
 

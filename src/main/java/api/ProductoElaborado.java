@@ -1,11 +1,7 @@
 package api;
 
 import java.util.List;
-
 import javax.persistence.PersistenceException;
-
-import org.hibernate.PropertyValueException;
-
 import bd.Insumo;
 import bd.ItemDeInsumo;
 import bd.Lote;
@@ -65,29 +61,6 @@ public class ProductoElaborado {
         return Response.ok(producto).build();
     }
 		
-	@Path("/{productoId}/agregarInsumos")
-	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Agregar insumos a un stock de productos")
-	public Response agregarInsumos(@PathParam("productoId") int productoId, List<ItemDeInsumo> insumos) {
-		StockProductoTerminado producto = stockDao.findActiveById(productoId);
-		if (producto == null)
-			return Response.status(Response.Status.NOT_FOUND).build();
-		double valorInsumos = 0;
-		for (ItemDeInsumo item : insumos) {
-			ItemDeInsumo itemInsumo = new ItemDeInsumo(item.getCantidad(), producto, item.getInsumo());
-			Insumo insumo = insumoDao.findActiveById(item.getInsumo().getId());
-			insumo.setCantidad(insumo.getCantidad() - item.getCantidad());
-			valorInsumos += item.getCantidad() * insumo.getCostoUnitario();
-			insumoDao.update(insumo);
-			itemDao.persist(itemInsumo);		
-		}
-		producto.setInsumos(insumos);
-		producto.setCostoTotal(producto.getCostoTotal() + valorInsumos);
-		stockDao.update(producto);
-		return Response.ok().entity("Insumos agregados").build();
-	}
 	
 	
 	@Path("/{idLote}")
@@ -119,4 +92,35 @@ public class ProductoElaborado {
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
     	} 	
 	}
+	
+	
+	/*
+	 * @Path("/{productoId}/agregarInsumos")
+	@POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Agregar insumos a un stock de productos")
+	public Response agregarInsumos(@PathParam("productoId") int productoId, List<ItemDeInsumo> insumos) {
+		StockProductoTerminado producto = stockDao.findActiveById(productoId);
+		if (producto == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+		double valorInsumos = 0;
+		for (ItemDeInsumo item : insumos) {
+			ItemDeInsumo itemInsumo = new ItemDeInsumo(item.getCantidad(), producto, item.getInsumo());
+			Insumo insumo = insumoDao.findActiveById(item.getInsumo().getId());
+			System.out.println(item.getInsumo().getCostoUnitario());
+			insumo.setCantidad(insumo.getCantidad() - item.getCantidad());
+			valorInsumos += item.getCantidad() * insumo.getCostoUnitario();
+			insumoDao.update(insumo);
+			itemDao.persist(itemInsumo);		
+		}
+		producto.setInsumos(insumos);
+		producto.setCostoTotal(producto.getCostoTotal() + valorInsumos);
+		stockDao.update(producto);
+		return Response.ok().entity("Insumos agregados").build();
+	}
+	
+	 */
+	
+	
 }
