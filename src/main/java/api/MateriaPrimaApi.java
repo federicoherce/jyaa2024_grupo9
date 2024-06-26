@@ -39,6 +39,7 @@ import javax.persistence.RollbackException;
 
 import org.hibernate.PropertyValueException;
 
+import bd.CanalDeVenta;
 import bd.FamiliaProductora;
 
 
@@ -50,6 +51,33 @@ public class MateriaPrimaApi {
 	@Inject
 	FamiliaProductoraDAO familiaProductoraDAO;
 
+	
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener una materia prima por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "materia prima encontrada",
+	        content = @Content(mediaType = "application/json",
+	        schema = @Schema(implementation = MateriaPrima.class))),
+	    @ApiResponse(responseCode = "404", description = "materia prima no encontrada")
+	})
+	public Response getMateriaPrimaById(@Parameter(description = "ID de la materia prima", required = true)@PathParam("id") int id) {
+		MateriaPrima materiaPrima = materiaPrimaDAO.findActiveById(id);
+		if (materiaPrima == null) {
+			String mensaje = "No se encontró la materia prima";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+		return Response.ok(materiaPrima).build();
+	}
+	
+	
+	
+	
+	
+	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -60,9 +88,7 @@ public class MateriaPrimaApi {
 		        schema = @Schema(implementation = MateriaPrima.class))),
 		    @ApiResponse(responseCode = "404", description = "Materia prima no encontrado")
 		})
-	public Response crearMateriaPrima(MateriaPrimaRequest materiaPrima) {
-		
-		
+	public Response crearMateriaPrima(@Parameter(description = "Datos de la nueva materia prima", required = true) MateriaPrimaRequest materiaPrima) {
 		
 		FamiliaProductora productor = familiaProductoraDAO.getByName(materiaPrima.getNombreProductor());
 		
@@ -75,6 +101,7 @@ public class MateriaPrimaApi {
 		if (productor == null || productor.getNombre() == null || productor.getNombre().isEmpty()) {
 			return Response.status(Status.BAD_REQUEST).entity("El nombre del productor es requerido").build();
 		}
+			
 		try {
 			FamiliaProductora productorEncontrado = familiaProductoraDAO.getByName(productor.getNombre());
 			if (productorEncontrado == null) {
@@ -122,14 +149,15 @@ public class MateriaPrimaApi {
 
 // Editar materia prima
 @PUT
+@Path("/{id}")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Operation(summary = "Actualizar una materia prima")
 @ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "Materia prima actualizada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MateriaPrima.class))),
 		@ApiResponse(responseCode = "404", description = "Materia prima no encontrada") })
-public Response updateMateriaPrima(MateriaPrimaRequest materiaPrima) {
-	MateriaPrima aux = materiaPrimaDAO.findById(materiaPrima.getId());
+public Response updateMateriaPrima(MateriaPrimaRequest materiaPrima,@Parameter(description = "ID de MateriaPrima", required = true)   @PathParam("id") int id) {
+	MateriaPrima aux = materiaPrimaDAO.findById(id);
 	if (aux != null) {
 		
 		aux.setNombre(materiaPrima.getNombre());

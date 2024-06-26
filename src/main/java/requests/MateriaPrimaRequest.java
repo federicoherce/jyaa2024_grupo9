@@ -9,15 +9,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Modelo para la creación de materias primas")
 public class MateriaPrimaRequest {
 
-	@Schema(description = "Nombre de la materia prima", example = "Azucar", required = true)
+	@Schema(description = "Nombre de la materia prima", example = "Azucar", required= true)
 	private String nombre;
 
 	@Schema(description = "Precio de la materia prima", example = "1000", required = true)
 	private double  precio;
 
-	@Schema(description = "ID de la materia prima", example = "1", required = true)
-	private int id;
-	
+
 	@Schema(description = "Fecha de compra de la materia prima", example = "2021-06-15", required = true)
 	private LocalDate fechaCompra;
 	
@@ -66,10 +64,6 @@ public class MateriaPrimaRequest {
 	}
 	
 	
-	public int getId() {
-		return id;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

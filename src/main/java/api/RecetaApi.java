@@ -30,12 +30,16 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import requests.RecetaRequest;
 
 @Path("/recetas")
 public class RecetaApi {
 	
 	@Inject
 	private RecetaDAO recetaDao;
+	@Inject
+	private UsuarioDAO usuarioDao;
 	
 	@GET
 	@Path("/{id}")
@@ -66,9 +70,14 @@ public class RecetaApi {
 	        schema = @Schema(implementation = Receta.class))),
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
-    public Response createReceta(@Parameter(description = "Datos de la receta", required = true) Receta receta) {
-    	try {
-        	recetaDao.persist(receta);
+    public Response createReceta(@Parameter(description = "Datos de la receta", required = true) RecetaRequest receta) {
+		Usuario user = usuarioDao.findActiveByEmail(receta.getUsuarioMail());
+		if (user == null) {
+			return Response.status(Status.NOT_FOUND).entity("El usuario especificado no existe").build();
+		}
+		Receta aux = new Receta(receta.getNombre(), receta.getTexto(), user);
+		try {
+        	recetaDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ConstraintViolationException) 
@@ -76,7 +85,7 @@ public class RecetaApi {
             if (cause instanceof PropertyValueException) 
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
     }
-    	return Response.status(Response.Status.CREATED).entity(receta).build();
+    	return Response.status(Response.Status.CREATED).entity(aux).build();
    }
 	
 
@@ -90,11 +99,12 @@ public class RecetaApi {
 	        schema = @Schema(implementation = Receta.class))),
 	    @ApiResponse(responseCode = "404", description = "Receta no encontrada")
 	})
-    public Response updateReceta(@Parameter(description = "Datos de la receta a actualizar", required = true) Receta receta){
-    	Receta aux = recetaDao.findActiveById(receta.getId());
+    public Response updateReceta(@Parameter(description = "Datos de la receta a actualizar", required = true) RecetaRequest receta){
+    	Receta aux = recetaDao.getByName(receta.getNombre());
     	if (aux != null) {
-    		recetaDao.update(receta);
-    		return Response.ok().entity(receta).build();
+    		aux.setTexto(receta.getTexto());
+    		recetaDao.update(aux);
+    		return Response.ok().entity(aux).build();
     	}
 	    else 
 	    	return Response.status(Response.Status.NOT_FOUND).entity("La receta no existe").build(); 

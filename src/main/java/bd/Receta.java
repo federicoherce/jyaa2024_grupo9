@@ -24,8 +24,8 @@ public class Receta {
 	@JsonProperty(access = Access.READ_ONLY )
 	private int id;
 
-	@Column(unique = true, nullable = false, length = 32, name = "titulo", updatable = true)
-	private String titulo;
+	@Column(unique = true, nullable = false, length = 32, name = "nombre", updatable = true)
+	private String nombre;
 
 	@Column(unique = false, nullable = false, length = 512, name = "texto")
 	private String texto;
@@ -45,17 +45,17 @@ public class Receta {
 	public Receta() {}
 
 	public Receta(String titulo, String texto, Usuario usuario) {
-		this.titulo = titulo;
+		this.nombre = titulo;
 		this.texto = texto;
 		this.usuario = usuario;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNombre(String titulo) {
+		this.nombre = titulo;
 	}
 
 	public String getTexto() {
