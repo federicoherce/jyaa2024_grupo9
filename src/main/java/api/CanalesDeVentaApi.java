@@ -1,6 +1,8 @@
 package api;
 
 import requests.CanalDeVentaRequest;
+import requests.UsuarioRequest;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
@@ -76,9 +78,9 @@ public Response getCanalDeVentaById(@Parameter(description = "ID del canal de ve
         schema = @Schema(implementation = CanalDeVenta.class))),
     @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 })
-public Response createCanalDeVenta(CanalDeVentaRequest canalDeVenta) {
-	CanalDeVenta canal = new CanalDeVenta(canalDeVenta.getNombre(), canalDeVenta.getUbicacion());
-	
+public Response createCanalDeVenta(@Parameter(description = "Datos del nuevo canal", required = true) CanalDeVentaRequest
+		canalDeVenta) {
+	CanalDeVenta canal = new CanalDeVenta(canalDeVenta.getNombre(), canalDeVenta.getUbicacion());	
 	try {
 		canalesDeVentaDao.persist(canal);
    	} catch (PersistenceException e) {
