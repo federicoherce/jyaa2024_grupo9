@@ -9,6 +9,9 @@ public class MateriaPrimaDAO  extends GenericDAOImpl<MateriaPrima, Integer> {
 		super(MateriaPrima.class);
 	}
 	
+	
+	
+	
  	
 	
 }

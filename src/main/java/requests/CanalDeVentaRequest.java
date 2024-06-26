@@ -14,12 +14,6 @@ public class CanalDeVentaRequest {
         private String ubicacion;
         
         
-        @Schema(description = "ID del canal de venta", example = "1", required = true)
-        private int id;
-        
-        public int getId() {
-        	 return id;
-        }
         
 		public String getNombre() {
 			return nombre;

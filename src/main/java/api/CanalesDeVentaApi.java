@@ -94,6 +94,7 @@ public Response createCanalDeVenta(CanalDeVentaRequest canalDeVenta) {
 
 
 @PUT
+@Path("/{id}")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Operation(summary = "Actualizar un canal de venta ")
@@ -103,8 +104,8 @@ public Response createCanalDeVenta(CanalDeVentaRequest canalDeVenta) {
         schema = @Schema(implementation = CanalDeVenta.class))),
     @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 })
-public Response updateCanalDeVenta(CanalDeVentaRequest canalDeVenta){
-    CanalDeVenta aux = canalesDeVentaDao.findActiveById(canalDeVenta.getId());
+public Response updateCanalDeVenta(@Parameter(description = "ID del canal de ventas", required = true)@PathParam("id") Integer id,CanalDeVentaRequest canalDeVenta){
+    CanalDeVenta aux = canalesDeVentaDao.findActiveById(id);
     if (aux != null) {
     	aux.setNombre(canalDeVenta.getNombre());
         aux.setUbicacion(canalDeVenta.getUbicacion());
@@ -112,7 +113,7 @@ public Response updateCanalDeVenta(CanalDeVentaRequest canalDeVenta){
         return Response.ok().entity(aux).build();
     }
     else {
-        return Response.status(Status.NOT_FOUND).entity("No se encontró el canal de venta con id: " + canalDeVenta.getId()).build();
+        return Response.status(Status.NOT_FOUND).entity("No se encontró el canal de venta con id: " + id).build();
     }
 }
 

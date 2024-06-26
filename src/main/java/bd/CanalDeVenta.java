@@ -31,6 +31,7 @@ public class CanalDeVenta {
     private List<StockProductoTerminado> productos;
 
 	private boolean activo;
+	
 	{activo = true;
 	productos = new ArrayList<StockProductoTerminado>();}
 
