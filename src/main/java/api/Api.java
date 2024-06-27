@@ -40,6 +40,8 @@ public class Api {
 	@Inject
 	private ItemDeMateriaPrimaDAO itemDAO;
 	
+	
+	
 	//  private IUsuarioDAO userDao;
 	
 	@GET

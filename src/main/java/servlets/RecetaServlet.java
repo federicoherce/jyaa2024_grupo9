@@ -31,7 +31,7 @@ public class RecetaServlet extends HttpServlet {
 		System.out.println("Recetas en la BD: ");
 		List<Receta> recetas = recetaDAO.findAll();
 		for (Receta r : recetas) {
-			System.out.println(r.getTitulo());
+			System.out.println(r.getNombre());
 		}
 	   	System.out.println("---Eliminacion-----");
 	   	
@@ -39,15 +39,15 @@ public class RecetaServlet extends HttpServlet {
 	    recetas = recetaDAO.findAll();
 	    System.out.println("Recetas en la BD: ");
 	   	for (Receta r : recetas) {
-			System.out.println(r.getTitulo());
+			System.out.println(r.getNombre());
 		}
 		
         System.out.println("Actualización de una receta");
-        System.out.println("Titulo viejo " + receta.getTitulo());
-        receta.setTitulo("Tarta de manzana y pera");
+        System.out.println("Titulo viejo " + receta.getNombre());
+        receta.setNombre("Tarta de manzana y pera");
         recetaDAO.update(receta);
         Receta encontrada = recetaDAO.findById(1);
-        System.out.println("Titulo nuevo " + encontrada.getTitulo());
+        System.out.println("Titulo nuevo " + encontrada.getNombre());
         
 	   
 		System.out.println("----------------");
