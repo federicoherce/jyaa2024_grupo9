@@ -19,9 +19,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <listener>
-    <listener-class>entityManager.AppContextListener</listener-class>
-  </listener>
   <servlet>
     <description></description>
     <display-name>InsumoServlet</display-name>

@@ -1,6 +1,5 @@
 package bd;
 
-import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class Insumo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(access = Access.READ_ONLY )
+	@JsonProperty(access = Access.READ_WRITE)
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64, updatable = true)

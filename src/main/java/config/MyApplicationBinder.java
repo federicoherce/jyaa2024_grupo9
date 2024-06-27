@@ -24,7 +24,7 @@ public class MyApplicationBinder extends AbstractBinder {
 	protected void configure() {
 	//	bind(UsuarioDAO.class).to(IUsuarioDAO.class).in(RequestScoped.class);
 	//	bind(UsuarioDAO.class).to(new TypeLiteral<GenericDAO<Usuario, Integer>>() {}).in(RequestScoped.class);
-    //   bindFactory(EntityManagerFactoryProvider.class).to(EntityManager.class).in(RequestScoped.class);
+        bindFactory(EntityManagerFactoryProvider.class).to(EntityManager.class).in(RequestScoped.class);
 		bind(UsuarioDAO.class).to(UsuarioDAO.class).in(RequestScoped.class);
 		bind(CanalDeVentaDAO.class).to(CanalDeVentaDAO.class).in(RequestScoped.class);
 		bind(FamiliaProductoraDAO.class).to(FamiliaProductoraDAO.class).in(RequestScoped.class);

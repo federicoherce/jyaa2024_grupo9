@@ -1,10 +1,7 @@
 package bd;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -15,7 +12,7 @@ public class FamiliaProductora {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(access = Access.READ_ONLY )
+	@JsonProperty(access = Access.READ_WRITE )
 	private int id;
 
 	@Column(unique = true, nullable = false, length = 64)

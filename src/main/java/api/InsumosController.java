@@ -2,16 +2,13 @@ package api;
 
 import java.util.List;
 
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
-import bd.FamiliaProductora;
 import bd.Insumo;
-import bd.Usuario;
-import dao.FamiliaProductoraDAO;
 import dao.InsumoDAO;
-import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,10 +28,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/insumos")
-public class InsumosApi {
+public class InsumosController {
 	
 	@Inject
 	private InsumoDAO insumoDao;
+	
 	
 	@GET
 	@Path("/{id}")
@@ -54,6 +52,7 @@ public class InsumosApi {
         }
         return Response.ok(insumo).build();
     }
+	
 	
 	@GET
 	@Path("/all")
@@ -117,6 +116,7 @@ public class InsumosApi {
 	    	return Response.status(Response.Status.NOT_FOUND).entity("El insumo no existe").build(); 
     }
 	
+	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -135,5 +135,4 @@ public class InsumosApi {
 		    return Response.status(Response.Status.NOT_FOUND).entity("Insumo no encontrado").build();
 	  	}
 	}
-
 }

@@ -3,8 +3,8 @@ package api;
 import jakarta.inject.Inject;
 
 
+
 import bd.MateriaPrima;
-import bd.Usuario;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -20,38 +20,26 @@ import jakarta.ws.rs.core.Response.Status;
 import requests.MateriaPrimaRequest;
 import dao.FamiliaProductoraDAO;
 import dao.MateriaPrimaDAO;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.servers.Server;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.servers.Server;
-import java.util.List;
-
 import javax.persistence.PersistenceException;
-import javax.persistence.RollbackException;
-
 import org.hibernate.PropertyValueException;
-
-import bd.CanalDeVenta;
 import bd.FamiliaProductora;
 
 
 @Path("/materiasPrimas")
-public class MateriaPrimaApi {
+public class MateriaPrimaController {
 
 	@Inject
-	MateriaPrimaDAO materiaPrimaDAO;
-	@Inject
-	FamiliaProductoraDAO familiaProductoraDAO;
-
+	private MateriaPrimaDAO materiaPrimaDAO;
 	
+	@Inject
+	private FamiliaProductoraDAO familiaProductoraDAO;
+
 	
 	@GET
 	@Path("/{id}")
@@ -71,11 +59,6 @@ public class MateriaPrimaApi {
 		}
 		return Response.ok(materiaPrima).build();
 	}
-	
-	
-	
-	
-	
 	
 	
 	@POST
@@ -118,12 +101,9 @@ public class MateriaPrimaApi {
 	        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
 	}
 	return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Error interno del servidor").build();
-}
+  }
 		
 
-	
-
-// baja logica de materia prima
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -142,43 +122,30 @@ public class MateriaPrimaApi {
 		return Response.ok(materiaPrima).build();
 	}
 
-
-
-
-
-
-// Editar materia prima
-@PUT
-@Path("/{id}")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-@Operation(summary = "Actualizar una materia prima")
-@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "Materia prima actualizada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MateriaPrima.class))),
-		@ApiResponse(responseCode = "404", description = "Materia prima no encontrada") })
-public Response updateMateriaPrima(MateriaPrimaRequest materiaPrima,@Parameter(description = "ID de MateriaPrima", required = true)   @PathParam("id") int id) {
-	MateriaPrima aux = materiaPrimaDAO.findById(id);
-	if (aux != null) {
-		
-		aux.setNombre(materiaPrima.getNombre());
-		aux.setCostoPorKg(materiaPrima.getCostoPorKg());
-		aux.setPeso(materiaPrima.getPeso());
-		aux.setCostoPorKg(materiaPrima.getCostoPorKg());
-		aux.setFormaAlmacenamiento(materiaPrima.getFormaAlmacenamiento());
-		aux.setFechaCompra(materiaPrima.getFechaCompra());
-		aux.setFechaVencimiento(materiaPrima.getFechaVencimiento());
-		
-			
-		
-		materiaPrimaDAO.update(aux);
-		
-		return Response.ok().entity(aux).build();
-	} else
-		return Response.status(Response.Status.NOT_FOUND).entity("La materia prima no existe").build();
-}
-
-
-
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Actualizar una materia prima")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Materia prima actualizada", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MateriaPrima.class))),
+			@ApiResponse(responseCode = "404", description = "Materia prima no encontrada") })
+	public Response updateMateriaPrima(MateriaPrimaRequest materiaPrima,@Parameter(description = "ID de MateriaPrima", required = true)   @PathParam("id") int id) {
+		MateriaPrima aux = materiaPrimaDAO.findById(id);
+		if (aux != null) {		
+			aux.setNombre(materiaPrima.getNombre());
+			aux.setCostoPorKg(materiaPrima.getCostoPorKg());
+			aux.setPeso(materiaPrima.getPeso());
+			aux.setCostoPorKg(materiaPrima.getCostoPorKg());
+			aux.setFormaAlmacenamiento(materiaPrima.getFormaAlmacenamiento());
+			aux.setFechaCompra(materiaPrima.getFechaCompra());
+			aux.setFechaVencimiento(materiaPrima.getFechaVencimiento());		
+			materiaPrimaDAO.update(aux);
+			return Response.ok().entity(aux).build();
+		} else
+			return Response.status(Response.Status.NOT_FOUND).entity("La materia prima no existe").build();
+	}
 
 }
 

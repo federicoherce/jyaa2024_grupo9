@@ -1,9 +1,8 @@
 package requests;
+
+
 import java.time.LocalDate;
-
-import bd.FamiliaProductora;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 
 
 @Schema(description = "Modelo para la creación de materias primas")

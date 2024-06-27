@@ -1,6 +1,7 @@
 package api;
 
 import jakarta.inject.Inject;
+
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,7 +13,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import dao.FamiliaProductoraDAO;
-import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,7 +29,7 @@ import bd.FamiliaProductora;
 
 
 @Path("/familias_productoras")
-public class FamiliaProductoraApi {
+public class FamiliaProductoraController {
 
 	@Inject
 	private FamiliaProductoraDAO fpDao;
@@ -50,9 +50,9 @@ public class FamiliaProductoraApi {
         	String mensaje= "No se encontró la familia productora con id: " + id;
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
-        return Response.ok(fp).build();
-        
+        return Response.ok(fp).build();        
     }
+
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -76,6 +76,7 @@ public class FamiliaProductoraApi {
     }
     	return Response.status(Response.Status.CREATED).entity(fp).build();
    }
+
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
@@ -96,6 +97,7 @@ public class FamiliaProductoraApi {
 	    else 
 	    	return Response.status(Response.Status.NOT_FOUND).entity("La familia productora no existe").build(); 
     }
+	
 	
 	@DELETE
 	@Path("/{id}")

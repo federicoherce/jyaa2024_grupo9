@@ -1,10 +1,8 @@
 package api;
 
 import javax.persistence.PersistenceException;
-
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
-
 import bd.Usuario;
 import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -29,15 +27,15 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import requests.UsuarioRequest;
 
-@OpenAPIDefinition(
 
+@OpenAPIDefinition(
 	    info = @Info(title = "API", version = "1.0.0"),
 	    servers = @Server(url = "http://localhost:8080/Sala/")
 	)
 
 
 @Path("/users")
-public class Usuarios {
+public class UsuariosController {
 	
 	@Inject
 	private UsuarioDAO userDao;
@@ -87,6 +85,7 @@ public class Usuarios {
     	return Response.status(Response.Status.CREATED).entity(usuario).build();
    }
     
+	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -111,6 +110,7 @@ public class Usuarios {
 	    }
 	}
     
+	
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)

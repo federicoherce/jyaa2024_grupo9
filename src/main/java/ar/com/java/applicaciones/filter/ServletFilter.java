@@ -1,7 +1,6 @@
 package ar.com.java.applicaciones.filter;
 
 import java.io.IOException;
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -16,7 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ServletFilter extends HttpFilter implements Filter {
        
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      * @see HttpFilter#HttpFilter()
      */
     public ServletFilter() {

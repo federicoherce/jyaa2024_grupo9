@@ -2,15 +2,11 @@ package api;
 
 import javax.persistence.PersistenceException;
 
+
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
-
-import bd.FamiliaProductora;
-import bd.Insumo;
 import bd.Receta;
 import bd.Usuario;
-import dao.FamiliaProductoraDAO;
-import dao.InsumoDAO;
 import dao.RecetaDAO;
 import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,12 +30,14 @@ import jakarta.ws.rs.core.Response.Status;
 import requests.RecetaRequest;
 
 @Path("/recetas")
-public class RecetaApi {
+public class RecetaController {
 	
 	@Inject
 	private RecetaDAO recetaDao;
+	
 	@Inject
 	private UsuarioDAO usuarioDao;
+	
 	
 	@GET
 	@Path("/{id}")
@@ -59,6 +57,7 @@ public class RecetaApi {
         }
         return Response.ok(receta).build();
     }
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -109,6 +108,7 @@ public class RecetaApi {
 	    else 
 	    	return Response.status(Response.Status.NOT_FOUND).entity("La receta no existe").build(); 
     }
+	
 	
 	@DELETE
 	@Path("/{id}")

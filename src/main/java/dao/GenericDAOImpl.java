@@ -1,14 +1,9 @@
 package dao;
 
-
-
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-
-import entityManager.EntityManagerFactorySingleton;
 import jakarta.inject.Inject;
 
 
@@ -16,19 +11,27 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
 	private Class<T> entityClass;
 
-	/*
-	
 	@Inject
 	private EntityManager em;
 	
-	*/
+
+	public Class<T> getEntityClass() {
+		return entityClass;
+	}
+
+
+	public EntityManager getEm() {
+		return em;
+	}
+
+
 	public GenericDAOImpl(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 
+	
     @Override
     public void persist(T entity) {
-        EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
     	try {
             em.getTransaction().begin();
             em.persist(entity);
@@ -44,44 +47,28 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
     @Override
     public T findById(ID id) {
-    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-    	try {
-            return em.find(entityClass, id);
-        } finally {
-            em.close();
-        }
+    	return em.find(entityClass, id);
     }
     
     @Override
     public T findActiveById(ID id) {
-    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-    	try {
-    		List<T> result = em.createQuery(
-    	            "SELECT e FROM " + entityClass.getName() + " e WHERE e.id = :id AND e.activo = true", entityClass)
-    	            .setParameter("id", id).getResultList();
-    	            return result.isEmpty() ? null : result.get(0);
-        } finally {
-            em.close();
-        }
+    	List<T> result = em.createQuery(
+    			"SELECT e FROM " + entityClass.getName() + " e WHERE e.id = :id AND e.activo = true", entityClass)
+    	         .setParameter("id", id).getResultList();
+    	         return result.isEmpty() ? null : result.get(0);
     }
 
     @Override
     public List<T> findAll() {
-    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-    	try {
     		List<T> result = em.createQuery(
     	            "SELECT e FROM " + entityClass.getName() + " e WHERE e.activo = true", entityClass)
     	            .getResultList();
     	    return result.isEmpty() ? null : result;
-        } finally {
-            em.close();
-        }
     }
 
 
     @Override
     public void update(T entity) {
-    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
     	try {
             em.getTransaction().begin();
             em.merge(entity);
@@ -91,14 +78,11 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
                 em.getTransaction().rollback();
             }
             throw e;
-        } finally {
-            em.close();
-        }
+        } 
     }
 
     @Override
     public void delete(T entity) {
-    	EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
     	try {
             em.getTransaction().begin();
             em.remove(em.contains(entity) ? entity : em.merge(entity));
@@ -108,14 +92,11 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
                 em.getTransaction().rollback();
             }
             throw e;
-        } finally {
-            em.close();
-        }
+        } 
     }
     
     @Override
     public T getByName(String name) {
-        EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
         try {
             return em.createQuery("SELECT e FROM " + entityClass.getName() + " e WHERE e.nombre = :name", entityClass)
                      .setParameter("name", name)
@@ -124,14 +105,6 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             return null; 
         } catch (Exception e) {
             throw new RuntimeException("Error al ejecutar la consulta", e);
-        } finally {
-            em.close();
-        }
+        } 
     }
-
-
-
-
-    
-
-	}
+}

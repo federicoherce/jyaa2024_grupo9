@@ -1,13 +1,8 @@
 package api;
 
-import java.util.List;
 import javax.persistence.PersistenceException;
-import bd.Insumo;
-import bd.ItemDeInsumo;
 import bd.Lote;
 import bd.StockProductoTerminado;
-import dao.InsumoDAO;
-import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +23,7 @@ import jakarta.ws.rs.core.Response;
 import requests.ProductoTerminadoRequest;
 
 @Path("/productos")
-public class ProductoElaborado {
+public class ProductoElaboradoController {
 
 	@Inject
 	private StockProductoTerminadoDAO stockDao;
@@ -36,12 +31,13 @@ public class ProductoElaborado {
 	@Inject
 	private LoteDAO loteDao;
 	
+	/*
 	@Inject
 	private ItemDeInsumoDAO itemDao;
 	
 	@Inject
 	private InsumoDAO insumoDao;
-	
+	*/
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +57,6 @@ public class ProductoElaborado {
         return Response.ok(producto).build();
     }
 		
-	
 	
 	@Path("/{idLote}")
 	@POST

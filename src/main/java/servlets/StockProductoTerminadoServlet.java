@@ -2,16 +2,14 @@ package servlets;
 
 import jakarta.servlet.ServletException;
 
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-
-import bd.Lote;
 import bd.StockProductoTerminado;
-import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
 
 
@@ -21,9 +19,7 @@ public class StockProductoTerminadoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StockProductoTerminadoDAO stockDAO = new StockProductoTerminadoDAO();
-		LoteDAO loteDAO = new LoteDAO();
-		Lote lote = loteDAO.findById(1);
-		
+
 		StockProductoTerminado stock = new StockProductoTerminado("Frascos 360cc Mermelada Naranja", LocalDate.of(2024, 5, 30), 750, LocalDate.of(2024, 8, 30), 100);
 
 		stockDAO.persist(stock);
