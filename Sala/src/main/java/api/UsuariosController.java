@@ -1,8 +1,11 @@
 package api;
 
 import javax.persistence.PersistenceException;
+
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
+
 import bd.Usuario;
 import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -78,7 +81,7 @@ public class UsuariosController {
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El email ya se encuentra registrado").build();	
+            	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Email repetido").toString()).build();
             if (cause instanceof PropertyValueException) 
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
     }
