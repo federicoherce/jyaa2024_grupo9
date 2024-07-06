@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService, UsuarioRequest } from '../services/user.service';
+import { UserService, UsuarioRequest } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 
 
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html'
 })
+
+
 export class UserDetailComponent implements OnInit {
   user: UsuarioRequest | undefined;
   errorMessage: string = '';
@@ -23,13 +25,12 @@ export class UserDetailComponent implements OnInit {
     const userId = Number(this.route.snapshot.paramMap.get('id'));
     if (userId) {
       this.userService.getUser(userId).subscribe(
-        user => {
-          
+        user => {        
           this.user = user;
         },
         error => {
-          console.error('There was an error!', error);
-          this.errorMessage = error.message; 
+          console.error('Error: ', error);
+          this.errorMessage = error.error.message; 
         }
       );
     }

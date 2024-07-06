@@ -1,0 +1,12 @@
+<div *ngIf="user">
+    <h2>Eliminar Usuario</h2>
+    <p>¿Estás seguro de que deseas eliminar al usuario {{ user.nombre }} {{ user.apellido }}?</p>
+    <button (click)="deleteUser()">Eliminar</button>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p>{{ successMessage }}</p>
+</div>
+  

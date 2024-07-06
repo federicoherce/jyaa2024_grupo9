@@ -1,11 +1,14 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.json.JSONObject;
 
+import bd.Insumo;
 import bd.Usuario;
 import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -44,6 +47,24 @@ public class UsuariosController {
 	private UsuarioDAO userDao;
 	
 	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todos los usuarios")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Usuarios encontrados"),
+	    @ApiResponse(responseCode = "404", description = "Usuarios no encontrados")
+	})
+    public Response getAllUsers() {
+    	List<Usuario> usuarios = userDao.findAll();
+        if (usuarios == null) {
+        	String mensaje = new JSONObject().put("message", "Usuarios no encontrados").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(usuarios).build();
+    }
+	
+	
+	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Obtener un usuario por su ID")
@@ -56,7 +77,7 @@ public class UsuariosController {
 	public Response getUsuarioById(@Parameter(description = "ID del usuario", required = true) @PathParam("id") int id) {
     	Usuario usuario = userDao.findActiveById(id);
         if (usuario == null) {
-        	String mensaje= "No se encontró el usuario";
+        	String mensaje = new JSONObject().put("message", "Usuario no encontrado").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(usuario).build();
@@ -80,11 +101,11 @@ public class UsuariosController {
         	userDao.persist(usuario);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Email repetido").toString()).build();
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
-    }
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "Usuario no encontrado").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+            }
+       }
     	return Response.status(Response.Status.CREATED).entity(usuario).build();
    }
     
@@ -101,6 +122,7 @@ public class UsuariosController {
 	})
 	public Response updateUser(@Parameter(description = "Datos del usuario a actualizar", required = true) UsuarioRequest usuarioRequest) {
 	    Usuario aux = userDao.findActiveByEmail(usuarioRequest.getEmail());
+	    System.out.println("holaaaaaaaaaaaaaa");
 	    if (aux != null) {
 	        aux.setEmail(usuarioRequest.getEmail());
 	        aux.setNombre(usuarioRequest.getNombre());
@@ -109,7 +131,8 @@ public class UsuariosController {
 	        userDao.update(aux);
 	        return Response.ok().entity(aux).build();
 	    } else {
-	        return Response.status(Response.Status.NOT_FOUND).entity("El usuario no existe").build();
+	    	String mensaje = new JSONObject().put("message", "El usuario no existe").toString();
+	        return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 	    }
 	}
     
@@ -127,9 +150,11 @@ public class UsuariosController {
     	if (aux != null){
     		aux.setActivo(false);
     		userDao.update(aux);
-    		return  Response.ok().entity("Usuario eliminado").build();
+    		String mensaje = new JSONObject().put("message", "Usuario eliminado").toString();
+    		return  Response.ok().entity(mensaje).build();
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Usuario no encontrado").build();
+	    	String mensaje = new JSONObject().put("message", "El usuario no existe").toString();
+	    	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 	  	}
 	}
 }

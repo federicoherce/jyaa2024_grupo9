@@ -1,13 +1,10 @@
 <!-- user-detail.component.html -->
-<div *ngIf="user; else loading">
+<div *ngIf="user">
   <h2>Detalles del Usuario</h2>
   <p><strong>Email:</strong> {{ user.email }}</p>
   <p><strong>Nombre:</strong> {{ user.nombre }}</p>
   <p><strong>Apellido:</strong> {{ user.apellido }}</p>
 </div>
-<ng-template #loading>
-  <p>Cargando usuario...</p>
-</ng-template>
 <div *ngIf="errorMessage">
   <p>{{ errorMessage }}</p>
 </div>

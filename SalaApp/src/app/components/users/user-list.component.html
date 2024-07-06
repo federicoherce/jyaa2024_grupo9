@@ -1,0 +1,20 @@
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<br>
+<a class="btn btn-primary mb-2" routerLink="/register">Registrar Nuevo Usuario</a>
+<br>
+<br>
+
+<ul *ngIf="users.length">
+  <li *ngFor="let user of users">
+    {{ user.nombre }} - {{ user.email }}
+
+    <a class="btn btn-info btn-sm" routerLink="/user/{{ user.id }} ">Ver Detalles</a>
+
+    <a class="btn btn-info btn-sm" routerLink="/edit-user/{{ user.id }} ">Editar</a>
+
+    <a class="btn btn-danger btn-sm" routerLink="/delete-user/{{ user.id }}" >Eliminar</a>
+  </li>
+</ul>
+
+<div *ngIf="!users.length && !errorMessage">No users found.</div>

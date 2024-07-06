@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './components/register.component';
 import { AppRoutingModule } from './app.routes';
-import { UserDetailComponent } from './components/userDetail.component';
 import { CommonModule } from '@angular/common';
+import { AppComponent } from './app.component';
 
 
 @NgModule({
@@ -16,6 +15,7 @@ import { CommonModule } from '@angular/common';
  ],
   providers:    [], 
   declarations: [
+  
   ],
   exports:      [],
   bootstrap:    []
