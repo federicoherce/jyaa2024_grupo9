@@ -47,9 +47,9 @@ export class UserService {
   }
 
 
-  updateUser(user: UsuarioRequest): Observable<Usuario> {
+  updateUser(user: UsuarioRequest, id: number): Observable<Usuario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Usuario>(this.apiURL, user, { headers: headers })
+    return this.http.put<Usuario>(`${this.apiURL}/${id}`, user, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );

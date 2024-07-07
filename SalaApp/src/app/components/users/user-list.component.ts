@@ -22,7 +22,6 @@ export class UserListComponent implements OnInit {
       },
       error => {
         console.error('Error: ', error);
-        this.errorMessage = error.error.message;
       }
     );
   }
