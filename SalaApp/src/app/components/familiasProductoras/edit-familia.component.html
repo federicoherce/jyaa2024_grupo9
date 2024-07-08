@@ -1,0 +1,26 @@
+<div>
+    <h2>Edit User</h2>
+    <form (ngSubmit)="saveFamilia(editForm)" #editForm="ngForm">    
+
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="familia.nombre" name="nombre" required>
+      </div>
+      <div>
+        <label for="fecha_inicio">Fecha de inicio:</label>
+        <input type="date" id="fecha_inicio" [(ngModel)]="familia.fecha_inicio" name="fecha_inicio" required>
+      </div>
+      <div>
+        <label for="zona">Zona:</label>
+        <input type="zona" id="zona" [(ngModel)]="familia.zona" name="zona">
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+    <div *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+    <div *ngIf="successMessage">
+      <p>{{ successMessage }}</p>
+    </div>
+  </div>
+  

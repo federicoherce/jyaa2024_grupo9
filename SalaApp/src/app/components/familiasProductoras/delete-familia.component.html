@@ -1,0 +1,12 @@
+<div *ngIf="familia">
+    <h2>Eliminar Familia Productora</h2>
+    <p>¿Estás seguro de que deseas eliminar al usuario {{ familia.nombre }} ?</p>
+    <button (click)="deleteFamilia()">Eliminar</button>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p>{{ successMessage }}</p>
+</div>
+  

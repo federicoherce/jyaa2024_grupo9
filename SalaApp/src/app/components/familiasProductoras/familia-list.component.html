@@ -1,0 +1,18 @@
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<br>
+<a class="btn btn-primary mb-2" routerLink="/registerFamilia">Registrar Nueva Familia Productora</a>
+<br>
+<br>
+
+<ul *ngIf="familias.length">
+  <li *ngFor="let familia of familias">
+    Familia Productora: {{ familia.nombre }} - Zona: {{ familia.zona }} - Fecha de inicio: {{ familia.fecha_inicio }}
+
+    <a class="btn btn-info btn-sm" routerLink="/edit-familia/{{ familia.id }} ">Editar</a>
+
+    <a class="btn btn-danger btn-sm" routerLink="/delete-familia/{{ familia.id }}" >Eliminar</a>
+  </li>
+</ul>
+
+<div *ngIf="!familias.length && !errorMessage">No se encontraron familias productoras.</div>
