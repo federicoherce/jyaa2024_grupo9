@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2>Lista de Productos</h2>
+  
+    <div *ngIf="productos.length > 0; else noProducts">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Fecha de Envasado</th>
+              <th>Fecha de Vencimiento</th>
+              <th>Precio de Venta</th>
+              <th>Cantidad de Productos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productos">
+              <td>{{ producto.nombre }}</td>
+              <td>{{ producto.fechaEnvasado | date }}</td>
+              <td>{{ producto.fecha_vencimiento | date }}</td>
+              <td>{{ producto.precioVenta | currency }}</td>
+              <td>{{ producto.cantidadProductos }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <ng-template #noProducts>
+      <div class="alert alert-info" role="alert">
+        No hay productos disponibles.
+      </div>
+    </ng-template>
+  </div>
+  

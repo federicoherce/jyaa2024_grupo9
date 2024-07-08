@@ -1,12 +1,17 @@
-<div *ngIf="user">
-    <h2>Eliminar Usuario</h2>
-    <p>¿Estás seguro de que deseas eliminar al usuario {{ user.nombre }} {{ user.apellido }}?</p>
-    <button (click)="deleteUser()">Eliminar</button>
+<div class="container mt-3">
+  <div *ngIf="user" class="card">
+    <h2 class="card-header">Eliminar Usuario</h2>
+    <div class="card-body">
+      <p class="card-text">¿Estás seguro de que deseas eliminar al usuario {{ user.nombre }} {{ user.apellido }}?</p>
+      <button (click)="deleteUser()" class="btn btn-danger">Eliminar</button>
+    </div>
   </div>
-  <div *ngIf="errorMessage">
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
     <p>{{ errorMessage }}</p>
   </div>
-  <div *ngIf="successMessage">
+
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
     <p>{{ successMessage }}</p>
+  </div>
 </div>
-  

@@ -42,9 +42,7 @@ public class Api {
 	@Inject
 	private ItemDeMateriaPrimaDAO itemDAO;
 	
-	@Inject
-	private StockProductoTerminadoDAO stockDAO;
-	
+
 	@Inject
 	private CanalDeVentaDAO canalDAO;
 	
@@ -65,16 +63,32 @@ public class Api {
     	LocalDate vencimiento = LocalDate.of(2024, 6, 25);
     	MateriaPrima materia = new MateriaPrima("Naranjas", 50, compra, vencimiento, 1000, "heladera", familia);
     	MateriaPrima materia2 = new MateriaPrima("Azucar", 10, compra, vencimiento, 750, "alancena", familia);
+    	MateriaPrima materia3 = new MateriaPrima("Manzanas", 40, compra, vencimiento, 1300, "heladera", familia);
+    	MateriaPrima materia4 = new MateriaPrima("Peras", 30, compra, vencimiento, 600, "heladera", familia);
     	materiaDAO.persist(materia);
     	materiaDAO.persist(materia2); 
+    	materiaDAO.persist(materia3); 
+    	materiaDAO.persist(materia4); 
     	
     	Lote lote = new Lote("Mermelada de naranja", "A001", compra, 20, 20000, user);
+    	Lote lote2 = new Lote("Mermelada de manzana", "A002", compra, 15, 15000, user);
+    	Lote lote3 = new Lote("Mermelada de pera", "A003", compra, 10, 10000, user);
     	loteDAO.persist(lote);
+    	loteDAO.persist(lote2);
+    	loteDAO.persist(lote3);
     	
     	ItemDeMateriaPrima item = new ItemDeMateriaPrima(25, lote, materia);
     	ItemDeMateriaPrima item2 = new ItemDeMateriaPrima(2, lote, materia2);
+    	ItemDeMateriaPrima item3 = new ItemDeMateriaPrima(2, lote2, materia2);
+    	ItemDeMateriaPrima item4 = new ItemDeMateriaPrima(25, lote2, materia3);	
+    	ItemDeMateriaPrima item5 = new ItemDeMateriaPrima(2, lote3, materia2);
+    	ItemDeMateriaPrima item6 = new ItemDeMateriaPrima(25, lote3, materia4);
     	itemDAO.persist(item);
     	itemDAO.persist(item2);
+    	itemDAO.persist(item3);
+    	itemDAO.persist(item4);
+    	itemDAO.persist(item5);
+    	itemDAO.persist(item6);
     	
     	List<ItemDeMateriaPrima> lista = new ArrayList<>();
     	lista.add(item);
@@ -82,17 +96,24 @@ public class Api {
     	
     	lote.setMateriaPrima(lista);
     	loteDAO.update(lote);
-    
-    	StockProductoTerminado stock = new StockProductoTerminado("Mermelada Naranjas 680cc", LocalDate.of(2024, 6, 3), 70.0, LocalDate.of(2024, 12, 3), 20);
-    	stock.setLote(lote);
-    	stockDAO.persist(stock);
     	
+    	List<ItemDeMateriaPrima> lista2 = new ArrayList<>();
+    	lista2.add(item3);
+    	lista2.add(item4);
+    	
+    	lote2.setMateriaPrima(lista2);
+    	loteDAO.update(lote2);
+    	
+    	List<ItemDeMateriaPrima> lista3 = new ArrayList<>();
+    	lista3.add(item5);
+    	lista3.add(item6);
+    	
+    	lote3.setMateriaPrima(lista3);
+    	loteDAO.update(lote3);
+    
     	CanalDeVenta canal = new CanalDeVenta("canal predeterminado", "La Plata");
     	canalDAO.persist(canal);
-    	canal.agregarProductoTerminado(stock);
-    	canalDAO.update(canal);
-    	
-    	
+
     	Insumo insumo = new Insumo("Frascos 360cc", 200, 45.0);
     	Insumo otroInsumo = new Insumo("Tapitas", 1000, 50);
     	insumoDAO.persist(insumo);

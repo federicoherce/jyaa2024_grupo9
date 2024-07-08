@@ -47,7 +47,7 @@ export class EditUserComponent implements OnInit {
 
   saveUser(form: NgForm) {
     if (form.valid && this.userId !== null) {
-      this.userService.updateUser(this.user).subscribe(
+      this.userService.updateUser(this.user, this.userId).subscribe(
         response => {
           console.log('Usuario actualizado', response);
           this.successMessage = "Usuario actualizado con éxito";

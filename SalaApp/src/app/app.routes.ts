@@ -9,6 +9,9 @@ import { FamiliaListComponent } from './components/familiasProductoras/familia-l
 import { RegisterFamiliaComponent } from './components/familiasProductoras/registerFamilia.component';
 import { EditFamiliaComponent } from './components/familiasProductoras/edit-familia.component';
 import { DeleteFamiliaComponent } from './components/familiasProductoras/delete-familia.component';
+import { LoteListComponent } from './components/lotes/lote-list.compnent';
+import { CreateProductComponent } from './components/productoElaborado/create-product.component';
+import { ProductListComponent } from './components/productoElaborado/list-products.component';
 
 export const routes: Routes = [
   
@@ -23,6 +26,15 @@ export const routes: Routes = [
   { path: 'registerFamilia', component: RegisterFamiliaComponent },
   { path: 'edit-familia/:id', component: EditFamiliaComponent },
   { path: 'delete-familia/:id', component: DeleteFamiliaComponent },
+
+  //Lotes
+  { path: 'lotes', component: LoteListComponent },
+
+  //Productos
+  { path: 'productos', component: ProductListComponent},
+  { path: 'producto/:id', component: CreateProductComponent}
+  
+
 ];
 
 @NgModule({

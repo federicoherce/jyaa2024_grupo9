@@ -102,7 +102,7 @@ public class UsuariosController {
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ConstraintViolationException) {
-            	String mensaje = new JSONObject().put("message", "Usuario no encontrado").toString();
+            	String mensaje = new JSONObject().put("message", "Ese email ya se encuentra registrado").toString();
             	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
             }
        }
@@ -111,6 +111,7 @@ public class UsuariosController {
     
 	
 	@PUT
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Actualización de un usuario")
@@ -120,9 +121,9 @@ public class UsuariosController {
 	        schema = @Schema(implementation = Usuario.class))),
 	    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
 	})
-	public Response updateUser(@Parameter(description = "Datos del usuario a actualizar", required = true) UsuarioRequest usuarioRequest) {
-	    Usuario aux = userDao.findActiveByEmail(usuarioRequest.getEmail());
-	    System.out.println("holaaaaaaaaaaaaaa");
+	public Response updateUser(@Parameter(description = "Datos del usuario a actualizar", required = true) UsuarioRequest usuarioRequest,
+			@Parameter(description = "ID del usuario", required = true) @PathParam("id") int id) {
+	    Usuario aux = userDao.findActiveById(id);
 	    if (aux != null) {
 	        aux.setEmail(usuarioRequest.getEmail());
 	        aux.setNombre(usuarioRequest.getNombre());

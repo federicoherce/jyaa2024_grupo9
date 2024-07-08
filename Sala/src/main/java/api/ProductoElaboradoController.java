@@ -1,6 +1,9 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
+import org.json.JSONObject;
 import bd.Lote;
 import bd.StockProductoTerminado;
 import dao.LoteDAO;
@@ -38,6 +41,25 @@ public class ProductoElaboradoController {
 	@Inject
 	private InsumoDAO insumoDao;
 	*/
+	
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todos los productos")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Productos encontrados"),
+	    @ApiResponse(responseCode = "404", description = "Productos no encontrados")
+	})
+    public Response getAllProducts() {
+    	List<StockProductoTerminado> productos = stockDao.findAll();
+        if (productos == null) {
+        	String mensaje = new JSONObject().put("message", "Productos no encontrados").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(productos).build();
+    }
+	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
