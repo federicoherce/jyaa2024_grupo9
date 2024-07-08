@@ -8,6 +8,8 @@ import { UserListComponent } from './components/users/user-list.component';
 import { LoteListComponent } from './components/lotes/lote-list.compnent';
 import { CreateProductComponent } from './components/productoElaborado/create-product.component';
 import { ProductListComponent } from './components/productoElaborado/list-products.component';
+import {CanalListComponent} from './components/canales/canal-list.component';
+
 
 export const routes: Routes = [
   
@@ -23,9 +25,11 @@ export const routes: Routes = [
 
   //Productos
   { path: 'productos', component: ProductListComponent},
-  { path: 'producto/:id', component: CreateProductComponent}
-  
+  { path: 'producto/:id', component: CreateProductComponent},
 
+  //Canales
+  {path: 'canales', component: CanalListComponent}
+  
 ];
 
 @NgModule({
