@@ -1,0 +1,12 @@
+<div *ngIf="insumo">
+    <h2>Eliminar Insumo</h2>
+    <p>¿Estás seguro de que deseas eliminar al insumo: {{ insumo.nombre }} ?</p>
+    <button (click)="deleteInsumo()">Eliminar</button>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p>{{ successMessage }}</p>
+</div>
+  

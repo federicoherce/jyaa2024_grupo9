@@ -12,6 +12,10 @@ import { DeleteFamiliaComponent } from './components/familiasProductoras/delete-
 import { LoteListComponent } from './components/lotes/lote-list.compnent';
 import { CreateProductComponent } from './components/productoElaborado/create-product.component';
 import { ProductListComponent } from './components/productoElaborado/list-products.component';
+import { InsumoListComponent } from './components/insumos/insumo-list.component';
+import { RegisterInsumoComponent } from './components/insumos/registerInsumo.component';
+import { EditInsumoComponent } from './components/insumos/edit-insumo.component';
+import { DeleteInsumoComponent } from './components/insumos/delete-insumo.component';
 
 export const routes: Routes = [
   
@@ -26,7 +30,11 @@ export const routes: Routes = [
   { path: 'registerFamilia', component: RegisterFamiliaComponent },
   { path: 'edit-familia/:id', component: EditFamiliaComponent },
   { path: 'delete-familia/:id', component: DeleteFamiliaComponent },
-
+  //Insumos
+  { path: 'insumos', component: InsumoListComponent },
+  { path: 'registerInsumo', component: RegisterInsumoComponent },
+  { path: 'edit-insumo/:id', component: EditInsumoComponent },
+  { path: 'delete-insumo/:id', component: DeleteInsumoComponent },
   //Lotes
   { path: 'lotes', component: LoteListComponent },
 

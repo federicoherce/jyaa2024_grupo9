@@ -1,0 +1,18 @@
+<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+<br>
+<a class="btn btn-primary mb-2" routerLink="/registerInsumo">Registrar Nuevo Insumo</a>
+<br>
+<br>
+
+<ul *ngIf="insumos.length">
+  <li *ngFor="let insumo of insumos">
+    Insumo: {{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }} - Costo Unitario: {{ insumo.costo_unitario }}
+
+    <a class="btn btn-info btn-sm" routerLink="/edit-insumo/{{ insumo.id }} ">Editar</a>
+
+    <a class="btn btn-danger btn-sm" routerLink="/delete-insumo/{{ insumo.id }}" >Eliminar</a>
+  </li>
+</ul>
+
+<div *ngIf="!insumos.length && !errorMessage">No se encontraron familias productoras.</div>

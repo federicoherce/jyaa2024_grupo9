@@ -7,6 +7,8 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
+
 import bd.Insumo;
 import dao.InsumoDAO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +67,7 @@ public class InsumosController {
     public Response getAllInsumos() {
     	List<Insumo> insumos = insumoDao.findAll();
         if (insumos == null) {
-        	String mensaje= "No se encontraron insumos";
+        	String mensaje = new JSONObject().put("message", "Insumos no encontrados").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(insumos).build();
@@ -83,14 +85,17 @@ public class InsumosController {
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
     public Response createInsumo(@Parameter(description = "Datos del insumo", required = true) Insumo insumo) {
+		Insumo aux = new Insumo(insumo.getNombre(), insumo.getCantidad(), insumo.getCostoUnitario());
     	try {
-        	insumoDao.persist(insumo);
+        	insumoDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "Ese nombre ya se encuentra registrado").toString();
+        		return Response.status(Response.Status.CONFLICT).entity(mensaje).build(); }
+            if (cause instanceof PropertyValueException) {
+            	String mensaje = new JSONObject().put("message", "Faltan completar campos").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build(); }
     }
     	return Response.status(Response.Status.CREATED).entity(insumo).build();
    }
