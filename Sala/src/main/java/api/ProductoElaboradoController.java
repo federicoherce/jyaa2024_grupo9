@@ -3,9 +3,15 @@ package api;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
+
 import org.json.JSONObject;
+
+import bd.Insumo;
+import bd.ItemDeInsumo;
 import bd.Lote;
 import bd.StockProductoTerminado;
+import dao.InsumoDAO;
+import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
 import dao.StockProductoTerminadoDAO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +29,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import requests.InsumoRequest;
 import requests.ProductoTerminadoRequest;
 
 @Path("/productos")
@@ -34,13 +41,13 @@ public class ProductoElaboradoController {
 	@Inject
 	private LoteDAO loteDao;
 	
-	/*
+	
 	@Inject
 	private ItemDeInsumoDAO itemDao;
 	
 	@Inject
 	private InsumoDAO insumoDao;
-	*/
+	
 	
 	
 	@GET
@@ -92,16 +99,16 @@ public class ProductoElaboradoController {
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
 	public Response entregarProducto(@Parameter(description = "ID del lote", required = true) @PathParam("idLote") int idLote,
-			@Parameter(description="Datos del producto") ProductoTerminadoRequest producto) {
+			@Parameter(description="Datos del producto") StockProductoTerminado prod) {
     	try {
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
     			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
-    		StockProductoTerminado prod = new StockProductoTerminado(producto.getNombre(), producto.getFechaEnvasado(),
-    				producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getCantidadProductos());
+    		//StockProductoTerminado prod = new StockProductoTerminado(producto.getNombre(), producto.getFechaEnvasado(), producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getCantidadProductos());
     		prod.setLote(lote);
     		prod.setCostoTotal(lote.getCostoLote());
     		stockDao.persist(prod);
+    		prod.getId();
     		lote.setActivo(false);
     		loteDao.update(lote);
     		return Response.status(Response.Status.CREATED).entity(prod).build();
@@ -111,33 +118,32 @@ public class ProductoElaboradoController {
 	}
 	
 	
-	/*
-	 * @Path("/{productoId}/agregarInsumos")
+	@Path("/{productoId}/agregarInsumos")
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Agregar insumos a un stock de productos")
-	public Response agregarInsumos(@PathParam("productoId") int productoId, List<ItemDeInsumo> insumos) {
+	public Response agregarInsumos(@Parameter(description = "ID del producto", required = true) @PathParam("productoId") int productoId, 
+	@Parameter(description = "Datos de los insumos", required = true) InsumoRequest insumoRequest) {
 		StockProductoTerminado producto = stockDao.findActiveById(productoId);
-		if (producto == null)
-			return Response.status(Response.Status.NOT_FOUND).build();
-		double valorInsumos = 0;
-		for (ItemDeInsumo item : insumos) {
-			ItemDeInsumo itemInsumo = new ItemDeInsumo(item.getCantidad(), producto, item.getInsumo());
-			Insumo insumo = insumoDao.findActiveById(item.getInsumo().getId());
-			System.out.println(item.getInsumo().getCostoUnitario());
-			insumo.setCantidad(insumo.getCantidad() - item.getCantidad());
-			valorInsumos += item.getCantidad() * insumo.getCostoUnitario();
-			insumoDao.update(insumo);
-			itemDao.persist(itemInsumo);		
-		}
-		producto.setInsumos(insumos);
-		producto.setCostoTotal(producto.getCostoTotal() + valorInsumos);
+        boolean insumoExistente = producto.getInsumos().stream()
+                .anyMatch(insumo -> insumo.getInsumo().getId() == insumoRequest.getInsumo());
+        if (insumoExistente) {
+        		String mensaje = new JSONObject().put("message", "El insumo ya se encuentra asociado").toString();
+                return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+            }
+		int idInsumo = insumoRequest.getInsumo();
+		int cantidadInsumo = insumoRequest.getCantidad();
+		Insumo insumo = insumoDao.findActiveById(idInsumo);
+		ItemDeInsumo itemInsumo = new ItemDeInsumo(cantidadInsumo, producto, insumo);
+		insumo.setCantidad(insumo.getCantidad() - cantidadInsumo);
+		insumoDao.update(insumo);
+		itemDao.persist(itemInsumo);
+		producto.addInsumos(itemInsumo);
+		double valorInsumo = cantidadInsumo * insumo.getCostoUnitario();
+		producto.setCostoTotal(producto.getCostoTotal() + valorInsumo);
 		stockDao.update(producto);
-		return Response.ok().entity("Insumos agregados").build();
+     	String mensaje = new JSONObject().put("message", "Insumos agregados").toString();
+		return Response.ok().entity(mensaje).build();
 	}
-	
-	 */
-	
-	
 }

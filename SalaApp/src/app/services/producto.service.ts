@@ -4,11 +4,19 @@ import { Observable, catchError, throwError } from 'rxjs';
 
 
 export interface Producto {
+  id: number,
   nombre: string;
   fechaEnvasado: string;
   fechaVencimiento: string;
   precioVenta: number;
   cantidadProductos: number;
+  costoTotal: number;
+  insumos: ItemDeInsumo[];
+}
+
+export interface ItemDeInsumo {
+  cantidad: number;
+  insumo: number;
 }
 
 @Injectable({
@@ -28,6 +36,13 @@ export class ProductoService {
         catchError(this.handleError)
       );
   }
+
+  agregarInsumos(productoId: string, insumos: ItemDeInsumo): Observable<any> {
+    const url = `${this.apiURL}/${productoId}/agregarInsumos`; 
+    console.log(url)
+    return this.http.post(url, insumos);
+  }
+
 
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiURL}/all`);

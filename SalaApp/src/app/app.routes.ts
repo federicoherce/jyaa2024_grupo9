@@ -22,7 +22,7 @@ import { RegisterRecetaComponent } from './components/recetas/registerReceta.com
 import { RecetaDetailComponent } from './components/recetas/receta-detail.component';
 import { EditRecetaComponent } from './components/recetas/edit-receta.component';
 import { DeleteRecetaComponent } from './components/recetas/delete-receta.component';
-
+import { AgregarInsumosComponent } from './components/productoElaborado/add-supplies.component';
 
 export const routes: Routes = [
   
@@ -32,24 +32,30 @@ export const routes: Routes = [
   { path: 'user/:id', component: UserDetailComponent },
   { path: 'edit-user/:id', component: EditUserComponent },
   { path: 'delete-user/:id', component: DeleteUserComponent }, 
+  
   //Familias
   { path: 'familias', component: FamiliaListComponent },
   { path: 'registerFamilia', component: RegisterFamiliaComponent },
   { path: 'edit-familia/:id', component: EditFamiliaComponent },
   { path: 'delete-familia/:id', component: DeleteFamiliaComponent },
+  
   //Insumos
   { path: 'insumos', component: InsumoListComponent },
   { path: 'registerInsumo', component: RegisterInsumoComponent },
   { path: 'edit-insumo/:id', component: EditInsumoComponent },
   { path: 'delete-insumo/:id', component: DeleteInsumoComponent },
+  { path: 'agregarInsumos/:productId', component: AgregarInsumosComponent },
+
   //Lotes
   { path: 'lotes', component: LoteListComponent },
+  
   //Receta
   { path: 'recetas', component: RecetaListComponent },
   { path: 'registerReceta', component: RegisterRecetaComponent },
   { path: 'receta/:id', component: RecetaDetailComponent },
   { path: 'edit-receta/:id', component: EditRecetaComponent },
   { path: 'delete-receta/:id', component: DeleteRecetaComponent }, 
+ 
   //Productos
   { path: 'productos', component: ProductListComponent},
   { path: 'producto/:id', component: CreateProductComponent},

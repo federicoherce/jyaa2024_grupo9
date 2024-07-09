@@ -141,6 +141,10 @@ public class StockProductoTerminado {
 		return insumos;
 	}
 
+	public void addInsumos(ItemDeInsumo item) {
+		this.insumos.add(item);
+	}
+	
 	public void setInsumos(List<ItemDeInsumo> insumos) {
 		this.insumos = insumos;
 	}
@@ -153,4 +157,7 @@ public class StockProductoTerminado {
 		this.lote = lote;
 	}
 
+	public int getId() {
+		return this.id;
+	}
 }

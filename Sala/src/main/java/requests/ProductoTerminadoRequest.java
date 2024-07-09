@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Modelo para la creación de productos")
 public class ProductoTerminadoRequest {
 	
-	    @Schema(description = "Nombre del producto", example = "Mermelada de ciruela", required = true)
+	    private int id;
+
+		@Schema(description = "Nombre del producto", example = "Mermelada de ciruela", required = true)
 	    private String nombre;
 
 	    @Schema(description = "Fecha de envasado del producto", example = "2024-06-26", required = true)
@@ -22,11 +24,22 @@ public class ProductoTerminadoRequest {
 	    @Schema(description = "Precio de venta del producto", example = "1000", required = true)
 	    private Double precioVenta;
 	    
+	    @Schema(description = "Costo total del producto", example = "1000", required = true)
+	    private Double costoTotal;
+	    
 	    @Schema(description = "Cantidad total de stock", example = "150", required = true)
 	    private int cantidadProductos;
 
 		public String getNombre() {
 			return nombre;
+		}
+
+		public Double getCostoTotal() {
+			return costoTotal;
+		}
+
+		public void setCostoTotal(Double costoTotal) {
+			this.costoTotal = costoTotal;
 		}
 
 		public LocalDate getFechaEnvasado() {
@@ -45,6 +58,13 @@ public class ProductoTerminadoRequest {
 			return cantidadProductos;
 		}
 	    
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
 	    
 
 }

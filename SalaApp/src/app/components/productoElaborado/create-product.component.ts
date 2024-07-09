@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProductoService, Producto } from '../../services/producto.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   imports: [FormsModule, CommonModule],
@@ -12,12 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class CreateProductComponent {
-  producto: Producto = { nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0, cantidadProductos: 0};
+  producto: Producto = { id: 0, nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0,
+   cantidadProductos: 0, costoTotal: 0, insumos: []}
   errorMessage: string = '';
   successMessage: string = '';
   loteId: string | null = null;
 
-  constructor(private productoService: ProductoService, private route: ActivatedRoute) {}
+  constructor(private productoService: ProductoService, 
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     this.loteId = this.route.snapshot.paramMap.get('id');
@@ -29,8 +32,12 @@ export class CreateProductComponent {
       this.productoService.createProduct(this.producto, this.loteId).subscribe(
         response => {
           console.log('Producto creado', response);
-          this.successMessage = "Producto creado con exito";
-        },
+          if (response && response.id) {
+            this.successMessage = "Producto creado con éxito";
+          } else {
+            console.error('Respuesta inválida del servidor: falta el ID del producto');
+          }  
+          },
         error => {
           console.error('Error: ', error);
           this.errorMessage = error.error.message;
