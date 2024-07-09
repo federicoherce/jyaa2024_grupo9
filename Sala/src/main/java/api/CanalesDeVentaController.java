@@ -1,6 +1,9 @@
 package api;
 
 import requests.CanalDeVentaRequest;
+
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -51,6 +54,24 @@ public class CanalesDeVentaController {
 		}
 		return Response.ok(canalDeVenta).build();
 	}
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todos los canales de venta")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Canales de venta encontrados"),
+			@ApiResponse(responseCode = "404", description = "Canales de venta no encontrados") })
+	public Response getAllCanalesDeVenta() {
+		List<CanalDeVenta> canales = canalesDeVentaDao.findAll();
+		if (canales == null) {
+			String mensaje = "No hay canales de venta disponibles";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+			
+		}
+		return Response.ok(canales).build();
+		
+	}
+	
 	
 	
 	@POST
@@ -120,6 +141,13 @@ public class CanalesDeVentaController {
 			return Response.status(Response.Status.NOT_FOUND).entity("Canal de venta no encontrado").build();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 

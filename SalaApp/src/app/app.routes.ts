@@ -16,6 +16,8 @@ import { InsumoListComponent } from './components/insumos/insumo-list.component'
 import { RegisterInsumoComponent } from './components/insumos/registerInsumo.component';
 import { EditInsumoComponent } from './components/insumos/edit-insumo.component';
 import { DeleteInsumoComponent } from './components/insumos/delete-insumo.component';
+import {CanalListComponent} from './components/canales/canal-list.component';
+
 
 export const routes: Routes = [
   
@@ -40,9 +42,11 @@ export const routes: Routes = [
 
   //Productos
   { path: 'productos', component: ProductListComponent},
-  { path: 'producto/:id', component: CreateProductComponent}
-  
+  { path: 'producto/:id', component: CreateProductComponent},
 
+  //Canales
+  {path: 'canales', component: CanalListComponent}
+  
 ];
 
 @NgModule({
