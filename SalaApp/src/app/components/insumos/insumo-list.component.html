@@ -1,18 +1,29 @@
-<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+<div class="container mt-3">
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
 
-<br>
-<a class="btn btn-primary mb-2" routerLink="/registerInsumo">Registrar Nuevo Insumo</a>
-<br>
-<br>
+  <!-- Botón para registrar nuevo insumo -->
+  <div class="d-flex justify-content-start mb-3">
+    <a class="btn btn-primary" routerLink="/registerInsumo">Registrar Nuevo Insumo</a>
+  </div>
 
-<ul *ngIf="insumos.length">
-  <li *ngFor="let insumo of insumos">
-    Insumo: {{ insumo.nombre }} - Cantidad: {{ insumo.cantidad }} - Costo Unitario: {{ insumo.costoUnitario }}
+  <!-- Lista de insumos -->
+  <ul *ngIf="insumos.length" class="list-group">
+    <li *ngFor="let insumo of insumos" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>Insumo:</strong> {{ insumo.nombre }} - <strong>Cantidad:</strong> {{ insumo.cantidad }} - <strong>Costo Unitario:</strong> {{ insumo.costoUnitario }}
+      </div>
+      <div>
+        <a class="btn btn-info btn-sm me-1" routerLink="/edit-insumo/{{ insumo.id }}">Editar</a>
+        <a class="btn btn-danger btn-sm" routerLink="/delete-insumo/{{ insumo.id }}">Eliminar</a>
+      </div>
+    </li>
+  </ul>
 
-    <a class="btn btn-info btn-sm" routerLink="/edit-insumo/{{ insumo.id }} ">Editar</a>
-
-    <a class="btn btn-danger btn-sm" routerLink="/delete-insumo/{{ insumo.id }}" >Eliminar</a>
-  </li>
-</ul>
-
-<div *ngIf="!insumos.length && !errorMessage">No se encontraron familias productoras.</div>
+  <!-- Mensaje si no hay insumos -->
+  <div *ngIf="!insumos.length && !errorMessage" class="alert alert-warning mt-3">
+    No se encontraron insumos.
+  </div>
+</div>

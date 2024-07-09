@@ -1,18 +1,27 @@
-<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+<div class="container mt-3">
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
 
-<br>
-<a class="btn btn-primary mb-2" routerLink="/registerFamilia">Registrar Nueva Familia Productora</a>
-<br>
-<br>
+  <!-- Botón para registrar nueva familia productora -->
+  <a class="btn btn-primary mb-2" routerLink="/registerFamilia">Registrar Nueva Familia Productora</a>
 
-<ul *ngIf="familias.length">
-  <li *ngFor="let familia of familias">
-    Familia Productora: {{ familia.nombre }} - Zona: {{ familia.zona }} - Fecha de inicio: {{ familia.fechaInicio }}
+  <!-- Lista de familias productoras -->
+  <ul *ngIf="familias.length" class="list-group">
+    <li *ngFor="let familia of familias" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong>Familia Productora:</strong> {{ familia.nombre }} - <strong>Zona:</strong> {{ familia.zona }} - <strong>Fecha de inicio:</strong> {{ familia.fechaInicio | date }}
+      </div>
+      <div>
+        <a class="btn btn-info btn-sm me-1" routerLink="/edit-familia/{{ familia.id }}">Editar</a>
+        <a class="btn btn-danger btn-sm" routerLink="/delete-familia/{{ familia.id }}">Eliminar</a>
+      </div>
+    </li>
+  </ul>
 
-    <a class="btn btn-info btn-sm" routerLink="/edit-familia/{{ familia.id }} ">Editar</a>
-
-    <a class="btn btn-danger btn-sm" routerLink="/delete-familia/{{ familia.id }}" >Eliminar</a>
-  </li>
-</ul>
-
-<div *ngIf="!familias.length && !errorMessage">No se encontraron familias productoras.</div>
+  <!-- Mensaje si no hay familias productoras -->
+  <div *ngIf="!familias.length && !errorMessage" class="alert alert-warning mt-3">
+    No se encontraron familias productoras.
+  </div>
+</div>

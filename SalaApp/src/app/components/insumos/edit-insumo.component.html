@@ -1,26 +1,32 @@
-<div>
-    <h2>Edit Insumo</h2>
-    <form (ngSubmit)="saveInsumo(editForm)" #editForm="ngForm">    
+<div class="container mt-5">
+  <h2 class="mb-4">Editar Insumo</h2>
+  <form (ngSubmit)="saveInsumo(editForm)" #editForm="ngForm">
 
-      <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" [(ngModel)]="insumo.nombre" name="nombre" disabled>
-      </div>
-      <div>
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" id="cantidad" [(ngModel)]="insumo.cantidad" name="cantidad" required>
-      </div>
-      <div>
-        <label for="costoUnitario">Costo Unitario:</label>
-        <input type="float" id="costoUnitario" [(ngModel)]="insumo.costoUnitario" name="costoUnitario">
-      </div>
-      <button type="submit">Save Changes</button>
-    </form>
-    <div *ngIf="errorMessage">
-      <p>{{ errorMessage }}</p>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" [(ngModel)]="insumo.nombre" name="nombre" disabled>
     </div>
-    <div *ngIf="successMessage">
-      <p>{{ successMessage }}</p>
+    
+    <div class="form-group">
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" class="form-control" id="cantidad" [(ngModel)]="insumo.cantidad" name="cantidad" required>
     </div>
+    
+    <div class="form-group">
+      <label for="costoUnitario">Costo Unitario:</label>
+      <input type="number" class="form-control" id="costoUnitario" [(ngModel)]="insumo.costoUnitario" name="costoUnitario">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    <p>{{ errorMessage }}</p>
   </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    <p>{{ successMessage }}</p>
+  </div>
+</div>
+
   

@@ -1,26 +1,32 @@
-<div>
-    <h2>Edit Receta</h2>
-    <form (ngSubmit)="saveReceta(editForm)" #editForm="ngForm">    
+<div class="container mt-5">
+  <h2 class="mb-4">Editar Receta</h2>
+  <form (ngSubmit)="saveReceta(editForm)" #editForm="ngForm">
 
-      <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" [(ngModel)]="receta.nombre" name="nombre" required>
-      </div>
-      <div>
-        <label for="texto">Texto:</label>
-        <input type="text" id="texto" [(ngModel)]="receta.texto" name="texto" required>
-      </div>
-      <div>
-        <label for="usuarioMail">Creado por (mail):</label>
-        <input type="text" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail" disabled>
-      </div>
-      <button type="submit">Save Changes</button>
-    </form>
-    <div *ngIf="errorMessage">
-      <p>{{ errorMessage }}</p>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" [(ngModel)]="receta.nombre" name="nombre" required>
     </div>
-    <div *ngIf="successMessage">
-      <p>{{ successMessage }}</p>
+    
+    <div class="form-group">
+      <label for="texto">Texto:</label>
+      <input type="text" class="form-control" id="texto" [(ngModel)]="receta.texto" name="texto" required>
     </div>
+    
+    <div class="form-group">
+      <label for="usuarioMail">Creado por (mail):</label>
+      <input type="text" class="form-control" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail" disabled>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
   </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
+</div>
+
   
