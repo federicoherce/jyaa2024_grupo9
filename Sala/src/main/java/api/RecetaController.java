@@ -57,7 +57,7 @@ public class RecetaController {
     public Response getRecetaById(@Parameter(description = "ID de la receta", required = true) @PathParam("id") int id) {
     	Receta receta = recetaDao.findActiveById(id);
         if (receta == null) {
-        	String mensaje= "No se encontró la receta con id: " + id;
+        	String mensaje = new JSONObject().put("message", "No se encontró una receta con ese id").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(receta).build();
