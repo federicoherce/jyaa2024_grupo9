@@ -50,7 +50,7 @@ public class FamiliaProductoraController {
     public Response getFpById(@Parameter(description = "ID de la Familia productora", required = true) @PathParam("id") int id) {
     	FamiliaProductora fp = fpDao.findActiveById(id);
         if (fp == null) {
-        	String mensaje= "No se encontró la familia productora con id: " + id;
+        	String mensaje = new JSONObject().put("message", "No se encontró la familia con ese ID").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(fp).build();        
@@ -86,16 +86,19 @@ public class FamiliaProductoraController {
 	})
     public Response createFamiliaProductora(@Parameter(description = "Datos de la familia productora", required = true) FamiliaProductora fp) {
 		FamiliaProductora aux = new FamiliaProductora(fp.getNombre(), fp.getFechaInicio(), fp.getZona());
-		System.out.println("entro");
+		//System.out.println("entro");
     	try {
-    		System.out.print("entro");
+    		//System.out.print("entro");
         	fpDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "El nombre ya se se encuentra registrado").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();	
+            }
+            if (cause instanceof PropertyValueException) {
+            	String mensaje = new JSONObject().put("message", "Los campos no se completaron correctamente").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();}
     }
     	return Response.status(Response.Status.CREATED).entity(fp).build();
    }
@@ -118,7 +121,7 @@ public class FamiliaProductoraController {
     		return Response.ok().entity(fp).build();
     	}
 	    else {
-	    	String mensaje = new JSONObject().put("message", "El usuario no existe").toString();
+	    	String mensaje = new JSONObject().put("message", "La familia productora no existe").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
 	
