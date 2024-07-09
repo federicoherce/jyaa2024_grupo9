@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class CreateProductComponent {
-  producto: Producto = { nombre: '', fechaEnvasado: '', fecha_vencimiento: '', precioVenta: 0, cantidadProductos: 0};
+  producto: Producto = { nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0, cantidadProductos: 0};
   errorMessage: string = '';
   successMessage: string = '';
   loteId: string | null = null;

@@ -17,7 +17,7 @@
             <tr *ngFor="let producto of productos">
               <td>{{ producto.nombre }}</td>
               <td>{{ producto.fechaEnvasado | date }}</td>
-              <td>{{ producto.fecha_vencimiento | date }}</td>
+              <td>{{ producto.fechaVencimiento | date }}</td>
               <td>{{ producto.precioVenta | currency }}</td>
               <td>{{ producto.cantidadProductos }}</td>
             </tr>

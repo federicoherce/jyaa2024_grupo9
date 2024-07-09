@@ -2,6 +2,8 @@ package requests;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Modelo para la creación de productos")
@@ -14,6 +16,7 @@ public class ProductoTerminadoRequest {
 	    private LocalDate fechaEnvasado;
 
 	    @Schema(description = "Fecha de vencimiento del producto", example = "2024-10-26", required = true)
+	    @JsonProperty("fechaVencimiento")
 	    private LocalDate fechaVencimiento;
 	    
 	    @Schema(description = "Precio de venta del producto", example = "1000", required = true)

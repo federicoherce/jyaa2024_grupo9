@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export interface Producto {
   nombre: string;
   fechaEnvasado: string;
-  fecha_vencimiento: string;
+  fechaVencimiento: string;
   precioVenta: number;
   cantidadProductos: number;
 }

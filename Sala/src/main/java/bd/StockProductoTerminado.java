@@ -1,7 +1,6 @@
 package bd;
 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "stocks_productos_terminados")
@@ -42,6 +42,7 @@ public class StockProductoTerminado {
 	private double precioVenta;
 
 	@Column(nullable = false)
+	@JsonProperty("fechaVencimiento")
 	private LocalDate fechaVencimiento;
 
 	@Column(nullable = false)
