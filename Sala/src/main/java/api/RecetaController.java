@@ -1,5 +1,7 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 
@@ -7,6 +9,7 @@ import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.json.JSONObject;
 
+import bd.FamiliaProductora;
 import bd.Receta;
 import bd.Usuario;
 import dao.RecetaDAO;
@@ -58,6 +61,23 @@ public class RecetaController {
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(receta).build();
+    }
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todas las recetas")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Recetas encontradas"),
+	    @ApiResponse(responseCode = "404", description = "Recetas Productoras no encontradas")
+	})
+    public Response getAllRecetas() {
+    	List<Receta> recetas = recetaDao.findAll();
+        if (recetas == null) {
+        	String mensaje = new JSONObject().put("message", "Recetas no encontradas").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(recetas).build();
     }
 	
 	
@@ -128,7 +148,8 @@ public class RecetaController {
     	if (aux != null){
     		aux.setActivo(false);
     		recetaDao.update(aux);
-    		return  Response.ok().entity("Receta eliminada").build();
+    		String mensaje = new JSONObject().put("message", "Receta eliminada").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); 
 	    } else {
 	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }

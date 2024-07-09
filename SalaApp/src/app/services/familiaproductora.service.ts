@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 export interface FamiliaProductora {
   id: number;
   nombre: string;
-  fecha_inicio: string;
+  fechaInicio: string;
   zona: string;
 }
 

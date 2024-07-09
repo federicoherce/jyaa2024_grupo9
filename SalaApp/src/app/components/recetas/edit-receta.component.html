@@ -1,5 +1,5 @@
 <div>
-    <h2>Edit User</h2>
+    <h2>Edit Receta</h2>
     <form (ngSubmit)="saveReceta(editForm)" #editForm="ngForm">    
 
       <div>
@@ -12,7 +12,7 @@
       </div>
       <div>
         <label for="usuarioMail">Creado por (mail):</label>
-        <input type="text" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail">
+        <input type="text" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail" disabled>
       </div>
       <button type="submit">Save Changes</button>
     </form>

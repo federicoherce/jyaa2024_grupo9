@@ -7,12 +7,12 @@
 
 <ul *ngIf="recetas.length">
   <li *ngFor="let receta of recetas">
-    Receta: {{ receta.nombre }} - Creada por: {{ receta.usuarioMail }}
+    Receta: {{ receta.nombre }} - Creada por: {{ receta.usuario.email }}
 
     <a class="btn btn-info btn-sm me-1" routerLink="/receta/{{ receta.id }}">Ver Detalles</a>
-    <a class="btn btn-info btn-sm" routerLink="/edit-familia/{{ receta.id }} ">Editar</a>
-    <a class="btn btn-danger btn-sm" routerLink="/delete-familia/{{ receta.id }}" >Eliminar</a>
+    <a class="btn btn-info btn-sm" routerLink="/edit-receta/{{ receta.id }} ">Editar</a>
+    <a class="btn btn-danger btn-sm" routerLink="/delete-receta/{{ receta.id }}" >Eliminar</a>
   </li>
 </ul>
 
-<div *ngIf="!recetas.length && !errorMessage">No se encontraron familias productoras.</div>
+<div *ngIf="!recetas.length && !errorMessage">No se encontraron recetas.</div>

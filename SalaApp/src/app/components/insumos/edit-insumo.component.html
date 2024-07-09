@@ -1,5 +1,5 @@
 <div>
-    <h2>Edit User</h2>
+    <h2>Edit Insumo</h2>
     <form (ngSubmit)="saveInsumo(editForm)" #editForm="ngForm">    
 
       <div>
@@ -11,8 +11,8 @@
         <input type="number" id="cantidad" [(ngModel)]="insumo.cantidad" name="cantidad" required>
       </div>
       <div>
-        <label for="costo_unitario">Costo Unitario:</label>
-        <input type="float" id="costo_unitario" [(ngModel)]="insumo.costo_unitario" name="costo_unitario">
+        <label for="costoUnitario">Costo Unitario:</label>
+        <input type="float" id="costoUnitario" [(ngModel)]="insumo.costoUnitario" name="costoUnitario">
       </div>
       <button type="submit">Save Changes</button>
     </form>

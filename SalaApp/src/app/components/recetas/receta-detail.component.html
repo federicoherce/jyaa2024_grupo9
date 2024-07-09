@@ -2,7 +2,7 @@
   <div *ngIf="receta" class="card">
     <h2 class="card-header">Receta: {{ receta.nombre }}</h2>
     <div class="card-body">
-      <p class="card-text"><strong>Creada por:</strong> {{ receta.usuarioMail }}</p>
+      <p class="card-text"><strong>Creada por:</strong> {{ receta.usuario.email }}</p>
       <p class="card-text"><strong>Texto:</strong> {{ receta.texto }}</p>
     </div>
   </div>

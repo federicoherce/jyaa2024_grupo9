@@ -17,6 +17,11 @@ import { RegisterInsumoComponent } from './components/insumos/registerInsumo.com
 import { EditInsumoComponent } from './components/insumos/edit-insumo.component';
 import { DeleteInsumoComponent } from './components/insumos/delete-insumo.component';
 import {CanalListComponent} from './components/canales/canal-list.component';
+import { RecetaListComponent } from './components/recetas/receta-list.component';
+import { RegisterRecetaComponent } from './components/recetas/registerReceta.component';
+import { RecetaDetailComponent } from './components/recetas/receta-detail.component';
+import { EditRecetaComponent } from './components/recetas/edit-receta.component';
+import { DeleteRecetaComponent } from './components/recetas/delete-receta.component';
 
 
 export const routes: Routes = [
@@ -39,7 +44,12 @@ export const routes: Routes = [
   { path: 'delete-insumo/:id', component: DeleteInsumoComponent },
   //Lotes
   { path: 'lotes', component: LoteListComponent },
-
+  //Receta
+  { path: 'recetas', component: RecetaListComponent },
+  { path: 'registerReceta', component: RegisterRecetaComponent },
+  { path: 'receta/:id', component: RecetaDetailComponent },
+  { path: 'edit-receta/:id', component: EditRecetaComponent },
+  { path: 'delete-receta/:id', component: DeleteRecetaComponent }, 
   //Productos
   { path: 'productos', component: ProductListComponent},
   { path: 'producto/:id', component: CreateProductComponent},

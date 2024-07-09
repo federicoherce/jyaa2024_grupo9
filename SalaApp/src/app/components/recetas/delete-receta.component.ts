@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecetaService, Receta } from '../../services/receta.service';
+import { RecetaService, Receta, RecetaRequest } from '../../services/receta.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class DeleteRecetaComponent implements OnInit {
-  receta: Receta = { id:0, nombre: '', texto: '', usuarioMail: '' };
+  receta: RecetaRequest = { nombre: '', texto: '', usuarioMail: '' };
   errorMessage: string = '';
   successMessage: string = '';
   recetaId: number | null = null;
@@ -30,7 +30,8 @@ export class DeleteRecetaComponent implements OnInit {
   loadReceta(id: number) {
     this.recetaService.getReceta(id).subscribe(
       (receta) => {
-        this.receta = receta;
+        this.receta.id = receta.id;
+        this.receta.nombre = receta.nombre;
       },
       (error) => {
         console.error('Error: ', error);

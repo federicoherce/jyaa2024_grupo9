@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecetaService, Receta } from '../../services/receta.service';
+import { RecetaService, Receta, RecetaRequest } from '../../services/receta.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class EditRecetaComponent implements OnInit {
-  receta: Receta = { nombre: '', texto: '', usuarioMail: '' };
+  receta: RecetaRequest = { nombre: '', texto: '', usuarioMail: '' };
   errorMessage: string = '';
   successMessage: string = '';
   recetaId: number | null = null;
@@ -31,11 +31,9 @@ export class EditRecetaComponent implements OnInit {
   loadReceta(id: number) {
     this.recetaService.getReceta(id).subscribe(
       (receta) => {
-        this.receta = {
-          nombre: receta.nombre,
-          texto: receta.texto,
-          usuarioMail: receta.usuarioMail
-        };
+        this.receta.nombre = receta.nombre;
+        this.receta.texto= receta.texto;
+        this.receta.usuarioMail= receta.usuario.email;
       },
       (error) => {
         console.error('Error: ', error);

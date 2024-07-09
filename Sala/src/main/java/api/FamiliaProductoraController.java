@@ -86,7 +86,9 @@ public class FamiliaProductoraController {
 	})
     public Response createFamiliaProductora(@Parameter(description = "Datos de la familia productora", required = true) FamiliaProductora fp) {
 		FamiliaProductora aux = new FamiliaProductora(fp.getNombre(), fp.getFechaInicio(), fp.getZona());
+		System.out.println("entro");
     	try {
+    		System.out.print("entro");
         	fpDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class RegisterFamiliaComponent {
-  familia: FamiliaProductora = { id: 0, nombre: '', fecha_inicio: '', zona: '' };
+  familia: FamiliaProductora = { id: 0, nombre: '', fechaInicio: '', zona: '' };
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -19,6 +19,7 @@ export class RegisterFamiliaComponent {
 
   register(registerForm: NgForm) {
     if (registerForm.valid) {
+      console.log(this.familia.id + ' ' + this.familia.fechaInicio)
       this.familiaService.createFamiliaProductora(this.familia).subscribe(
         response => {
           console.log('Familia Productora creada', response);

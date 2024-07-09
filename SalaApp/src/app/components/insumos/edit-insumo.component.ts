@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class EditInsumoComponent implements OnInit {
-  insumo: Insumo = { nombre: '', cantidad: 0, costo_unitario: '0' };
+  insumo: Insumo = { id:0, nombre: '', cantidad: 0, costoUnitario: '0' };
   errorMessage: string = '';
   successMessage: string = '';
   insumoId: number | null = null;
@@ -32,9 +32,10 @@ export class EditInsumoComponent implements OnInit {
     this.insumoService.getInsumo(id).subscribe(
       (insumo) => {
         this.insumo = {
+          id: insumo.id,
           nombre: insumo.nombre,
           cantidad: insumo.cantidad,
-          costo_unitario: insumo.costo_unitario
+          costoUnitario: insumo.costoUnitario
         };
       },
       (error) => {

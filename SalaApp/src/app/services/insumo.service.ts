@@ -7,7 +7,7 @@ export interface Insumo {
   id?: number | null;
   nombre: string;
   cantidad: number;
-  costo_unitario: string;
+  costoUnitario: string;
 }
 
 /*export interface FamiliaProductoraPost {
