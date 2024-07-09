@@ -117,8 +117,9 @@ public class InsumosController {
     		insumoDao.update(insumo);
     		return Response.ok().entity(insumo).build();
     	}
-	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("El insumo no existe").build(); 
+	    else {
+	    	String mensaje = new JSONObject().put("message", "El insumo no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
 	
 	
@@ -135,9 +136,11 @@ public class InsumosController {
     	if (aux != null){
     		aux.setActivo(false);
     		insumoDao.update(aux);
-    		return  Response.ok().entity("Insumo eliminado").build();
+    		String mensaje = new JSONObject().put("message", "Insumo eliminado").toString();
+    		return  Response.ok().entity(mensaje).build();
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Insumo no encontrado").build();
+	    	String mensaje = new JSONObject().put("message", "El insumo no existe").toString();
+	    	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 	  	}
 	}
 }

@@ -3,58 +3,58 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-export interface Insumo {
-  id?: number | null;
+export interface Receta {
+  id: number;
   nombre: string;
-  cantidad: number;
-  costo_unitario: string;
+  texto: string;
+  usuarioMail: string;
 }
 
-/*export interface FamiliaProductoraPost {
+export interface RecetaRequest {
   id?: number;
   nombre: string;
-  fecha_inicio: string;
-  zona: string;
-}*/
+  texto: string;
+  usuarioMail: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class InsumoService {
-  private apiURL = 'http://localhost:8080/Sala/insumos'; 
+export class RecetaService {
+  private apiURL = 'http://localhost:8080/Sala/recetas'; 
 
 
   constructor(private http: HttpClient) {
   }
 
   
-  createInsumo(insumo: Insumo): Observable<Insumo> {
+  createReceta(receta: RecetaRequest): Observable<RecetaRequest> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Insumo>(this.apiURL, insumo, { headers: headers })
+    return this.http.post<RecetaRequest>(this.apiURL, receta, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getInsumo(id: number): Observable<Insumo> {
-    return this.http.get<Insumo>(`${this.apiURL}/${id}`);
+  getReceta(id: number): Observable<Receta> {
+    return this.http.get<Receta>(`${this.apiURL}/${id}`);
   }
 
-  getInsumos(): Observable<Insumo[]> {
-    return this.http.get<Insumo[]>(`${this.apiURL}/all`);
+  getRecetas(): Observable<Receta[]> {
+    return this.http.get<Receta[]>(`${this.apiURL}/all`);
   }
 
 
-  updateInsumo(insumo: Insumo): Observable<Insumo> {
+  updateReceta(receta: RecetaRequest): Observable<RecetaRequest> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Insumo>(this.apiURL, insumo, { headers: headers })
+    return this.http.put<RecetaRequest>(this.apiURL, receta, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteInsumo(id: number): Observable<void> {
+  deleteReceta(id: number): Observable<void> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: headers })
       .pipe(

@@ -1,0 +1,13 @@
+<div class="container mt-3">
+  <div *ngIf="receta" class="card">
+    <h2 class="card-header">Receta: {{ receta.nombre }}</h2>
+    <div class="card-body">
+      <p class="card-text"><strong>Creada por:</strong> {{ receta.usuarioMail }}</p>
+      <p class="card-text"><strong>Texto:</strong> {{ receta.texto }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -4,14 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 export interface FamiliaProductora {
-  id?: number | null;
-  nombre: string;
-  fecha_inicio: Date;
-  zona: string;
-}
-
-export interface FamiliaProductoraPost {
-  id?: number;
+  id: number;
   nombre: string;
   fecha_inicio: string;
   zona: string;
@@ -29,9 +22,9 @@ export class FamiliaProductoraService {
   }
 
   
-  createFamiliaProductora(fp: FamiliaProductoraPost): Observable<FamiliaProductoraPost> {
+  createFamiliaProductora(fp: FamiliaProductora): Observable<FamiliaProductora> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<FamiliaProductoraPost>(this.apiURL, fp, { headers: headers })
+    return this.http.post<FamiliaProductora>(this.apiURL, fp, { headers: headers })
       .pipe(
         catchError(this.handleError)
       );

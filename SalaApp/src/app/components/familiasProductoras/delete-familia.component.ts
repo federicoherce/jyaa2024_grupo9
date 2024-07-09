@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class DeleteFamiliaComponent implements OnInit {
-  familia: FamiliaProductora = { nombre: '', fecha_inicio: new Date(), zona: '' };
+  familia: FamiliaProductora = { id:0, nombre: '', fecha_inicio: '', zona: '' };
   errorMessage: string = '';
   successMessage: string = '';
   familiaId: number | null = null;

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class RegisterInsumoComponent {
-  insumo: Insumo = { nombre: '', cantidad: 0, costo_unitario: 0 };
+  insumo: Insumo = { id: 0, nombre: '', cantidad: 0, costo_unitario: '0.0' };
   errorMessage: string = '';
   successMessage: string = '';
 

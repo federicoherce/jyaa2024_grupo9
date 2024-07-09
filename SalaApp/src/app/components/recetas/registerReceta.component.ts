@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
-import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
+import { RecetaService, Receta, RecetaRequest } from '../../services/receta.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   imports: [FormsModule, CommonModule],
   standalone: true,
-  selector: 'app-registerFamilia',
-  templateUrl: './registerFamilia.component.html'
+  selector: 'app-registerReceta',
+  templateUrl: './registerReceta.component.html'
 })
 
-export class RegisterFamiliaComponent {
-  familia: FamiliaProductora = { id: 0, nombre: '', fecha_inicio: '', zona: '' };
+export class RegisterRecetaComponent {
+  receta: RecetaRequest = { nombre: '', texto: '', usuarioMail: '' };
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private familiaService: FamiliaProductoraService) {}
+  constructor(private recetaService: RecetaService) {}
 
   register(registerForm: NgForm) {
     if (registerForm.valid) {
-      this.familiaService.createFamiliaProductora(this.familia).subscribe(
+      this.recetaService.createReceta(this.receta).subscribe(
         response => {
-          console.log('Familia Productora creada', response);
-          this.successMessage = "Familia Productora creada con exito";
+          console.log('Receta creada', response);
+          this.successMessage = "Receta creada con exito";
         },
         error => {
           console.error('Error: ', error);

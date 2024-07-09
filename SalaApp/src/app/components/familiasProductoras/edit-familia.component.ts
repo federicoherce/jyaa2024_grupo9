@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class EditFamiliaComponent implements OnInit {
-  familia: FamiliaProductora = { nombre: '', fecha_inicio: new Date(), zona: '' };
+  familia: FamiliaProductora = { id:0, nombre: '', fecha_inicio: '', zona: '' };
   errorMessage: string = '';
   successMessage: string = '';
   familiaId: number | null = null;
@@ -32,6 +32,7 @@ export class EditFamiliaComponent implements OnInit {
     this.familiaProductoraService.getFamiliaProductora(id).subscribe(
       (familia) => {
         this.familia = {
+          id: familia.id,
           nombre: familia.nombre,
           fecha_inicio: familia.fecha_inicio,
           zona: familia.zona

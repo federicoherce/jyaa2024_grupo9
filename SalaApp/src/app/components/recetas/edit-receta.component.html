@@ -1,0 +1,26 @@
+<div>
+    <h2>Edit User</h2>
+    <form (ngSubmit)="saveReceta(editForm)" #editForm="ngForm">    
+
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="receta.nombre" name="nombre" required>
+      </div>
+      <div>
+        <label for="texto">Texto:</label>
+        <input type="text" id="texto" [(ngModel)]="receta.texto" name="texto" required>
+      </div>
+      <div>
+        <label for="usuarioMail">Creado por (mail):</label>
+        <input type="text" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail">
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+    <div *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+    <div *ngIf="successMessage">
+      <p>{{ successMessage }}</p>
+    </div>
+  </div>
+  

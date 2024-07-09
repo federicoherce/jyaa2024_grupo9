@@ -1,0 +1,12 @@
+<div *ngIf="receta">
+    <h2>Eliminar Receta</h2>
+    <p>¿Estás seguro de que deseas eliminar la receta: {{ receta.nombre }} ?</p>
+    <button (click)="deleteReceta()">Eliminar</button>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p>{{ successMessage }}</p>
+</div>
+  

@@ -5,6 +5,8 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
+
 import bd.Receta;
 import bd.Usuario;
 import dao.RecetaDAO;
@@ -72,17 +74,19 @@ public class RecetaController {
     public Response createReceta(@Parameter(description = "Datos de la receta", required = true) RecetaRequest receta) {
 		Usuario user = usuarioDao.findActiveByEmail(receta.getUsuarioMail());
 		if (user == null) {
-			return Response.status(Status.NOT_FOUND).entity("El usuario especificado no existe").build();
-		}
+			String mensaje = new JSONObject().put("message", "El usuario especificado no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
 		Receta aux = new Receta(receta.getNombre(), receta.getTexto(), user);
 		try {
         	recetaDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "Ya existe una receta con ese nombre").toString();
+        		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
+            if (cause instanceof PropertyValueException) {
+            	String mensaje = new JSONObject().put("message", "No se completaron correctamente solo los campos").toString();
+        		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
     	return Response.status(Response.Status.CREATED).entity(aux).build();
    }
@@ -105,8 +109,9 @@ public class RecetaController {
     		recetaDao.update(aux);
     		return Response.ok().entity(aux).build();
     	}
-	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("La receta no existe").build(); 
+	    else {
+	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
+    		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
 	
 	
@@ -125,8 +130,8 @@ public class RecetaController {
     		recetaDao.update(aux);
     		return  Response.ok().entity("Receta eliminada").build();
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Receta no encontrada").build();
-	  	}
+	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
 	}
 
 }

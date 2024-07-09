@@ -1,0 +1,25 @@
+<div>
+  <h2>Registrar Receta</h2>
+  <form (ngSubmit)="register(registerForm)" #registerForm="ngForm">    
+
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="receta.nombre" name="nombre" required>
+    </div>
+    <div>
+      <label for="texto">Texto:</label>
+      <input type="text" id="texto" [(ngModel)]="receta.texto" name="texto" required>
+    </div>
+    <div>
+      <label for="usuarioMail">Creado por (mail):</label>
+      <input type="text" id="usuarioMail" [(ngModel)]="receta.usuarioMail" name="usuarioMail" required>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p>{{ successMessage }}</p>
+  </div>
+</div>

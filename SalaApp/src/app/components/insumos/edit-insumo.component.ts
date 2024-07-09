@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class EditInsumoComponent implements OnInit {
-  insumo: Insumo = { nombre: '', cantidad: 0, costo_unitario: 0 };
+  insumo: Insumo = { nombre: '', cantidad: 0, costo_unitario: '0' };
   errorMessage: string = '';
   successMessage: string = '';
   insumoId: number | null = null;
