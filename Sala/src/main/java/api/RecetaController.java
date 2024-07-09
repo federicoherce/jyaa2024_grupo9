@@ -1,10 +1,15 @@
 package api;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
+
+import bd.FamiliaProductora;
 import bd.Receta;
 import bd.Usuario;
 import dao.RecetaDAO;
@@ -58,6 +63,23 @@ public class RecetaController {
         return Response.ok(receta).build();
     }
 	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todas las recetas")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Recetas encontradas"),
+	    @ApiResponse(responseCode = "404", description = "Recetas Productoras no encontradas")
+	})
+    public Response getAllRecetas() {
+    	List<Receta> recetas = recetaDao.findAll();
+        if (recetas == null) {
+        	String mensaje = new JSONObject().put("message", "Recetas no encontradas").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(recetas).build();
+    }
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -72,17 +94,19 @@ public class RecetaController {
     public Response createReceta(@Parameter(description = "Datos de la receta", required = true) RecetaRequest receta) {
 		Usuario user = usuarioDao.findActiveByEmail(receta.getUsuarioMail());
 		if (user == null) {
-			return Response.status(Status.NOT_FOUND).entity("El usuario especificado no existe").build();
-		}
+			String mensaje = new JSONObject().put("message", "El usuario especificado no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
 		Receta aux = new Receta(receta.getNombre(), receta.getTexto(), user);
 		try {
         	recetaDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "Ya existe una receta con ese nombre").toString();
+        		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
+            if (cause instanceof PropertyValueException) {
+            	String mensaje = new JSONObject().put("message", "No se completaron correctamente solo los campos").toString();
+        		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
     	return Response.status(Response.Status.CREATED).entity(aux).build();
    }
@@ -105,8 +129,9 @@ public class RecetaController {
     		recetaDao.update(aux);
     		return Response.ok().entity(aux).build();
     	}
-	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("La receta no existe").build(); 
+	    else {
+	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
+    		return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
 	
 	
@@ -123,10 +148,11 @@ public class RecetaController {
     	if (aux != null){
     		aux.setActivo(false);
     		recetaDao.update(aux);
-    		return  Response.ok().entity("Receta eliminada").build();
+    		String mensaje = new JSONObject().put("message", "Receta eliminada").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); 
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Receta no encontrada").build();
-	  	}
+	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
 	}
 
 }

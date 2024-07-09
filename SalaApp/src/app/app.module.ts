@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
  ],
   providers:    [], 
   declarations: [
-  
   ],
   exports:      [],
   bootstrap:    []
