@@ -26,8 +26,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
+import org.json.JSONObject;
+
 import bd.FamiliaProductora;
 
 
@@ -59,6 +64,24 @@ public class MateriaPrimaController {
 		}
 		return Response.ok(materiaPrima).build();
 	}
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todas las materias primas")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Materias primas encontradas", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MateriaPrima.class))),
+			@ApiResponse(responseCode = "404", description = "Materias primas no encontradas") })
+	public Response getAllMateriasPrimas() {
+		List<MateriaPrima> materiasPrimas =  materiaPrimaDAO.findAll();
+		if (materiasPrimas.isEmpty()) {
+			String mensaje = new JSONObject().put("message", "No se encontaron materias primas").toString();
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+		return Response.ok(materiasPrimas).build();
+	}
+	
+	
 	
 	
 	@POST

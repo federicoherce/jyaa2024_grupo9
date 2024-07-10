@@ -25,6 +25,7 @@ import { RegisterRecetaComponent } from './components/recetas/registerReceta.com
 import { RecetaDetailComponent } from './components/recetas/receta-detail.component';
 import { EditRecetaComponent } from './components/recetas/edit-receta.component';
 import { DeleteRecetaComponent } from './components/recetas/delete-receta.component';
+import {MateriaListComponent} from './components/MateriasPrimas/materia-list.component';
 
 
 export const routes: Routes = [
@@ -61,7 +62,11 @@ export const routes: Routes = [
   {path: 'canales', component: CanalListComponent},
   {path: 'delete-canal/:id', component: DeleteCanalComponent},
   {path: 'edit-canal/:id', component: EditCanalComponent},
-  {path: 'create-canal', component: CreateCanalComponent}
+  {path: 'create-canal', component: CreateCanalComponent},
+
+  //Materias Primas
+  {path: 'materiasPrimas', component: MateriaListComponent}
+
   
 ];
 
