@@ -40,6 +40,7 @@ export class CreateMateriaComponent {
             this.successMessage = "Materia prima creada con exito";
         },
         error => {
+            console.log(this.materia.nombreProductor)
             console.error('Error: ', error);
             this.errorMessage = error.error.message;
         }

@@ -1,13 +1,12 @@
 <div class="container mt-3">
-  <!-- Mensaje de error -->
   <div *ngIf="errorMessage" class="alert alert-danger">
     {{ errorMessage }}
   </div>
 
-  <!-- Botón para registrar nueva familia productora -->
+  
   <a class="btn btn-primary mb-2" routerLink="/registerFamilia">Registrar Nueva Familia Productora</a>
 
-  <!-- Lista de familias productoras -->
+  
   <ul *ngIf="familias.length" class="list-group">
     <li *ngFor="let familia of familias" class="list-group-item d-flex justify-content-between align-items-center">
       <div>
@@ -20,7 +19,7 @@
     </li>
   </ul>
 
-  <!-- Mensaje si no hay familias productoras -->
+  
   <div *ngIf="!familias.length && !errorMessage" class="alert alert-warning mt-3">
     No se encontraron familias productoras.
   </div>

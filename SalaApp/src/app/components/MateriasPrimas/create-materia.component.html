@@ -20,8 +20,9 @@
           <div class="mb-3">
             <label for="productor" class="form-label">Productor:</label>
             <select id="productor" [(ngModel)]="materia.nombreProductor" name="productor" required class="form-control">
-                <option *ngFor="let productor of familias" [ngModel]="productor">{{ productor.nombre }}</option>
-            </select>
+              <option *ngFor="let productor of familias" [ngValue]="productor.nombre">{{ productor.nombre }}</option>
+          </select>
+          
         </div>
         </div>
         <div>        <button type="submit" class="btn btn-primary">Guardar Cambios</button>

@@ -11,10 +11,6 @@ public class MateriaPrimaRequest {
 	@Schema(description = "Nombre de la materia prima", example = "Azucar", required= true)
 	private String nombre;
 
-	@Schema(description = "Precio de la materia prima", example = "1000", required = true)
-	private double  precio;
-
-
 	@Schema(description = "Fecha de compra de la materia prima", example = "2021-06-15", required = true)
 	private LocalDate fechaCompra;
 	
@@ -67,19 +63,10 @@ public class MateriaPrimaRequest {
 		return nombre;
 	}
 
-	public double getPrecio() {
-		return precio;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public void setPrecio(int precio) {
-		this.precio = precio;
-	}
-	
-	
 	public void setFechaCompra(LocalDate fecha_compra) {
 		this.fechaCompra = fecha_compra;
 	}

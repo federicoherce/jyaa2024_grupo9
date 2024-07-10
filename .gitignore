@@ -3,6 +3,7 @@
 /bin/
 .project
 .metadata
+.idea/
 .classpath
 .settings/
 build/
