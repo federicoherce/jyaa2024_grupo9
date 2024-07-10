@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InsumoService } from '../../services/insumo.service';
+import { Insumo, InsumoService } from '../../services/insumo.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ItemDeInsumo, ProductoService } from '../../services/producto.service';
@@ -14,11 +14,12 @@ import { ItemDeInsumo, ProductoService } from '../../services/producto.service';
 export class AgregarInsumosComponent implements OnInit {
   productId: string = '';
   insumos: any[] = [];
-  selectedInsumo: number | null = 0;
+  selectedInsumo: Insumo | null = null;
   cantidad: number = 0;
+  insumoNombre: string = '';
   errorMessage: string | null = null;
   successMessage: string | null = null;
-  nuevoInsumo: ItemDeInsumo = {cantidad: 0, insumo: 0}
+  nuevoInsumo: ItemDeInsumo = {cantidad: 0, insumo: 0, nombre: ''}
 
   constructor(private route: ActivatedRoute, private insumoService: InsumoService, private productoService: ProductoService) {}
 
@@ -44,23 +45,25 @@ export class AgregarInsumosComponent implements OnInit {
   }
   
   addInsumo(insumoForm: NgForm) {
-    if (insumoForm.valid) {
+    if (insumoForm.valid && this.selectedInsumo) {
         this.nuevoInsumo = {
             cantidad: this.cantidad,
-            insumo: this.selectedInsumo ?? 0
+            nombre: this.selectedInsumo.nombre,
+            insumo: this.selectedInsumo.id ?? 0
         }
+        console.log("NUEVO INSUMO " + this.nuevoInsumo.nombre);
           };
           this.productoService.agregarInsumos(this.productId, this.nuevoInsumo).subscribe(
             response => {
               this.successMessage = "Insumo agregado con éxito";
               insumoForm.reset();
-              this.selectedInsumo = 0;
+              this.selectedInsumo = null;
               this.cantidad = 0;
             },
             error => {
               console.log(this.nuevoInsumo)
               console.error('Error al agregar insumo', error);
-              this.errorMessage = 'Error al agregar insumo';
+              this.errorMessage = error.error.message;
             }
           );
         }

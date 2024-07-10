@@ -17,6 +17,7 @@ export interface Producto {
 export interface ItemDeInsumo {
   cantidad: number;
   insumo: number;
+  nombre: string;
 }
 
 @Injectable({

@@ -104,7 +104,6 @@ public class ProductoElaboradoController {
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
     			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
-    		//StockProductoTerminado prod = new StockProductoTerminado(producto.getNombre(), producto.getFechaEnvasado(), producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getCantidadProductos());
     		prod.setLote(lote);
     		prod.setCostoTotal(lote.getCostoLote());
     		stockDao.persist(prod);
@@ -132,9 +131,13 @@ public class ProductoElaboradoController {
         		String mensaje = new JSONObject().put("message", "El insumo ya se encuentra asociado").toString();
                 return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
             }
-		int idInsumo = insumoRequest.getInsumo();
+        int idInsumo = insumoRequest.getInsumo();
 		int cantidadInsumo = insumoRequest.getCantidad();
 		Insumo insumo = insumoDao.findActiveById(idInsumo);
+		if (insumo.getCantidad() < cantidadInsumo) {
+			String mensaje = new JSONObject().put("message", "Cantidad de insumos insuficiente").toString();
+            return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+		}	
 		ItemDeInsumo itemInsumo = new ItemDeInsumo(cantidadInsumo, producto, insumo);
 		insumo.setCantidad(insumo.getCantidad() - cantidadInsumo);
 		insumoDao.update(insumo);
