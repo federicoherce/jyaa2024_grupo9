@@ -74,7 +74,7 @@ public class MateriaPrimaController {
 			@ApiResponse(responseCode = "404", description = "Materias primas no encontradas") })
 	public Response getAllMateriasPrimas() {
 		List<MateriaPrima> materiasPrimas =  materiaPrimaDAO.findAll();
-		if (materiasPrimas.isEmpty()) {
+		if (materiasPrimas == null) {
 			String mensaje = new JSONObject().put("message", "No se encontaron materias primas").toString();
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
@@ -95,7 +95,9 @@ public class MateriaPrimaController {
 		    @ApiResponse(responseCode = "404", description = "Materia prima no encontrado")
 		})
 	public Response crearMateriaPrima(@Parameter(description = "Datos de la nueva materia prima", required = true) MateriaPrimaRequest materiaPrima) {
-		
+		String mensaje = "";
+		String mensaje1 = new JSONObject().put("message", "El nombre ya se encuentra registrado").toString();
+		String mensaje2 = new JSONObject().put("message", "Falta completar campo/s obligatorio/s").toString();
 		FamiliaProductora productor = familiaProductoraDAO.getByName(materiaPrima.getNombreProductor());
 		
 		MateriaPrima materia = new MateriaPrima(materiaPrima.getNombre(), materiaPrima.getPeso()
@@ -105,25 +107,29 @@ public class MateriaPrimaController {
 		
 		//FamiliaProductora productor = materiaPrima.getProductor();
 		if (productor == null || productor.getNombre() == null || productor.getNombre().isEmpty()) {
-			return Response.status(Status.BAD_REQUEST).entity("El nombre del productor es requerido").build();
+			mensaje = new JSONObject().put("message", "El nombre del productor es requerido").toString();
+			return Response.status(Status.BAD_REQUEST).entity(mensaje).build();
 		}
 			
 		try {
 			FamiliaProductora productorEncontrado = familiaProductoraDAO.getByName(productor.getNombre());
 			if (productorEncontrado == null) {
-				return Response.status(Status.NOT_FOUND).entity("El productor especificado no existe").build();
+				mensaje = new JSONObject().put("message", "El productor no existe").toString();
+				return Response.status(Status.NOT_FOUND).entity(mensaje).build();
 			}
 			materia.setProductor(productorEncontrado);
 			materiaPrimaDAO.persist(materia);
-			return Response.status(Status.CREATED).entity("Materia prima creada exitosamente").build();
+			mensaje = new JSONObject().put("message", "Materia prima creada exitosamente").toString();
+			return Response.status(Status.CREATED).entity(mensaje).build();
 	   	} catch (PersistenceException e) {
 	        Throwable cause = e.getCause();
 	        if (cause instanceof ConstraintViolationException) 
-	        	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
+	        	return Response.status(Response.Status.CONFLICT).entity(mensaje1).build();	
 	        if (cause instanceof PropertyValueException) 
-	        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+	        	return Response.status(Response.Status.CONFLICT).entity(mensaje2).build();
 	}
-	return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Error interno del servidor").build();
+	mensaje = new JSONObject().put("message", "Error interno del servidor").toString();	
+	return Response.status(Status.INTERNAL_SERVER_ERROR).entity(mensaje).build();
   }
 		
 

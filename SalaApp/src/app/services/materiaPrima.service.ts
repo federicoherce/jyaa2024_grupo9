@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import exp from 'constants';
 
 
 export interface MateriaPrima {
@@ -22,6 +23,16 @@ export interface Productor {
     fechaInicio: string;
     zona: string;
 }
+export interface MateriaPrimaPost {
+    nombre: string;
+    precio: number;
+    fechaCompra: string;
+    fechaVencimiento: string;
+    costoPorKg: number;
+    formaAlmacenamiento: string;
+    peso: number;
+    nombreProductor: string;
+}
 
 export interface MateriaPrimaRequest {
     nombre: string;
@@ -32,6 +43,7 @@ export interface MateriaPrimaRequest {
     formaAlmacenamiento: string;
     peso: number;
     productor: Productor;
+    nombreProductor: string;
 }
 
 
@@ -67,7 +79,7 @@ export class MateriaPrimaService {
         return throwError(error);
       }
     
-      updateMateriaPrima(materiaPrima: MateriaPrimaRequest, id: number): Observable<MateriaPrima> {
+      updateMateriaPrima(materiaPrima: MateriaPrimaPost, id: number): Observable<MateriaPrima> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.put<MateriaPrima>(`${this.apiURL}/${id}`, materiaPrima, { headers: headers })
           .pipe(
@@ -75,7 +87,7 @@ export class MateriaPrimaService {
           );
       }
     
-      createMateriaPrima(materiaPrima: MateriaPrimaRequest): Observable<MateriaPrima> {
+      createMateriaPrima(materiaPrima: MateriaPrimaPost): Observable<MateriaPrima> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<MateriaPrima>(`${this.apiURL}`, materiaPrima, { headers: headers })
           .pipe(
