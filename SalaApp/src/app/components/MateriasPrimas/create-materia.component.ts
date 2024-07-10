@@ -12,7 +12,7 @@ import { FormsModule, NgForm } from '@angular/forms';
     templateUrl: './create-materia.component.html'
     })
 export class CreateMateriaComponent {
-    materia : MateriaPrimaPost = {nombre: '', precio: 0, fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0 ,nombreProductor: ''};
+    materia : MateriaPrimaPost = {nombre: '', fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0 ,nombreProductor: ''};
     familias: FamiliaProductora[] = [];
     errorMessage: string = '';
     successMessage: string = '';

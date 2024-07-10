@@ -13,7 +13,7 @@ import { FamiliaProductoraService, FamiliaProductora } from '../../services/fami
 })
 
 export class EditMateriaComponent implements OnInit {
-    materia : MateriaPrimaPost = {nombre: '', precio: 0, fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0 ,nombreProductor: ''};
+    materia : MateriaPrimaPost = {nombre: '',fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0 ,nombreProductor: ''};
     errorMessage: string = '';
     successMessage: string = '';
     materiaId: number | null = null;
@@ -44,7 +44,6 @@ export class EditMateriaComponent implements OnInit {
             (materia) => {
                 this.materia = {
                 nombre: materia.nombre,
-                precio: materia.precio,
                 fechaCompra: materia.fechaCompra,
                 fechaVencimiento: materia.fechaVencimiento,
                 costoPorKg: materia.costoPorKg,

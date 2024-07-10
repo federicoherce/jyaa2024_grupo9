@@ -12,7 +12,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
     })
 
 export class MateriaDeleteComponent implements OnInit {
-    materia: MateriaPrimaRequest = {nombre: '', precio: 0, fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0, productor: {id: 0, nombre: '', fechaInicio: '', zona: ''},nombreProductor: ''};
+    materia: MateriaPrimaRequest = {nombre: '',fechaCompra: '', fechaVencimiento: '', costoPorKg: 0, formaAlmacenamiento: '', peso: 0, productor: {id: 0, nombre: '', fechaInicio: '', zona: ''},nombreProductor: ''};
     errorMessage: string = '';
     successMessage: string = '';
     materiaId: number | null = null;

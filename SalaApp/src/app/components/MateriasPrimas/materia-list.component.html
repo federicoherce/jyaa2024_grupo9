@@ -9,6 +9,9 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Nombre productor</th>
+                        <th>Costo por kg</th>
+                        <th>Fecha de compra</th>
+                        <th>Fecha de vencimiento</th>
 
                     </tr>
                 </thead>
@@ -16,6 +19,9 @@
                     <tr *ngFor="let materiaPrima of materias">
                         <td>{{ materiaPrima.nombre }}</td>
                         <td>{{ materiaPrima.productor.nombre}}</td>
+                        <td>{{ materiaPrima.costoPorKg}}</td>
+                        <td>{{ materiaPrima.fechaCompra }}</td>
+                        <td>{{ materiaPrima.fechaVencimiento }}</td>
                         <td>
                             <a class="btn btn-danger btn-sm" routerLink="/delete-materia/{{ materiaPrima.id }}">Eliminar</a>
                             <a class="btn btn-warning btn-sm me-1" routerLink="/edit-materia/{{ materiaPrima.id }}">Editar</a>
