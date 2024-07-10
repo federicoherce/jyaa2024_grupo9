@@ -17,15 +17,23 @@ import { RegisterInsumoComponent } from './components/insumos/registerInsumo.com
 import { EditInsumoComponent } from './components/insumos/edit-insumo.component';
 import { DeleteInsumoComponent } from './components/insumos/delete-insumo.component';
 import {CanalListComponent} from './components/canales/canal-list.component';
+import {DeleteCanalComponent} from './components/canales/delete-canal.component';
+import {EditCanalComponent} from './components/canales/edit-canal.component';
+import {CreateCanalComponent} from './components/canales/create-canal.component';
 import { RecetaListComponent } from './components/recetas/receta-list.component';
 import { RegisterRecetaComponent } from './components/recetas/registerReceta.component';
 import { RecetaDetailComponent } from './components/recetas/receta-detail.component';
 import { EditRecetaComponent } from './components/recetas/edit-receta.component';
 import { DeleteRecetaComponent } from './components/recetas/delete-receta.component';
 import { AgregarInsumosComponent } from './components/productoElaborado/add-supplies.component';
+import {MateriaListComponent} from './components/MateriasPrimas/materia-list.component';
+import {MateriaDeleteComponent} from './components/MateriasPrimas/delete-materia.component';
+import {EditMateriaComponent} from './components/MateriasPrimas/edit-materia.component';
+import {CreateMateriaComponent} from './components/MateriasPrimas/create-materia.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
-  
+  { path: '', component: HomeComponent },
   //Usuarios
   { path: 'users', component: UserListComponent },
   { path: 'register', component: RegisterComponent },
@@ -61,7 +69,18 @@ export const routes: Routes = [
   { path: 'producto/:id', component: CreateProductComponent},
 
   //Canales
-  {path: 'canales', component: CanalListComponent}
+  {path: 'canales', component: CanalListComponent},
+  {path: 'delete-canal/:id', component: DeleteCanalComponent},
+  {path: 'edit-canal/:id', component: EditCanalComponent},
+  {path: 'create-canal', component: CreateCanalComponent},
+
+  //Materias Primas
+  {path: 'materiasPrimas', component: MateriaListComponent},
+  {path : 'delete-materia/:id', component: MateriaDeleteComponent},
+  {path: 'edit-materia/:id', component: EditMateriaComponent},
+  {path: 'create-materia', component: CreateMateriaComponent},
+
+
   
 ];
 

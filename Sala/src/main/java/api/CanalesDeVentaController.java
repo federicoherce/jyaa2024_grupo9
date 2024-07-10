@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
+
 import bd.CanalDeVenta;
 import dao.CanalDeVentaDAO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +51,7 @@ public class CanalesDeVentaController {
 	public Response getCanalDeVentaById(@Parameter(description = "ID del canal de ventas", required = true)@PathParam("id") int id) {
 		CanalDeVenta canalDeVenta = canalesDeVentaDao.findActiveById(id);
 		if (canalDeVenta == null) {
-			String mensaje = "No se encontró el canal de venta";
+			String mensaje = new JSONObject().put("message", "No se encontró el canal de venta").toString();
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 		return Response.ok(canalDeVenta).build();
@@ -64,7 +66,7 @@ public class CanalesDeVentaController {
 	public Response getAllCanalesDeVenta() {
 		List<CanalDeVenta> canales = canalesDeVentaDao.findAll();
 		if (canales == null) {
-			String mensaje = "No hay canales de venta disponibles";
+			String mensaje = new JSONObject().put("message", "No hay canales de venta disponibles").toString();
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 			
 		}
@@ -86,15 +88,19 @@ public class CanalesDeVentaController {
 	})
 	public Response createCanalDeVenta(@Parameter(description = "Datos del nuevo canal", required = true) CanalDeVentaRequest
 			canalDeVenta) {
-		CanalDeVenta canal = new CanalDeVenta(canalDeVenta.getNombre(), canalDeVenta.getUbicacion());	
+		CanalDeVenta canal = new CanalDeVenta(canalDeVenta.getNombre(), canalDeVenta.getUbicacion());
+		String mensaje = new JSONObject().put("message", "El nombre ya se encuentra registrado").toString();
+		String mensaje1 = new JSONObject().put("message", "Falta completar campo/s obligatorio/s").toString();
+		
 		try {
 			canalesDeVentaDao.persist(canal);
 	   	} catch (PersistenceException e) {
 	        Throwable cause = e.getCause();
 	        if (cause instanceof ConstraintViolationException) 
-	        	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
+	  
+	        	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();	
 	        if (cause instanceof PropertyValueException) 
-	        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+	        	return Response.status(Response.Status.CONFLICT).entity(mensaje1).build();
 	}
 		return Response.status(Response.Status.CREATED).entity(canal).build();
 	}
@@ -120,7 +126,8 @@ public class CanalesDeVentaController {
 	        return Response.ok().entity(aux).build();
 	    }
 	    else {
-	        return Response.status(Status.NOT_FOUND).entity("No se encontró el canal de venta con id: " + id).build();
+	    	String mensaje = new JSONObject().put("message", "No se encontró el canal de venta").toString();
+	        return Response.status(Status.NOT_FOUND).entity(mensaje).build();
 	    }
 	}
 	
@@ -136,9 +143,11 @@ public class CanalesDeVentaController {
 		if (aux != null) {
 			aux.setActivo(false);
 			canalesDeVentaDao.update(aux);
-			return Response.ok().entity("Canal de venta eliminado").build();
+			String mensaje = new JSONObject().put("message", "Canal de venta eliminado").toString();
+			return Response.ok().entity(mensaje).build();
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("Canal de venta no encontrado").build();
+			String mensaje = new JSONObject().put("message", "Canal de venta no encontrado").toString();
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 	}
 	
