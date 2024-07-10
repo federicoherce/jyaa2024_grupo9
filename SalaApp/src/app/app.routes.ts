@@ -29,9 +29,10 @@ import {MateriaListComponent} from './components/MateriasPrimas/materia-list.com
 import {MateriaDeleteComponent} from './components/MateriasPrimas/delete-materia.component';
 import {EditMateriaComponent} from './components/MateriasPrimas/edit-materia.component';
 import {CreateMateriaComponent} from './components/MateriasPrimas/create-materia.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
-  
+  { path: '', component: HomeComponent },
   //Usuarios
   { path: 'users', component: UserListComponent },
   { path: 'register', component: RegisterComponent },

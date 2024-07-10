@@ -8,7 +8,6 @@ import exp from 'constants';
 export interface MateriaPrima {
     id: number;
     nombre: string;
-    precio: number;
     fechaCompra: string;
     fechaVencimiento: string;
     costoPorKg: number;
@@ -25,7 +24,6 @@ export interface Productor {
 }
 export interface MateriaPrimaPost {
     nombre: string;
-    precio: number;
     fechaCompra: string;
     fechaVencimiento: string;
     costoPorKg: number;
@@ -36,7 +34,6 @@ export interface MateriaPrimaPost {
 
 export interface MateriaPrimaRequest {
     nombre: string;
-    precio: number;
     fechaCompra: string;
     fechaVencimiento: string;
     costoPorKg: number;
