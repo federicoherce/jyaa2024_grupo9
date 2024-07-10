@@ -1,11 +1,11 @@
 <div class="container mt-3">
-  <div *ngIf="user" class="card">
+  <div *ngIf="receta" class="card">
     <div class="card-header">
-      <h2 class="card-title">Eliminar Usuario</h2>
+      <h2 class="card-title">Eliminar Receta</h2>
     </div>
     <div class="card-body">
-      <p class="card-text">¿Estás seguro de que deseas eliminar al usuario {{ user.nombre }} {{ user.apellido }}?</p>
-      <button (click)="deleteUser()" class="btn btn-danger">Eliminar</button>
+      <p class="card-text">¿Estás seguro de que deseas eliminar la receta: {{ receta.nombre }}?</p>
+      <button (click)="deleteReceta()" class="btn btn-danger">Eliminar</button>
     </div>
   </div>
 

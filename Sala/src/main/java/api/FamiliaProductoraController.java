@@ -20,10 +20,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.json.JSONObject;
 
 import bd.FamiliaProductora;
 
@@ -47,10 +50,27 @@ public class FamiliaProductoraController {
     public Response getFpById(@Parameter(description = "ID de la Familia productora", required = true) @PathParam("id") int id) {
     	FamiliaProductora fp = fpDao.findActiveById(id);
         if (fp == null) {
-        	String mensaje= "No se encontró la familia productora con id: " + id;
+        	String mensaje = new JSONObject().put("message", "No se encontró la familia con ese ID").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(fp).build();        
+    }
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener todas las familias productoras")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Familias Productoras encontradas"),
+	    @ApiResponse(responseCode = "404", description = "Familias Productoras no encontradas")
+	})
+    public Response getAllFamiliasProductoras() {
+    	List<FamiliaProductora> familias = fpDao.findAll();
+        if (familias == null) {
+        	String mensaje = new JSONObject().put("message", "Familias Productoras no encontradas").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+        }
+        return Response.ok(familias).build();
     }
 
 	
@@ -65,14 +85,20 @@ public class FamiliaProductoraController {
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
     public Response createFamiliaProductora(@Parameter(description = "Datos de la familia productora", required = true) FamiliaProductora fp) {
+		FamiliaProductora aux = new FamiliaProductora(fp.getNombre(), fp.getFechaInicio(), fp.getZona());
+		//System.out.println("entro");
     	try {
-        	fpDao.persist(fp);
+    		//System.out.print("entro");
+        	fpDao.persist(aux);
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ConstraintViolationException) 
-            	return Response.status(Response.Status.CONFLICT).entity("El nombre ya se encuentra registrado").build();	
-            if (cause instanceof PropertyValueException) 
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            if (cause instanceof ConstraintViolationException) {
+            	String mensaje = new JSONObject().put("message", "El nombre ya se se encuentra registrado").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();	
+            }
+            if (cause instanceof PropertyValueException) {
+            	String mensaje = new JSONObject().put("message", "Los campos no se completaron correctamente").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();}
     }
     	return Response.status(Response.Status.CREATED).entity(fp).build();
    }
@@ -94,8 +120,9 @@ public class FamiliaProductoraController {
     		fpDao.update(fp);
     		return Response.ok().entity(fp).build();
     	}
-	    else 
-	    	return Response.status(Response.Status.NOT_FOUND).entity("La familia productora no existe").build(); 
+	    else {
+	    	String mensaje = new JSONObject().put("message", "La familia productora no existe").toString();
+        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
     }
 	
 	
@@ -112,9 +139,11 @@ public class FamiliaProductoraController {
     	if (aux != null){
     		aux.setActivo(false);
     		fpDao.update(aux);
-    		return  Response.ok().entity("Familia Productora eliminada").build();
+    		String mensaje = new JSONObject().put("message", "Familia Productora eliminada").toString();
+    		return  Response.ok().entity(mensaje).build();
 	    } else {
-		    return Response.status(Response.Status.NOT_FOUND).entity("Familia Productora no encontrada").build();
+	    	String mensaje = new JSONObject().put("message", "No se encontró la Familia Productora").toString();
+	    	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 	  	}
 	}
 	
