@@ -9,6 +9,9 @@ import { LoteListComponent } from './components/lotes/lote-list.compnent';
 import { CreateProductComponent } from './components/productoElaborado/create-product.component';
 import { ProductListComponent } from './components/productoElaborado/list-products.component';
 import {CanalListComponent} from './components/canales/canal-list.component';
+import {DeleteCanalComponent} from './components/canales/delete-canal.component';
+import {EditCanalComponent} from './components/canales/edit-canal.component';
+import {CreateCanalComponent} from './components/canales/create-canal.component';
 
 
 export const routes: Routes = [
@@ -28,7 +31,10 @@ export const routes: Routes = [
   { path: 'producto/:id', component: CreateProductComponent},
 
   //Canales
-  {path: 'canales', component: CanalListComponent}
+  {path: 'canales', component: CanalListComponent},
+  {path: 'delete-canal/:id', component: DeleteCanalComponent},
+  {path: 'edit-canal/:id', component: EditCanalComponent},
+  {path: 'create-canal', component: CreateCanalComponent}
   
 ];
 
