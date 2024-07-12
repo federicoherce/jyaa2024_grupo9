@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface FamiliaProductora {
   id: number;
@@ -15,7 +16,7 @@ export interface FamiliaProductora {
 })
 
 export class FamiliaProductoraService {
-  private apiURL = 'http://localhost:8080/Sala/familias_productoras'; 
+  private apiURL = `${environment.apiUrl}/familias_productoras`;
 
 
   constructor(private http: HttpClient) {

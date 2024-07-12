@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface Insumo {
   id?: number | null;
@@ -22,7 +23,7 @@ export interface Insumo {
 })
 
 export class InsumoService {
-  private apiURL = 'http://localhost:8080/Sala/insumos'; 
+  private apiURL = `${environment.apiUrl}/insumos`;
 
 
   constructor(private http: HttpClient) {

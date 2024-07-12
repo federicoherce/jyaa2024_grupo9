@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface Canal {
   id: number;
@@ -19,7 +20,7 @@ export interface CanalRequest {
 })
 
 export class CanalService {
-  private apiURL = 'http://localhost:8080/Sala/canalesVenta'; 
+  private apiURL = `${environment.apiUrl}/canalesVenta`;
 
   constructor(private http: HttpClient) {
   }

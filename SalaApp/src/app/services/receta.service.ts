@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Usuario } from './user.service';
+import { environment } from '../environments/environment';
 
 export interface Receta {
   id: number;
@@ -23,7 +24,7 @@ export interface RecetaRequest {
 })
 
 export class RecetaService {
-  private apiURL = 'http://localhost:8080/Sala/recetas'; 
+  private apiURL = `${environment.apiUrl}/recetas`;
 
 
   constructor(private http: HttpClient) {

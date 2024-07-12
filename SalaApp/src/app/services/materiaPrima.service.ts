@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import exp from 'constants';
-
+import { environment } from '../environments/environment';
 
 export interface MateriaPrima {
     id: number;
@@ -50,7 +50,7 @@ export interface MateriaPrimaRequest {
       })
 
 export class MateriaPrimaService {
-    private apiURL = 'http://localhost:8080/Sala/materiasPrimas'; 
+    private apiURL = `${environment.apiUrl}/materiasPrimas`;
 
     constructor(private http: HttpClient) {
     }
