@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface UsuarioRequest {
   email: string;
@@ -22,8 +23,10 @@ export interface Usuario {
   providedIn: 'root'
 })
 
+
+
 export class UserService {
-  private apiURL = 'http://localhost:8080/Sala/users'; 
+  private apiURL = `${environment.apiUrl}/users`;
 
 
   constructor(private http: HttpClient) {
