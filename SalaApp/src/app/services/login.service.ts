@@ -36,4 +36,4 @@ export interface Usuario {
       console.error(error);
       return throwError(error);
     }
-    }
+}
