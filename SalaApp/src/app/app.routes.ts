@@ -31,6 +31,7 @@ import {MateriaDeleteComponent} from './components/MateriasPrimas/delete-materia
 import {EditMateriaComponent} from './components/MateriasPrimas/edit-materia.component';
 import {CreateMateriaComponent} from './components/MateriasPrimas/create-materia.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -80,6 +81,8 @@ export const routes: Routes = [
   {path: 'edit-materia/:id', component: EditMateriaComponent},
   {path: 'create-materia', component: CreateMateriaComponent},
 
+  //login
+  {path: 'login', component: LoginComponent}
 
   
 ];

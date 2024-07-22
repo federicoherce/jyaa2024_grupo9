@@ -22,5 +22,19 @@ public class UsuarioDAO extends GenericDAOImpl<Usuario, Integer>{
             return null;
         } 
     }
+    
+    
+	public Usuario login(String email, String password) {
+        try {
+            return super.getEm().createQuery(
+                    "SELECT e FROM Usuario e WHERE e.email = :email AND e.password = :password AND e.activo = true",
+                    Usuario.class).setParameter("email", email).setParameter("password", password).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-}
+	}
+    
+
+
