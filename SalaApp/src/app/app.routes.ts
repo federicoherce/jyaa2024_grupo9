@@ -32,54 +32,55 @@ import {EditMateriaComponent} from './components/MateriasPrimas/edit-materia.com
 import {CreateMateriaComponent} from './components/MateriasPrimas/create-materia.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   //Usuarios
-  { path: 'users', component: UserListComponent },
+  { path: 'users', component: UserListComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'user/:id', component: UserDetailComponent },
-  { path: 'edit-user/:id', component: EditUserComponent },
-  { path: 'delete-user/:id', component: DeleteUserComponent }, 
+  { path: 'user/:id', component: UserDetailComponent ,canActivate: [AuthGuard] },
+  { path: 'edit-user/:id', component: EditUserComponent ,canActivate: [AuthGuard] },
+  { path: 'delete-user/:id', component: DeleteUserComponent ,canActivate: [AuthGuard]}, 
   
   //Familias
-  { path: 'familias', component: FamiliaListComponent },
-  { path: 'registerFamilia', component: RegisterFamiliaComponent },
-  { path: 'edit-familia/:id', component: EditFamiliaComponent },
-  { path: 'delete-familia/:id', component: DeleteFamiliaComponent },
+  { path: 'familias', component: FamiliaListComponent,canActivate: [AuthGuard] },
+  { path: 'registerFamilia', component: RegisterFamiliaComponent,canActivate: [AuthGuard] },
+  { path: 'edit-familia/:id', component: EditFamiliaComponent , canActivate: [AuthGuard]},
+  { path: 'delete-familia/:id', component: DeleteFamiliaComponent , canActivate: [AuthGuard]},
   
   //Insumos
-  { path: 'insumos', component: InsumoListComponent },
-  { path: 'registerInsumo', component: RegisterInsumoComponent },
-  { path: 'edit-insumo/:id', component: EditInsumoComponent },
-  { path: 'delete-insumo/:id', component: DeleteInsumoComponent },
-  { path: 'agregarInsumos/:productId', component: AgregarInsumosComponent },
+  { path: 'insumos', component: InsumoListComponent , canActivate: [AuthGuard]},
+  { path: 'registerInsumo', component: RegisterInsumoComponent , canActivate: [AuthGuard]},
+  { path: 'edit-insumo/:id', component: EditInsumoComponent , canActivate: [AuthGuard]},
+  { path: 'delete-insumo/:id', component: DeleteInsumoComponent, canActivate: [AuthGuard] },
+  { path: 'agregarInsumos/:productId', component: AgregarInsumosComponent , canActivate: [AuthGuard]},
 
   //Lotes
-  { path: 'lotes', component: LoteListComponent },
+  { path: 'lotes', component: LoteListComponent, canActivate: [AuthGuard] },
   
   //Receta
-  { path: 'recetas', component: RecetaListComponent },
-  { path: 'registerReceta', component: RegisterRecetaComponent },
-  { path: 'receta/:id', component: RecetaDetailComponent },
-  { path: 'edit-receta/:id', component: EditRecetaComponent },
-  { path: 'delete-receta/:id', component: DeleteRecetaComponent }, 
+  { path: 'recetas', component: RecetaListComponent, canActivate: [AuthGuard] },
+  { path: 'registerReceta', component: RegisterRecetaComponent , canActivate: [AuthGuard]},
+  { path: 'receta/:id', component: RecetaDetailComponent, canActivate: [AuthGuard] },
+  { path: 'edit-receta/:id', component: EditRecetaComponent, canActivate: [AuthGuard] },
+  { path: 'delete-receta/:id', component: DeleteRecetaComponent, canActivate: [AuthGuard] }, 
  
   //Productos
-  { path: 'productos', component: ProductListComponent},
-  { path: 'producto/:id', component: CreateProductComponent},
+  { path: 'productos', component: ProductListComponent, canActivate: [AuthGuard]},
+  { path: 'producto/:id', component: CreateProductComponent, canActivate: [AuthGuard]},
 
   //Canales
-  {path: 'canales', component: CanalListComponent},
-  {path: 'delete-canal/:id', component: DeleteCanalComponent},
-  {path: 'edit-canal/:id', component: EditCanalComponent},
-  {path: 'create-canal', component: CreateCanalComponent},
+  {path: 'canales', component: CanalListComponent, canActivate: [AuthGuard]},
+  {path: 'delete-canal/:id', component: DeleteCanalComponent, canActivate: [AuthGuard]},
+  {path: 'edit-canal/:id', component: EditCanalComponent, canActivate: [AuthGuard]},
+  {path: 'create-canal', component: CreateCanalComponent, canActivate: [AuthGuard]},
 
   //Materias Primas
-  {path: 'materiasPrimas', component: MateriaListComponent},
-  {path : 'delete-materia/:id', component: MateriaDeleteComponent},
-  {path: 'edit-materia/:id', component: EditMateriaComponent},
-  {path: 'create-materia', component: CreateMateriaComponent},
+  {path: 'materiasPrimas', component: MateriaListComponent, canActivate: [AuthGuard]},
+  {path : 'delete-materia/:id', component: MateriaDeleteComponent, canActivate: [AuthGuard]},
+  {path: 'edit-materia/:id', component: EditMateriaComponent, canActivate: [AuthGuard]},
+  {path: 'create-materia', component: CreateMateriaComponent, canActivate: [AuthGuard]},
 
   //login
   {path: 'login', component: LoginComponent}

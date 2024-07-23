@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { LoginService, Usuario} from '../../services/login.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   imports: [FormsModule, CommonModule],
@@ -16,12 +17,13 @@ export class LoginComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService ,private router: Router) {}
 
   login(loginForm: NgForm) {
     this.loginService.login(this.user).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token);
+          this.router.navigate(['/home']);
         
         if (response.token) {
             this.successMessage = 'Usuario logueado correctamente';
