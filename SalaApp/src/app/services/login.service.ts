@@ -24,6 +24,8 @@ export interface Usuario {
     constructor(private http: HttpClient) {
     }
 
+
+
     login(user: Usuario): Observable<Usuario> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<Usuario>(this.apiURL, user, { headers: headers })
@@ -31,6 +33,14 @@ export interface Usuario {
             catchError(this.handleError)
           );
       }
+
+    IsLogin():boolean{
+      if (localStorage.getItem('token')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     private handleError(error: any) {
       console.error(error);

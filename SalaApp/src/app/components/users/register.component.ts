@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { UserService, UsuarioRequest } from '../../services/user.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   imports: [FormsModule, CommonModule],
@@ -15,7 +17,7 @@ export class RegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private router: Router) {}
 
   register(registerForm: NgForm) {
     if (registerForm.valid) {
@@ -23,6 +25,7 @@ export class RegisterComponent {
         response => {
           console.log('Usuario creado', response);
           this.successMessage = "Usuario creado con exito";
+          this.router.navigate(['/login']);
         },
         error => {
           console.error('Error: ', error);

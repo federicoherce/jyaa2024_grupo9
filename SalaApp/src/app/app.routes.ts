@@ -37,11 +37,11 @@ import { AuthGuard } from './auth.guard';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   //Usuarios
-  { path: 'users', component: UserListComponent, },
+  { path: 'users', component: UserListComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'user/:id', component: UserDetailComponent },
-  { path: 'edit-user/:id', component: EditUserComponent },
-  { path: 'delete-user/:id', component: DeleteUserComponent }, 
+  { path: 'user/:id', component: UserDetailComponent ,canActivate: [AuthGuard] },
+  { path: 'edit-user/:id', component: EditUserComponent ,canActivate: [AuthGuard] },
+  { path: 'delete-user/:id', component: DeleteUserComponent ,canActivate: [AuthGuard]}, 
   
   //Familias
   { path: 'familias', component: FamiliaListComponent,canActivate: [AuthGuard] },

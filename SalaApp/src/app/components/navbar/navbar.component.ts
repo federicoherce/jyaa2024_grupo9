@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { Router } from '@angular/router'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginService } from "../../services/login.service";
 
 @Component({
     selector: 'app-navbar',
@@ -12,21 +13,20 @@ import { CommonModule } from '@angular/common';
   })
 
 export class NavbarComponent{
-  isAuthenticated: boolean = false;
+  auth = inject(LoginService); 
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.isAuthenticated = true;
-    }
+    this.auth;
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.isAuthenticated = false;
-    this.router.navigate(['/login']);
+    if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
   }
   
+}
+
 }
