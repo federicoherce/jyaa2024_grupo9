@@ -51,23 +51,20 @@ export interface MateriaPrimaRequest {
 
 export class MateriaPrimaService {
     private apiURL = `${environment.apiUrl}/materiasPrimas`;
-
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
     constructor(private http: HttpClient) {
     }
 
     getMateriasPrimas(): Observable<MateriaPrima[]> {
-        const headers = new HttpHeaders({'Authorization':`Bearer ${localStorage.getItem('token')}`});
-        
-        return this.http.get<MateriaPrima[]>(`${this.apiURL}/all`,{ headers: headers });
+        return this.http.get<MateriaPrima[]>(`${this.apiURL}/all`,{ headers: this.headers });
     }
 
     getMateriaPrima(id: number): Observable<MateriaPrimaRequest> {
-        return this.http.get<MateriaPrimaRequest>(`${this.apiURL}/${id}`);
+        return this.http.get<MateriaPrimaRequest>(`${this.apiURL}/${id}`, { headers: this.headers });
     }
 
     deleteMateriaPrima(id: number): Observable<void> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: headers })
+        return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
           .pipe(
             catchError(this.handleError)
           );
@@ -79,17 +76,14 @@ export class MateriaPrimaService {
       }
     
       updateMateriaPrima(materiaPrima: MateriaPrimaPost, id: number): Observable<MateriaPrima> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.put<MateriaPrima>(`${this.apiURL}/${id}`, materiaPrima, { headers: headers })
+        return this.http.put<MateriaPrima>(`${this.apiURL}/${id}`, materiaPrima, { headers: this.headers })
           .pipe(
             catchError(this.handleError)
           );
       }
     
       createMateriaPrima(materiaPrima: MateriaPrimaPost): Observable<MateriaPrima> {
-
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
-        return this.http.post<MateriaPrima>(`${this.apiURL}`, materiaPrima, { headers: headers })
+        return this.http.post<MateriaPrima>(`${this.apiURL}`, materiaPrima, { headers: this.headers })
           .pipe(
             catchError(this.handleError)
           );
