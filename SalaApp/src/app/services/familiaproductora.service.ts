@@ -17,42 +17,37 @@ export interface FamiliaProductora {
 
 export class FamiliaProductoraService {
   private apiURL = `${environment.apiUrl}/familias_productoras`;
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
 
   constructor(private http: HttpClient) {
   }
 
   
   createFamiliaProductora(fp: FamiliaProductora): Observable<FamiliaProductora> {
-    
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
-    return this.http.post<FamiliaProductora>(this.apiURL, fp, { headers: headers })
+    return this.http.post<FamiliaProductora>(this.apiURL, fp, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getFamiliaProductora(id: number): Observable<FamiliaProductora> {
-    return this.http.get<FamiliaProductora>(`${this.apiURL}/${id}`);
+    return this.http.get<FamiliaProductora>(`${this.apiURL}/${id}`, { headers: this.headers });
   }
 
   getFamiliasProductoras(): Observable<FamiliaProductora[]> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
-    return this.http.get<FamiliaProductora[]>(`${this.apiURL}/all`,{ headers: headers });
+    return this.http.get<FamiliaProductora[]>(`${this.apiURL}/all`,{ headers: this.headers });
   }
 
 
   updateFamiliaProductora(fp: FamiliaProductora): Observable<FamiliaProductora> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<FamiliaProductora>(this.apiURL, fp, { headers: headers })
+    return this.http.put<FamiliaProductora>(this.apiURL, fp, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteFamiliaProductora(id: number): Observable<void> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: headers })
+    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );

@@ -27,13 +27,12 @@ export interface ItemDeInsumo {
 
 export class ProductoService {
   private apiURL = `${environment.apiUrl}/productos`;
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
   constructor(private http: HttpClient) {
   }
 
   createProduct(producto: Producto, loteId: string): Observable<Producto> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Producto>(`${this.apiURL}/${loteId}`, producto, { headers: headers })
+    return this.http.post<Producto>(`${this.apiURL}/${loteId}`, producto, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -42,12 +41,12 @@ export class ProductoService {
   agregarInsumos(productoId: string, insumos: ItemDeInsumo): Observable<any> {
     const url = `${this.apiURL}/${productoId}/agregarInsumos`; 
     console.log(url)
-    return this.http.post(url, insumos);
+    return this.http.post(url, insumos, { headers: this.headers });
   }
 
 
   getProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.apiURL}/all`);
+    return this.http.get<Producto[]>(`${this.apiURL}/all`, { headers: this.headers });
   }
 
   private handleError(error: any) {

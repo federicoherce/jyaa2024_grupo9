@@ -25,7 +25,7 @@ public class Intercepter implements ContainerRequestFilter {
         }
 
         String token = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-        System.out.println("Authorization Header: " + token);
+
 
         if (token == null || !token.startsWith("Bearer ")) {
             String json = new JSONObject().put("message", "No se encontró el token de autorización").toString();
