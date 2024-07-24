@@ -61,6 +61,18 @@ public class Lote {
 	public Lote() {
 
 	}
+	
+	public Lote(String nombre, String codigo, LocalDate fecha_elaboracion, double cantidad_producida,
+			Usuario usuario) {
+		this.nombre = nombre;
+		this.codigo = codigo;
+		this.fechaElaboracion = fecha_elaboracion;
+		this.cantidadProducida = cantidad_producida;
+		this.costoLote = 0;
+		this.listaItemsDeMateriaPrima = new ArrayList<ItemDeMateriaPrima>();
+		this.activo = true;
+		this.usuario = usuario;
+	}
 
 	public Lote(String nombre, String codigo, LocalDate fecha_elaboracion, double cantidad_producida, double costo_lote,
 			Usuario usuario) {
