@@ -25,40 +25,37 @@ export interface RecetaRequest {
 
 export class RecetaService {
   private apiURL = `${environment.apiUrl}/recetas`;
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
 
   constructor(private http: HttpClient) {
   }
 
   
   createReceta(receta: RecetaRequest): Observable<RecetaRequest> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<RecetaRequest>(this.apiURL, receta, { headers: headers })
+    return this.http.post<RecetaRequest>(this.apiURL, receta, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getReceta(id: number): Observable<Receta> {
-    return this.http.get<Receta>(`${this.apiURL}/${id}`);
+    return this.http.get<Receta>(`${this.apiURL}/${id}`, { headers: this.headers });
   }
 
   getRecetas(): Observable<Receta[]> {
-    return this.http.get<Receta[]>(`${this.apiURL}/all`);
+    return this.http.get<Receta[]>(`${this.apiURL}/all`, { headers: this.headers });
   }
 
 
   updateReceta(receta: RecetaRequest): Observable<RecetaRequest> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<RecetaRequest>(this.apiURL, receta, { headers: headers })
+    return this.http.put<RecetaRequest>(this.apiURL, receta, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteReceta(id: number): Observable<void> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: headers })
+    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );

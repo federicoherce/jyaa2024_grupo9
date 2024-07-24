@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routes';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 @NgModule({
@@ -12,8 +14,9 @@ import { AppComponent } from './app.component';
     FormsModule,
     CommonModule,
     AppRoutingModule
+
  ],
-  providers:    [], 
+  providers:    [ {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], 
   declarations: [
   ],
   exports:      [],
