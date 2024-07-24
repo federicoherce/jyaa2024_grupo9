@@ -9,22 +9,15 @@ export interface Usuario {
     password: string;
   }
 
-
-
-
 @Injectable({
     providedIn: 'root'
   })
   
-
   export class LoginService {
     private apiURL = `${environment.apiUrl}/login`;
   
-  
     constructor(private http: HttpClient) {
     }
-
-
 
     login(user: Usuario): Observable<Usuario> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -34,13 +27,14 @@ export interface Usuario {
           );
       }
 
-    IsLogin():boolean{
-      if (localStorage.getItem('token')) {
-        return true;
-      } else {
-        return false;
+      IsLogin(): boolean {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+          return true;
+        } else {
+          return false;
+        }
       }
-    }
+      
 
     private handleError(error: any) {
       console.error(error);
