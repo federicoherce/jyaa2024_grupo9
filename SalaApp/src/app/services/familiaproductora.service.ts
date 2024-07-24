@@ -24,7 +24,8 @@ export class FamiliaProductoraService {
 
   
   createFamiliaProductora(fp: FamiliaProductora): Observable<FamiliaProductora> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
     return this.http.post<FamiliaProductora>(this.apiURL, fp, { headers: headers })
       .pipe(
         catchError(this.handleError)
@@ -36,7 +37,8 @@ export class FamiliaProductoraService {
   }
 
   getFamiliasProductoras(): Observable<FamiliaProductora[]> {
-    return this.http.get<FamiliaProductora[]>(`${this.apiURL}/all`);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
+    return this.http.get<FamiliaProductora[]>(`${this.apiURL}/all`,{ headers: headers });
   }
 
 

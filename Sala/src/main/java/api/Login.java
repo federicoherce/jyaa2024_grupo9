@@ -38,6 +38,9 @@ import requests.UsuarioLogin;
 
 @Path("/login")
 public class Login {
+
+	
+private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	
 	
 	@Inject
@@ -51,9 +54,8 @@ public class Login {
 		@ApiResponse(responseCode = "401", description = "Inicio de sesión fallido") })
 public Response Login(UsuarioLogin usuario) {
 	Usuario usuarioLogin = userDao.login(usuario.getEmail(), usuario.getPassword());
-    SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	if (usuarioLogin != null) {
-    String jwt = Jwts.builder().signWith(key).
+    String jwt = Jwts.builder().signWith(this.getSecretKey()).
  		   setSubject(usuario.getEmail()).
  		   setIssuedAt(new Date()).
  		   setExpiration(new Date(System.currentTimeMillis() + 900000)).
@@ -64,6 +66,11 @@ public Response Login(UsuarioLogin usuario) {
 	}
 	 String errorJson = new JSONObject().put("error", "Usuario o contraseña incorrectos").toString();
 	 return Response.status(Response.Status.UNAUTHORIZED).entity(errorJson).build();
+	}
+
+
+	public SecretKey getSecretKey() {
+		return key;
 	}
 	
 }

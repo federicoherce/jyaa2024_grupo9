@@ -56,7 +56,9 @@ export class MateriaPrimaService {
     }
 
     getMateriasPrimas(): Observable<MateriaPrima[]> {
-        return this.http.get<MateriaPrima[]>(`${this.apiURL}/all`);
+        const headers = new HttpHeaders({'Authorization':`Bearer ${localStorage.getItem('token')}`});
+        
+        return this.http.get<MateriaPrima[]>(`${this.apiURL}/all`,{ headers: headers });
     }
 
     getMateriaPrima(id: number): Observable<MateriaPrimaRequest> {
@@ -85,7 +87,8 @@ export class MateriaPrimaService {
       }
     
       createMateriaPrima(materiaPrima: MateriaPrimaPost): Observable<MateriaPrima> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
         return this.http.post<MateriaPrima>(`${this.apiURL}`, materiaPrima, { headers: headers })
           .pipe(
             catchError(this.handleError)
