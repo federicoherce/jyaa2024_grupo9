@@ -27,7 +27,7 @@ export interface Usuario {
 
 export class UserService {
   private apiURL = `${environment.apiUrl}/users`;
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' ,'Authorization':`Bearer ${localStorage.getItem('token')}`});
 
   constructor(private http: HttpClient) {
   }
@@ -42,25 +42,23 @@ export class UserService {
   }
 
   getUser(id: number): Observable<UsuarioRequest> {
-    return this.http.get<UsuarioRequest>(`${this.apiURL}/${id}`);
+    return this.http.get<UsuarioRequest>(`${this.apiURL}/${id}`, { headers: this.headers });
   }
 
   getUsers(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiURL}/all`);
+    return this.http.get<Usuario[]>(`${this.apiURL}/all`, { headers: this.headers });
   }
 
 
   updateUser(user: UsuarioRequest, id: number): Observable<Usuario> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Usuario>(`${this.apiURL}/${id}`, user, { headers: headers })
+    return this.http.put<Usuario>(`${this.apiURL}/${id}`, user, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteUser(id: number): Observable<void> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: headers })
+    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );

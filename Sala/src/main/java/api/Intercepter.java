@@ -20,7 +20,7 @@ public class Intercepter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String url = requestContext.getUriInfo().getRequestUri().toString();
-        if (url.contains("login") || url.contains("users") || url.contains("cargarBD")) {
+        if (url.contains("login") || url.equals("http://localhost:8080/Sala/users") || url.contains("cargarBD")) {
             return;
         }
 
