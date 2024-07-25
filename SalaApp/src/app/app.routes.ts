@@ -9,7 +9,7 @@ import { FamiliaListComponent } from './components/familiasProductoras/familia-l
 import { RegisterFamiliaComponent } from './components/familiasProductoras/registerFamilia.component';
 import { EditFamiliaComponent } from './components/familiasProductoras/edit-familia.component';
 import { DeleteFamiliaComponent } from './components/familiasProductoras/delete-familia.component';
-import { LoteListComponent } from './components/lotes/lote-list.compnent';
+import { LoteListComponent } from './components/lotes/lote-list.component';
 import { CreateProductComponent } from './components/productoElaborado/create-product.component';
 import { ProductListComponent } from './components/productoElaborado/list-products.component';
 import { InsumoListComponent } from './components/insumos/insumo-list.component';
@@ -33,6 +33,9 @@ import {CreateMateriaComponent} from './components/MateriasPrimas/create-materia
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { LoteDetailComponent } from './components/lotes/lote-detail.component';
+import { DeleteLoteComponent } from './components/lotes/delete-lote.component';
+import { RegisterLoteComponent } from './components/lotes/register-lote.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -58,6 +61,9 @@ export const routes: Routes = [
 
   //Lotes
   { path: 'lotes', component: LoteListComponent, canActivate: [AuthGuard] },
+  { path: 'lote/:id', component: LoteDetailComponent, canActivate: [AuthGuard] },
+  { path: 'delete-lote/:id', component: DeleteLoteComponent, canActivate: [AuthGuard] },
+  { path: 'agregarLote', component: RegisterLoteComponent, canActivate: [AuthGuard] },
   
   //Receta
   { path: 'recetas', component: RecetaListComponent, canActivate: [AuthGuard] },

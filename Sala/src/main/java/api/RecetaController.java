@@ -149,7 +149,7 @@ public class RecetaController {
     		aux.setActivo(false);
     		recetaDao.update(aux);
     		String mensaje = new JSONObject().put("message", "Receta eliminada").toString();
-        	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); 
+        	return Response.ok(mensaje).build(); 
 	    } else {
 	    	String mensaje = new JSONObject().put("message", "La receta no existe").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }
