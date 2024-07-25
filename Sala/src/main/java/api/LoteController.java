@@ -97,7 +97,8 @@ public class LoteController {
 			List<ItemDeMateriaPrima> auxLista = new ArrayList<ItemDeMateriaPrima>();
 			MateriaPrima auxMp;
 			ItemDeMateriaPrima auxI;
-			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), new Usuario("gianq7@gmail.com", "Gianfranco", "Quaranta", "12345"));
+			double suma = 0;
+			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), new Usuario("gianq5@gmail.com", "Gianfranco", "Quaranta", "12345"));
 			for (ItemDeMateriaPrimaRequest item : lote.getItemsDeMateriaPrima()) {
 				auxMp = materiaDao.findActiveById(item.getMateriaPrimaId());
 				if (item.getCantidadEnKg() > auxMp.getPeso()) {
@@ -105,10 +106,12 @@ public class LoteController {
 	            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
 				}
 				auxI = new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp);
+				suma = suma + auxI.getCantidadEnKg() * auxI.getMateriaPrima().getCostoPorKg();
 				materiaDao.update(auxMp);
 				itemDao.persist(auxI);
 				auxLista.add(new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp));
 			}
+			auxLote.setCostoLote(suma);
 			auxLote.setMateriaPrima(auxLista);
 			loteDao.persist(auxLote);
 			return Response.status(Response.Status.CREATED).entity(auxLote).build();

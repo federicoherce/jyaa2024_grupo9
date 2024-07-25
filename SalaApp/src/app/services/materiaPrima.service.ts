@@ -63,6 +63,10 @@ export class MateriaPrimaService {
         return this.http.get<MateriaPrimaRequest>(`${this.apiURL}/${id}`, { headers: this.headers });
     }
 
+    getMateriaPrima2(id: number): Observable<MateriaPrima> {
+      return this.http.get<MateriaPrima>(`${this.apiURL}/${id}`, { headers: this.headers });
+  }    
+
     deleteMateriaPrima(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
           .pipe(
