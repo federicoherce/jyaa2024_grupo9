@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class DeleteLoteComponent implements OnInit {
-  lote: Lote = { id: 0, codigo: '', nombre: '', fechaElaboracion: '', cantidadProducida: 0, itemsDeMateriaPrima: [], costoLote: 0 };
+  lote: Lote = { id: 0, codigo: '', nombre: '', fechaElaboracion: '', cantidadProducida: 0, materiaPrima: [], costoLote: 0 };
   errorMessage: string = '';
   successMessage: string = '';
   loteId: number | null = null;

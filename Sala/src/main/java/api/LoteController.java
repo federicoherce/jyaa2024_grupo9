@@ -104,26 +104,41 @@ public class LoteController {
 			ItemDeMateriaPrima auxI;
 			double suma = 0;
 			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), userDao.findActiveByEmail(requestContext.getProperty("userEmail").toString()));
+			//loteDao.persist(auxLote);
+			if (lote.getItemsDeMateriaPrima() == null || lote.getItemsDeMateriaPrima().size() <= 0) {
+				String mensaje = new JSONObject().put("message", "No se seleccionó la materia prima del lote").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+			}
 			for (ItemDeMateriaPrimaRequest item : lote.getItemsDeMateriaPrima()) {
+				//System.out.println(item.getMateriaPrimaId() + " - " + item.getCantidadEnKg());
 				auxMp = materiaDao.findActiveById(item.getMateriaPrimaId());
 				if (item.getCantidadEnKg() > auxMp.getPeso()) {
 					String mensaje = new JSONObject().put("message", "Cantidad de materia prima '" + auxMp.getNombre() + "' insuficiente").toString();
 	            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
 				}
+				//System.out.println("Pre persistencia del item");
 				auxI = new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp);
+				suma = suma + auxI.getCantidadEnKg() * auxI.getMateriaPrima().getCostoPorKg();
+				//itemDao.persist(auxI);
+				//System.out.println("Post persistencia del item y antes de agregar a la lista y setear materia en false");
+				auxLista.add(auxI);
 				if (auxMp.getPeso() == 0)
 					auxMp.setActivo(false);
-				suma = suma + auxI.getCantidadEnKg() * auxI.getMateriaPrima().getCostoPorKg();
 				materiaDao.update(auxMp);
-				itemDao.persist(auxI);
-				auxLista.add(new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp));
+				//System.out.println("Post setear en false y antes de cerrar loop");
 			}
+			loteDao.persist(auxLote);
+			for (ItemDeMateriaPrima i : auxLista)
+				itemDao.persist(i);
 			auxLote.setCostoLote(suma);
 			auxLote.setMateriaPrima(auxLista);
-			loteDao.persist(auxLote);
+			//System.out.println("Pre persistencia de lote");
+			loteDao.update(auxLote);
+			//System.out.println("Pos persistencia del lote");
 			return Response.status(Response.Status.CREATED).entity(auxLote).build();
 		} catch (PersistenceException e) {
-        	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Falta completar campo/s obligatorio/s").toString()).build();
+			System.out.println(e.getMessage());
+        	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Hay un error con alguno de los campos").toString()).build();
 		}
 	}
 	

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class EditRecetaComponent implements OnInit {
-  receta: RecetaRequest = { nombre: '', texto: '', usuarioMail: '' };
+  receta: RecetaRequest = { nombre: '', texto: '' };
   errorMessage: string = '';
   successMessage: string = '';
   recetaId: number | null = null;
@@ -33,7 +33,6 @@ export class EditRecetaComponent implements OnInit {
       (receta) => {
         this.receta.nombre = receta.nombre;
         this.receta.texto= receta.texto;
-        this.receta.usuarioMail= receta.usuario.email;
       },
       (error) => {
         console.error('Error: ', error);

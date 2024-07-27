@@ -1,5 +1,3 @@
-<!-- lote-detail.component.html -->
-
 <div class="container mt-3">
   <div *ngIf="lote" class="card">
     <h2 class="card-header">Detalles del Lote</h2>
@@ -12,8 +10,8 @@
       
       <h3 class="mt-4">Items de Materia Prima</h3>
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let item of lote.itemsDeMateriaPrima">
-          <p><strong>Materia Prima:</strong> {{ getMateriaPrimaNombre(item.materiaPrimaId) }}</p>
+        <li class="list-group-item" *ngFor="let item of lote.materiaPrima">
+          <p><strong>Materia Prima:</strong> {{ getMateriaPrimaNombre(item) }}</p>
           <p><strong>Cantidad en Kg:</strong> {{ item.cantidadEnKg }}</p>
         </li>
       </ul>

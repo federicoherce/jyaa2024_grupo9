@@ -16,7 +16,6 @@ export interface RecetaRequest {
   id?: number;
   nombre: string;
   texto: string;
-  usuarioMail: string;
 }
 
 @Injectable({

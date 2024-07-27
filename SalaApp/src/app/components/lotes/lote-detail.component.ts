@@ -1,9 +1,6 @@
-// lote-detail.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoteService, Lote, ItemDeMateriaPrima } from '../../services/lote.service';
-import { MateriaPrimaService, MateriaPrima } from '../../services/materiaPrima.service';
+import { LoteService, Lote, ItemDeMateriaPrimaDetailed } from '../../services/lote.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -16,12 +13,10 @@ import { RouterModule } from '@angular/router';
 export class LoteDetailComponent implements OnInit {
   lote: Lote | undefined;
   errorMessage: string = '';
-  materiasPrimas: { [id: number]: MateriaPrima } = {};
 
   constructor(
     private route: ActivatedRoute,
-    private loteService: LoteService,
-    private materiaPrimaService: MateriaPrimaService
+    private loteService: LoteService
   ) {}
 
   ngOnInit() {
@@ -30,7 +25,6 @@ export class LoteDetailComponent implements OnInit {
       this.loteService.getLote(loteId).subscribe(
         lote => {        
           this.lote = lote;
-          this.loadMateriasPrimas();
         },
         error => {
           console.error('Error: ', error);
@@ -40,23 +34,7 @@ export class LoteDetailComponent implements OnInit {
     }
   }
 
-  loadMateriasPrimas() {
-    if (this.lote && this.lote.itemsDeMateriaPrima) {
-      this.lote.itemsDeMateriaPrima.forEach(item => {
-        this.materiaPrimaService.getMateriaPrima2(item.materiaPrimaId).subscribe(
-          materiaPrima => {
-            this.materiasPrimas[item.materiaPrimaId] = materiaPrima;
-          },
-          error => {
-            console.error('Error: ', error);
-            this.errorMessage = 'Error al cargar los detalles de las materias primas.';
-          }
-        );
-      });
-    }
-  }
-
-  getMateriaPrimaNombre(id: number): string {
-    return this.materiasPrimas[id] ? this.materiasPrimas[id].nombre : 'Desconocido';
+  getMateriaPrimaNombre(item: ItemDeMateriaPrimaDetailed): string {
+    return item.materiaPrima ? item.materiaPrima.nombre : 'Desconocido';
   }
 }

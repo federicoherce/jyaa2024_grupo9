@@ -3,10 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { HttpHeaders } from '@angular/common/http';
+import { MateriaPrima } from './materiaPrima.service';
 
 export interface ItemDeMateriaPrima {
   materiaPrimaId: number;
   cantidadEnKg: number;
+}
+
+export interface ItemDeMateriaPrimaDetailed {
+  cantidadEnKg: number;
+  lote: Lote;
+  materiaPrima: MateriaPrima;
 }
 
 export interface Lote {
@@ -16,7 +23,7 @@ export interface Lote {
   fechaElaboracion: string;
   cantidadProducida: number;
   costoLote: number;
-  itemsDeMateriaPrima: ItemDeMateriaPrima[];
+  materiaPrima: ItemDeMateriaPrimaDetailed[];
 }
 
 export interface LoteRequest {
