@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 import api.Login;
+import bd.Usuario;
 
 @Provider
 @Priority(Priorities.AUTHENTICATION)
@@ -41,7 +42,10 @@ public class Intercepter implements ContainerRequestFilter {
                 .build()
                 .parseClaimsJws(jwtToken)
                 .getBody();
-            // Aquí puedes agregar lógica adicional para usar los claims
+
+            
+            requestContext.setProperty("userEmail", claims.getSubject());
+
         } catch (Exception e) {
             String json = new JSONObject().put("message", "Token inválido").toString();
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(json).build());

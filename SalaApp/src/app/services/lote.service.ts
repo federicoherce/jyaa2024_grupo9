@@ -43,8 +43,7 @@ export class LoteService {
   }
 
   createLote(lote: LoteRequest): Observable<LoteRequest> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<LoteRequest>(this.apiURL, lote, { headers: headers })
+    return this.http.post<LoteRequest>(this.apiURL, lote, { headers: this.headers })
   }
 
   getLote(id: number): Observable<Lote> {

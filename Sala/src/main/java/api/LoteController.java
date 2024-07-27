@@ -17,6 +17,7 @@ import bd.Usuario;
 import dao.ItemDeMateriaPrimaDAO;
 import dao.LoteDAO;
 import dao.MateriaPrimaDAO;
+import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,6 +32,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import requests.ItemDeMateriaPrimaRequest;
@@ -45,6 +48,8 @@ public class LoteController {
 	private MateriaPrimaDAO materiaDao;
 	@Inject
 	private ItemDeMateriaPrimaDAO itemDao;
+	@Inject
+	private UsuarioDAO userDao;
 
 	@GET
 	@Path("/all")
@@ -92,13 +97,13 @@ public class LoteController {
 	        schema = @Schema(implementation = Lote.class))),
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
-    public Response crearLote(@Parameter(description = "Datos del lote", required = true) LoteRequest lote) {
+    public Response crearLote(@Parameter(description = "Datos del lote", required = true) LoteRequest lote, @Context ContainerRequestContext requestContext) {
 		try {
 			List<ItemDeMateriaPrima> auxLista = new ArrayList<ItemDeMateriaPrima>();
 			MateriaPrima auxMp;
 			ItemDeMateriaPrima auxI;
 			double suma = 0;
-			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), new Usuario("gianq5@gmail.com", "Gianfranco", "Quaranta", "12345"));
+			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), userDao.findActiveByEmail(requestContext.getProperty("userEmail").toString()));
 			for (ItemDeMateriaPrimaRequest item : lote.getItemsDeMateriaPrima()) {
 				auxMp = materiaDao.findActiveById(item.getMateriaPrimaId());
 				if (item.getCantidadEnKg() > auxMp.getPeso()) {
@@ -106,6 +111,8 @@ public class LoteController {
 	            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
 				}
 				auxI = new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp);
+				if (auxMp.getPeso() == 0)
+					auxMp.setActivo(false);
 				suma = suma + auxI.getCantidadEnKg() * auxI.getMateriaPrima().getCostoPorKg();
 				materiaDao.update(auxMp);
 				itemDao.persist(auxI);
@@ -116,7 +123,7 @@ public class LoteController {
 			loteDao.persist(auxLote);
 			return Response.status(Response.Status.CREATED).entity(auxLote).build();
 		} catch (PersistenceException e) {
-        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+        	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Falta completar campo/s obligatorio/s").toString()).build();
 		}
 	}
 	
