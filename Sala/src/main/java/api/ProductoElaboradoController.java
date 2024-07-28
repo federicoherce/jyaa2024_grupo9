@@ -10,6 +10,7 @@ import bd.Insumo;
 import bd.ItemDeInsumo;
 import bd.Lote;
 import bd.StockProductoTerminado;
+import bd.Usuario;
 import dao.InsumoDAO;
 import dao.ItemDeInsumoDAO;
 import dao.LoteDAO;
@@ -22,6 +23,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -149,4 +151,27 @@ public class ProductoElaboradoController {
      	String mensaje = new JSONObject().put("message", "Insumos agregados").toString();
 		return Response.ok().entity(mensaje).build();
 	}
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Operation(summary = "Eliminar un producto por su ID")
+	@ApiResponses(value = {
+	    @ApiResponse(responseCode = "200", description = "Producto eliminado"),
+	    @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+	})
+	public Response deleteProduct(@Parameter(description = "ID del producto", required = true) @PathParam("id") Integer id) {
+    	StockProductoTerminado aux = stockDao.findActiveById(id);
+    	if (aux != null){
+    		aux.setActivo(false);
+    		stockDao.update(aux);
+    		String mensaje = new JSONObject().put("message", "Producto eliminado").toString();
+    		return  Response.ok().entity(mensaje).build();
+	    } else {
+	    	String mensaje = new JSONObject().put("message", "El Producto no existe").toString();
+	    	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+	  	}
+	}
+	
+	
 }

@@ -38,10 +38,21 @@ export class ProductoService {
       );
   }
 
+  deleteProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiURL}/${id}`, { headers: this.headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   agregarInsumos(productoId: string, insumos: ItemDeInsumo): Observable<any> {
     const url = `${this.apiURL}/${productoId}/agregarInsumos`; 
     console.log(url)
     return this.http.post(url, insumos, { headers: this.headers });
+  }
+
+  getProducto(productoId: number): Observable<Producto> {
+    return this.http.get<Producto>(`${this.apiURL}/${productoId}`, { headers: this.headers });
   }
 
 

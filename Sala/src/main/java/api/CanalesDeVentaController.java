@@ -1,16 +1,17 @@
 package api;
 
-import requests.CanalDeVentaRequest;
-
 import java.util.List;
 
 import javax.persistence.PersistenceException;
+
 import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.json.JSONObject;
 
 import bd.CanalDeVenta;
+import bd.StockProductoTerminado;
 import dao.CanalDeVentaDAO;
+import dao.StockProductoTerminadoDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,9 +27,11 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import requests.CanalDeVentaRequest;
 
 
 @Path("/canalesVenta")
@@ -36,8 +39,11 @@ public class CanalesDeVentaController {
 	
 	@Inject
 	private CanalDeVentaDAO canalesDeVentaDao;
-		
+	
+	@Inject
+	private StockProductoTerminadoDAO stockDao;
 
+	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -71,7 +77,6 @@ public class CanalesDeVentaController {
 			
 		}
 		return Response.ok(canales).build();
-		
 	}
 	
 	
@@ -151,7 +156,49 @@ public class CanalesDeVentaController {
 		}
 	}
 	
+	@Path("/{productoId}/agregarProducto")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Agregar productos al canal de venta")
+	public Response agregarProductos(
+	    @Parameter(description = "ID del producto", required = true) @PathParam("productoId") int productoId,
+	    @Parameter(description = "ID del canal", required = true) @QueryParam("idCanal") int idCanal,
+	    @Parameter(description = "Cantidad de productos", required = true) @QueryParam("cantProductos") int cantProductos){
+		StockProductoTerminado producto = stockDao.findActiveById(productoId);
+		CanalDeVenta canal = canalesDeVentaDao.findActiveById(idCanal);
+		int stockActual = producto.getCantidadProductos();
+		if (stockActual < cantProductos) {
+			String mensaje = new JSONObject().put("message", "Cantidad de productos insuficiente").toString();
+            return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+		}
+		producto.setCantidadProductos(stockActual - cantProductos);
+		if (stockActual - cantProductos == 0) {
+			producto.setActivo(false);
+		}
+		stockDao.update(producto);
+		canal.agregarProductoTerminado(producto);
+		canalesDeVentaDao.update(canal);
+     	String mensaje = new JSONObject().put("message", "Productos entregados").toString();
+		return Response.ok().entity(mensaje).build();
+	}
 	
+	@GET
+	@Path("/{canalId}/productos")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Operation(summary = "Obtener productos de un canal")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Productos encontrados"),
+			@ApiResponse(responseCode = "404", description = "Productos no encontrados") })
+	public Response getProductos(@Parameter(description = "ID del canal de ventas", required = true)@PathParam("id") Integer id) {
+		CanalDeVenta canal = canalesDeVentaDao.findActiveById(id);
+		List<StockProductoTerminado> productos = canal.getProductos();
+		if (productos == null) {
+			String mensaje = new JSONObject().put("message", "El canal no posee productos").toString();
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+			
+		}
+		return Response.ok(productos).build();
+	}
 	
 	
 	

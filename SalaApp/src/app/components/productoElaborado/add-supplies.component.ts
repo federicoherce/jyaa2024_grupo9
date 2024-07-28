@@ -15,10 +15,9 @@ export class AgregarInsumosComponent implements OnInit {
   productId: string = '';
   insumos: any[] = [];
   selectedInsumo: Insumo | null = null;
-  cantidad: number = 0;
+  cantidad: number = 1;
   insumoNombre: string = '';
-  errorMessage: string | null = null;
-  successMessage: string | null = null;
+  message: string | null = null;
   nuevoInsumo: ItemDeInsumo = {cantidad: 0, insumo: 0, nombre: ''}
 
   constructor(private route: ActivatedRoute, private insumoService: InsumoService, private productoService: ProductoService) {}
@@ -28,7 +27,7 @@ export class AgregarInsumosComponent implements OnInit {
     if (productId) {
       this.productId = productId;
     } else {
-      this.errorMessage = 'ID de producto no encontrado';
+      this.message = 'ID de producto no encontrado';
     }
     this.loadInsumos();
   }
@@ -55,15 +54,15 @@ export class AgregarInsumosComponent implements OnInit {
           };
           this.productoService.agregarInsumos(this.productId, this.nuevoInsumo).subscribe(
             response => {
-              this.successMessage = "Insumo agregado con éxito";
+              this.message = "Insumo agregado con éxito";
               insumoForm.reset();
               this.selectedInsumo = null;
-              this.cantidad = 0;
+              this.cantidad = 1;
             },
             error => {
               console.log(this.nuevoInsumo)
               console.error('Error al agregar insumo', error);
-              this.errorMessage = error.error.message;
+              this.message = error.error.message;
             }
           );
         }

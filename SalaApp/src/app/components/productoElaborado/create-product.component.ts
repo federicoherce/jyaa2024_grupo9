@@ -34,6 +34,8 @@ export class CreateProductComponent {
           console.log('Producto creado', response);
           if (response && response.id) {
             this.successMessage = "Producto creado con éxito";
+            console.log(response.id)
+            this.router.navigate([`/agregarInsumos/${response.id}`]);
           } else {
             console.error('Respuesta inválida del servidor: falta el ID del producto');
           }  

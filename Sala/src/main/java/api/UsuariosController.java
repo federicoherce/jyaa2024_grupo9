@@ -4,21 +4,21 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 
-import org.hibernate.PropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.json.JSONObject;
 
-import bd.Insumo;
 import bd.Usuario;
 import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -36,9 +36,14 @@ import requests.UsuarioRequest;
 
 @OpenAPIDefinition(
 	    info = @Info(title = "API", version = "1.0.0"),
-	    servers = @Server(url = "http://localhost:8080/Sala/")
+	    servers = @Server(url = "http://localhost:8080/Sala/")   
 	)
-
+@SecurityScheme(
+        name = "bearerAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+    )
 
 @Path("/users")
 public class UsuariosController {

@@ -12,7 +12,7 @@
                         <th>Costo por kg</th>
                         <th>Fecha de compra</th>
                         <th>Fecha de vencimiento</th>
-
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,10 +23,8 @@
                         <td>{{ materiaPrima.fechaCompra | date }}</td>
                         <td>{{ materiaPrima.fechaVencimiento | date }}</td>
                         <td>
-                            <a class="btn btn-danger btn-sm" routerLink="/delete-materia/{{ materiaPrima.id }}">Eliminar</a>
-                            <a class="btn btn-warning btn-sm me-1" routerLink="/edit-materia/{{ materiaPrima.id }}">Editar</a>
-                        <td>
-                    </tr>                
+                        <a class="btn btn-danger btn-sm" routerLink="/delete-materia/{{ materiaPrima.id }}">Eliminar</a>
+                        <a class="btn btn-warning btn-sm me-1" routerLink="/edit-materia/{{ materiaPrima.id }}">Editar</a>
                 </tbody>
             </table>
         </div>

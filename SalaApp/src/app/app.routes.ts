@@ -36,9 +36,15 @@ import { AuthGuard } from './auth.guard';
 import { LoteDetailComponent } from './components/lotes/lote-detail.component';
 import { DeleteLoteComponent } from './components/lotes/delete-lote.component';
 import { RegisterLoteComponent } from './components/lotes/register-lote.component';
+import { ProductoDetailComponent } from './components/productoElaborado/producto-detail.component';
+import { DeleteProductoComponent } from './components/productoElaborado/delete-producto.component';
+import { EntregarProductoComponent } from './components/productoElaborado/deliver-product.component';
+import { CanalProductsComponent } from './components/canales/canal-products.component';
 
 export const routes: Routes = [
+  
   { path: '', component: HomeComponent },
+  
   //Usuarios
   { path: 'users', component: UserListComponent,canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
@@ -74,13 +80,17 @@ export const routes: Routes = [
  
   //Productos
   { path: 'productos', component: ProductListComponent, canActivate: [AuthGuard]},
-  { path: 'producto/:id', component: CreateProductComponent, canActivate: [AuthGuard]},
+  { path: 'crearProducto/:id', component: CreateProductComponent, canActivate: [AuthGuard]},
+  { path: 'producto/:id', component: ProductoDetailComponent, canActivate: [AuthGuard]},
+  { path: 'delete-producto/:id', component: DeleteProductoComponent, canActivate: [AuthGuard]},
+  {path: 'entregarACanal/:productoId', component: EntregarProductoComponent, canActivate: [AuthGuard]},
 
   //Canales
   {path: 'canales', component: CanalListComponent, canActivate: [AuthGuard]},
   {path: 'delete-canal/:id', component: DeleteCanalComponent, canActivate: [AuthGuard]},
   {path: 'edit-canal/:id', component: EditCanalComponent, canActivate: [AuthGuard]},
   {path: 'create-canal', component: CreateCanalComponent, canActivate: [AuthGuard]},
+  {path: 'canal-productos/:id', component: CanalProductsComponent, canActivate: [AuthGuard]},
 
   //Materias Primas
   {path: 'materiasPrimas', component: MateriaListComponent, canActivate: [AuthGuard]},

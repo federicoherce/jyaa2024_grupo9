@@ -58,7 +58,6 @@ public Response Login(UsuarioLogin usuario) {
     String jwt = Jwts.builder().signWith(this.getSecretKey()).
  		   setSubject(usuario.getEmail()).
  		   setIssuedAt(new Date()).
- 		   setExpiration(new Date(System.currentTimeMillis() + 900000)).
  		   claim("permisos", usuarioLogin.getPermisos()).
  		   compact();
     String json = new JSONObject().put("token", jwt).toString();

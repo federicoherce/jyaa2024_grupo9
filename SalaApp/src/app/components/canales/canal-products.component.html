@@ -7,17 +7,13 @@
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Fecha de Envasado</th>
-              <th>Fecha de Vencimiento</th>
-              <th>Detalles</th>
+              <th>Cantidad</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let producto of productos">
               <td>{{ producto.nombre }}</td>
-              <td>{{ producto.fechaEnvasado | date }}</td>
-              <td>{{ producto.fechaVencimiento | date }}</td>
-              <td><a class="btn btn-info btn-sm" routerLink="/producto/{{ producto.id }}">Ver Producto</a></td>
+              <td>{{ producto.cantidadProductos }}</td>
             </tr>
           </tbody>
         </table>

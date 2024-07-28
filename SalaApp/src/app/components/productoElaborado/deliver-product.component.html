@@ -1,15 +1,15 @@
 <div class="container mt-4">
     <h2>Agregar Insumos al Producto</h2>
-    <form (ngSubmit)="addInsumo(insumoForm)" #insumoForm="ngForm">
+    <form (ngSubmit)="entregarProducto(entregaForm)" #entregaForm="ngForm">
       <div class="form-group">
-        <label for="insumo">Seleccionar Insumo</label>
-        <select id="insumo" [(ngModel)]="selectedInsumo" name="insumo" required class="form-control">
-          <option *ngFor="let insumo of insumos" [ngValue]="insumo">{{ insumo.nombre }}</option>
+        <label for="canal">Seleccionar Canal</label>
+        <select id="canal" [(ngModel)]="selectedCanal" name="canal" required class="form-control">
+          <option *ngFor="let canal of canales" [ngValue]="canal.id">{{ canal.nombre }}</option>
         </select>
         
       </div>
       <div class="form-group">
-        <label for="cantidad">Cantidad</label>
+        <label for="cantidad">Cantidad de productos</label>
         <input type="number" id="cantidad" [(ngModel)]="cantidad" name="cantidad" required class="form-control">
       </div>
       <button type="submit" class="btn btn-primary">Agregar Insumo</button>
@@ -19,4 +19,3 @@
       {{ message }}
     </div>
   </div>
-  

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { Producto } from './producto.service';
 
 export interface Canal {
   id: number;
@@ -60,4 +61,17 @@ export class CanalService {
       );
   }
 
+  entregarProductos(productoId: string, canalId: number, cantidad: number): Observable<any> {
+    const url = `${this.apiURL}/${productoId}/agregarProducto`; 
+    let params = new HttpParams()
+      .set('idCanal', canalId.toString()) 
+      .set('cantProductos', cantidad.toString()); 
+
+    return this.http.post(url, {}, { params: params,  headers: this.headers }); 
+  }
+
+  getProductos(canalId: number): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiURL}/${canalId}/productos`, { headers: this.headers });
+  }
 }
+

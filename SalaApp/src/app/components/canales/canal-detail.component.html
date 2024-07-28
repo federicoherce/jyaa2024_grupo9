@@ -9,7 +9,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Ubicación</th>
-                        <th>Acciones</th> <!-- Added new column for actions -->
+                        <th>Acciones</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,8 @@
                         <td>
                             <a class="btn btn-danger btn-sm" routerLink="/delete-canal/{{ canal.id }}">Eliminar</a>
                             <a class="btn btn-warning btn-sm me-1" routerLink="/edit-canal/{{ canal.id }}">Editar</a>
-                    </tr>                
+                            <a class="btn btn-warning btn-sm me-1" routerLink="/canal-productos/{{ canal.id }}">Ver Productos</a>
+                        </tr>                
                 </tbody>
             </table>
         </div>

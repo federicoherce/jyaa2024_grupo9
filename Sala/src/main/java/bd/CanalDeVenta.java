@@ -73,6 +73,11 @@ public class CanalDeVenta {
 	public Integer getId() {
 		return id;
     }
+
+	public List<StockProductoTerminado> getProductos() {
+		return productos;
+	}
+	
 	
 
 }
