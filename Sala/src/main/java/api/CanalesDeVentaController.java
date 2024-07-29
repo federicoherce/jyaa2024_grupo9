@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -184,11 +185,12 @@ public class CanalesDeVentaController {
 	}
 	
 	@GET
-	@Path("/{canalId}/productos")
+	@Path("/{id}/productos")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "Obtener productos de un canal")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Productos encontrados"),
 			@ApiResponse(responseCode = "404", description = "Productos no encontrados") })
+	@SecurityRequirement(name = "bearerAuth")
 	public Response getProductos(@Parameter(description = "ID del canal de ventas", required = true)@PathParam("id") Integer id) {
 		CanalDeVenta canal = canalesDeVentaDao.findActiveById(id);
 		List<StockProductoTerminado> productos = canal.getProductos();
