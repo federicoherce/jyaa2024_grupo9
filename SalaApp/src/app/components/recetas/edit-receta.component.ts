@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecetaService, Receta, RecetaRequest } from '../../services/receta.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class EditRecetaComponent implements OnInit {
   successMessage: string = '';
   recetaId: number | null = null;
 
-  constructor(private recetaService: RecetaService, private route: ActivatedRoute) { }
+  constructor(private recetaService: RecetaService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -47,6 +47,7 @@ export class EditRecetaComponent implements OnInit {
         response => {
           console.log('Receta actualizada', response);
           this.successMessage = "Receta actualizada con éxito";
+          this.router.navigate(['/recetas'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

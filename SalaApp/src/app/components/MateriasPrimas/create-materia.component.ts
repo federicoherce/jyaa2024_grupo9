@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MateriaPrimaService, MateriaPrimaPost } from '../../services/materiaPrima.service';
 import { CommonModule } from '@angular/common';
 import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,7 @@ export class CreateMateriaComponent {
     errorMessage: string = '';
     successMessage: string = '';
 
-    constructor(private materiaService: MateriaPrimaService, private familiaService: FamiliaProductoraService) { }
+    constructor(private materiaService: MateriaPrimaService, private familiaService: FamiliaProductoraService, private router: Router) { }
 
 
     ngOnInit() {
@@ -38,6 +38,7 @@ export class CreateMateriaComponent {
         response => {
             console.log('Materia prima creada', response);
             this.successMessage = "Materia prima creada con exito";
+            this.router.navigate(['/materiasPrimas'], { queryParams: { message: this.successMessage } });
         },
         error => {
             console.log(this.materia.nombreProductor)

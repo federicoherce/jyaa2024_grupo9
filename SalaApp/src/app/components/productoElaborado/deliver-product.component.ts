@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ItemDeInsumo, ProductoService } from '../../services/producto.service';
@@ -18,7 +18,7 @@ export class EntregarProductoComponent implements OnInit {
   canales: any[] = [];
   message: string | null = null;
 
-  constructor(private route: ActivatedRoute, private canalesService: CanalService, private productoService: ProductoService) {}
+  constructor(private route: ActivatedRoute, private canalesService: CanalService, private productoService: ProductoService, private router: Router) {}
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('productoId');
@@ -51,6 +51,7 @@ export class EntregarProductoComponent implements OnInit {
               entregaForm.reset();
               this.selectedCanal = 1;
               this.cantidad = 1;
+              this.router.navigate(['/productos'], { queryParams: { message: this.message } });
             },
             error => {
               console.log(this.productId)

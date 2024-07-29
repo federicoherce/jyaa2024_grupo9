@@ -13,7 +13,7 @@ import { Insumo, InsumoService } from '../../services/insumo.service';
 })
 
 export class CreateProductComponent {
-  producto: Producto = { id: 0, nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0,
+  producto: Producto = { activo: true, id: 0, nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0,
    cantidadProductos: 0, costoTotal: 0, insumos: []}
   insumos: Insumo[] = [];
   errorMessage: string = '';

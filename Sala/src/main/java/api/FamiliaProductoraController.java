@@ -65,7 +65,7 @@ public class FamiliaProductoraController {
 	    @ApiResponse(responseCode = "404", description = "Familias Productoras no encontradas")
 	})
     public Response getAllFamiliasProductoras() {
-    	List<FamiliaProductora> familias = fpDao.findAll();
+    	List<FamiliaProductora> familias = fpDao.findAllActives();
         if (familias == null) {
         	String mensaje = new JSONObject().put("message", "Familias Productoras no encontradas").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

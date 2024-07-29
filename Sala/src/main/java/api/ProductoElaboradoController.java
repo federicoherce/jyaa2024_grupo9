@@ -81,7 +81,7 @@ public class ProductoElaboradoController {
 	    @ApiResponse(responseCode = "404", description = "Producto no encontrado")
 	})
     public Response getProductoById(@Parameter(description = "ID del producto", required = true) @PathParam("id") int id) {
-    	StockProductoTerminado producto = stockDao.findActiveById(id);
+    	StockProductoTerminado producto = stockDao.findById(id);
         if (producto == null) {
         	String mensaje= "No se encontró el producto";
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

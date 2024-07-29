@@ -3,7 +3,7 @@ import { LoteService, LoteRequest } from '../../services/lote.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MateriaPrima, MateriaPrimaService } from '../../services/materiaPrima.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [FormsModule, CommonModule],
@@ -13,12 +13,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class RegisterLoteComponent {
-  lote: LoteRequest = { codigo: '', nombre: '', fechaElaboracion: '', cantidadProducida: 0, itemsDeMateriaPrima: [] };
+  lote: LoteRequest = { activo: true, codigo: '', nombre: '', fechaElaboracion: '', cantidadProducida: 0, itemsDeMateriaPrima: [] };
   materiasPrimas: MateriaPrima[] = [];
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private loteService: LoteService, private materiaPrimaService: MateriaPrimaService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private loteService: LoteService, private materiaPrimaService: MateriaPrimaService, private router: Router) {}
   
   ngOnInit(): void {
     this.materiaPrimaService.getMateriasPrimas().subscribe(
@@ -47,7 +47,7 @@ export class RegisterLoteComponent {
           this.successMessage = "Lote creado con éxito";
           registerForm.resetForm();
           this.lote.itemsDeMateriaPrima = []; // Reseteamos los items
-          this.router.navigate(['/lotes']);
+          this.router.navigate(['/lotes'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

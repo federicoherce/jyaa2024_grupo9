@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MateriaPrimaService, MateriaPrima,MateriaPrimaPost } from '../../services/materiaPrima.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
 
@@ -19,7 +19,7 @@ export class EditMateriaComponent implements OnInit {
     materiaId: number | null = null;
     familias: FamiliaProductora[] = [];
 
-    constructor(private materiaService: MateriaPrimaService, private route: ActivatedRoute, private familiaService: FamiliaProductoraService) { }
+    constructor(private materiaService: MateriaPrimaService, private route: ActivatedRoute, private familiaService: FamiliaProductoraService, private router: Router) { }
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -65,6 +65,7 @@ export class EditMateriaComponent implements OnInit {
                 response => {
                 console.log('Materia prima actualizada', response);
                 this.successMessage = "Materia prima actualizada con éxito";
+                this.router.navigate(['/materiasPrimas'], { queryParams: { message: this.successMessage } });
                 },
                 error => {
                 console.error('Error: ', error);

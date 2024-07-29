@@ -25,12 +25,16 @@ g                        <td>{{ materiaPrima.costoPorKg}}</td>
                         <td>{{ materiaPrima.fechaCompra | date }}</td>
                         <td>{{ materiaPrima.fechaVencimiento | date }}</td>
                         <td>
-                        <a class="btn btn-danger btn-sm" routerLink="/delete-materia/{{ materiaPrima.id }}">Eliminar</a>
                         <a class="btn btn-warning btn-sm me-1" routerLink="/edit-materia/{{ materiaPrima.id }}">Editar</a>
-                </tbody>
+                        <a class="btn btn-danger btn-sm" routerLink="/delete-materia/{{ materiaPrima.id }}">Eliminar</a>
+                    </tbody>
             </table>
         </div>
 
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
     </div>
 
     <ng-template #noCanales>

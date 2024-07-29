@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, UsuarioRequest } from '../../services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class EditUserComponent implements OnInit {
   successMessage: string = '';
   userId: number | null = null;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -51,6 +51,7 @@ export class EditUserComponent implements OnInit {
         response => {
           console.log('Usuario actualizado', response);
           this.successMessage = "Usuario actualizado con éxito";
+          this.router.navigate(['/users'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

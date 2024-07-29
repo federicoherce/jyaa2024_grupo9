@@ -59,12 +59,21 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public List<T> findAll() {
+    public List<T> findAllActives() {
     		List<T> result = em.createQuery(
     	            "SELECT e FROM " + entityClass.getName() + " e WHERE e.activo = true", entityClass)
     	            .getResultList();
     	    return result.isEmpty() ? null : result;
     }
+    
+    @Override
+    public List<T> findAll() {
+        List<T> result = em.createQuery(
+                "SELECT e FROM " + entityClass.getName() + " e", entityClass)
+                .getResultList();
+        return result.isEmpty() ? null : result;
+    }
+
 
 
     @Override

@@ -17,7 +17,7 @@ export class RegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private userService: UserService,private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   register(registerForm: NgForm) {
     if (registerForm.valid) {
@@ -25,7 +25,7 @@ export class RegisterComponent {
         response => {
           console.log('Usuario creado', response);
           this.successMessage = "Usuario creado con exito";
-          this.router.navigate(['/login']);
+          this.router.navigate(['/users'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

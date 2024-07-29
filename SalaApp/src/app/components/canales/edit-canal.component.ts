@@ -18,7 +18,7 @@ export class EditCanalComponent implements OnInit {
     successMessage: string = '';
     canalId: number | null = null;
 
-    constructor(private canalService: CanalService, private route: ActivatedRoute) { }
+    constructor(private canalService: CanalService, private route: ActivatedRoute, private router: Router) { }
 
 
     ngOnInit(): void {
@@ -50,6 +50,7 @@ export class EditCanalComponent implements OnInit {
             response => {
               console.log('Canal actualizado', response);
               this.successMessage = "Canal actualizado con éxito";
+              this.router.navigate(['/canales'], { queryParams: { message: this.successMessage } });
             },
             error => {
               console.error('Error: ', error);

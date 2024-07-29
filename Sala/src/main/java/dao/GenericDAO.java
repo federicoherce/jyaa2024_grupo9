@@ -11,6 +11,8 @@ public interface GenericDAO<T, ID> {
 	T findActiveById(ID id);
 	
 	List<T> findAll();
+	
+	List<T> findAllActives();
 
 	void update(T entity);
 
