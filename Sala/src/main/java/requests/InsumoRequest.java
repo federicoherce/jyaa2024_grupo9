@@ -10,18 +10,7 @@ public class InsumoRequest {
     @Schema(description = "ID del insumo", example = "1", required = true)
     private int insumo;
 
-    @Schema(description = "nombre del insumo", example = "Tapitas", required = true)
-    private String nombre;
     
-    
-    
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 	public int getCantidad() {
 		return cantidad;

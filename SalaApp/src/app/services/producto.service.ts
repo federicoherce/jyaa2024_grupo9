@@ -18,7 +18,6 @@ export interface Producto {
 export interface ItemDeInsumo {
   cantidad: number;
   insumo: number;
-  nombre: string;
 }
 
 @Injectable({
@@ -45,11 +44,11 @@ export class ProductoService {
       );
   }
 
-  agregarInsumos(productoId: string, insumos: ItemDeInsumo): Observable<any> {
+  /*agregarInsumos(productoId: string, insumos: ItemDeInsumo): Observable<any> {
     const url = `${this.apiURL}/${productoId}/agregarInsumos`; 
     console.log(url)
     return this.http.post(url, insumos, { headers: this.headers });
-  }
+  }*/
 
   getProducto(productoId: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.apiURL}/${productoId}`, { headers: this.headers });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Insumo, InsumoService } from '../../services/insumo.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -66,4 +66,4 @@ export class AgregarInsumosComponent implements OnInit {
             }
           );
         }
-    }
+    }*/

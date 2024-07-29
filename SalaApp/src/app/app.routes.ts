@@ -25,7 +25,7 @@ import { RegisterRecetaComponent } from './components/recetas/registerReceta.com
 import { RecetaDetailComponent } from './components/recetas/receta-detail.component';
 import { EditRecetaComponent } from './components/recetas/edit-receta.component';
 import { DeleteRecetaComponent } from './components/recetas/delete-receta.component';
-import { AgregarInsumosComponent } from './components/productoElaborado/add-supplies.component';
+//import { AgregarInsumosComponent } from './components/productoElaborado/add-supplies.component';
 import {MateriaListComponent} from './components/MateriasPrimas/materia-list.component';
 import {MateriaDeleteComponent} from './components/MateriasPrimas/delete-materia.component';
 import {EditMateriaComponent} from './components/MateriasPrimas/edit-materia.component';
@@ -63,7 +63,7 @@ export const routes: Routes = [
   { path: 'registerInsumo', component: RegisterInsumoComponent , canActivate: [AuthGuard]},
   { path: 'edit-insumo/:id', component: EditInsumoComponent , canActivate: [AuthGuard]},
   { path: 'delete-insumo/:id', component: DeleteInsumoComponent, canActivate: [AuthGuard] },
-  { path: 'agregarInsumos/:productId', component: AgregarInsumosComponent , canActivate: [AuthGuard]},
+  //{ path: 'agregarInsumos/:productId', component: AgregarInsumosComponent , canActivate: [AuthGuard]},
 
   //Lotes
   { path: 'lotes', component: LoteListComponent, canActivate: [AuthGuard] },
