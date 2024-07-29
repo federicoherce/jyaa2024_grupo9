@@ -63,7 +63,7 @@ export const routes: Routes = [
   { path: 'registerInsumo', component: RegisterInsumoComponent , canActivate: [AuthGuard]},
   { path: 'edit-insumo/:id', component: EditInsumoComponent , canActivate: [AuthGuard]},
   { path: 'delete-insumo/:id', component: DeleteInsumoComponent, canActivate: [AuthGuard] },
-  { path: 'agregarInsumos/:productId', component: AgregarInsumosComponent , canActivate: [AuthGuard]},
+  //{ path: 'agregarInsumos/:productId', component: AgregarInsumosComponent , canActivate: [AuthGuard]},
 
   //Lotes
   { path: 'lotes', component: LoteListComponent, canActivate: [AuthGuard] },
