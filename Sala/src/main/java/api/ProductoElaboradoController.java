@@ -1,5 +1,6 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -101,25 +102,52 @@ public class ProductoElaboradoController {
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
 	public Response entregarProducto(@Parameter(description = "ID del lote", required = true) @PathParam("idLote") int idLote,
-			@Parameter(description="Datos del producto") StockProductoTerminado prod) {
+			@Parameter(description="Datos del producto") ProductoTerminadoRequest prod) {
     	try {
+    		List<ItemDeInsumo> auxLista = new ArrayList<ItemDeInsumo>();
+    		Insumo auxI;
+    		ItemDeInsumo auxItem;
+    		StockProductoTerminado auxStock = new StockProductoTerminado(prod.getNombre(), prod.getFechaEnvasado(), prod.getPrecioVenta(), prod.getFechaVencimiento(), prod.getCantidadProductos());
+    		double suma = 0;
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
     			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
-    		prod.setLote(lote);
-    		prod.setCostoTotal(lote.getCostoLote());
-    		stockDao.persist(prod);
+    		auxStock.setLote(lote);
+    		suma = lote.getCostoLote();
+    		if (prod.getInsumos() == null || prod.getInsumos().size() <= 0) {
+    			String mensaje = new JSONObject().put("message", "No se seleccionaron los insumos utilizados para el stock").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+    		}    			
+    		for (InsumoRequest item : prod.getInsumos()) {
+    			auxI = insumoDao.findActiveById(item.getInsumo());
+    			if (item.getCantidad() > auxI.getCantidad()) {
+    				String mensaje = new JSONObject().put("message", "La cantidad del insumo " + auxI.getNombre() + " es insuficiente").toString();
+                	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+    			}
+    			auxItem = new ItemDeInsumo(item.getCantidad(), auxStock, auxI);
+    			suma = suma + auxItem.getCantidad() * auxItem.getInsumo().getCostoUnitario();
+    			auxLista.add(auxItem);
+    			if (auxItem.getCantidad() == 0)
+    				auxI.setActivo(false);
+    			insumoDao.update(auxI);
+    		}
+    		stockDao.persist(auxStock);
+    		for (ItemDeInsumo i: auxLista)
+    			itemDao.persist(i);
+    		auxStock.setCostoTotal(suma);
+    		auxStock.setInsumos(auxLista);
+    		stockDao.update(auxStock);
     		prod.getId();
     		lote.setActivo(false);
     		loteDao.update(lote);
-    		return Response.status(Response.Status.CREATED).entity(prod).build();
+    		return Response.status(Response.Status.CREATED).entity(auxStock).build();
     	} catch (PersistenceException e) {
             	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
     	} 	
 	}
 	
 	
-	@Path("/{productoId}/agregarInsumos")
+	/*@Path("/{productoId}/agregarInsumos")
 	@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -150,7 +178,7 @@ public class ProductoElaboradoController {
 		stockDao.update(producto);
      	String mensaje = new JSONObject().put("message", "Insumos agregados").toString();
 		return Response.ok().entity(mensaje).build();
-	}
+	}*/
 	
 	@DELETE
 	@Path("/{id}")

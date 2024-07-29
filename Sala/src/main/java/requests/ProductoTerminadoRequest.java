@@ -1,6 +1,7 @@
 package requests;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,6 +30,9 @@ public class ProductoTerminadoRequest {
 	    
 	    @Schema(description = "Cantidad total de stock", example = "150", required = true)
 	    private int cantidadProductos;
+	    
+	    @Schema(description = "Insumos utilizados", required = true)
+	    private List<InsumoRequest> insumos;
 
 		public String getNombre() {
 			return nombre;
@@ -65,6 +69,16 @@ public class ProductoTerminadoRequest {
 		public void setId(int id) {
 			this.id = id;
 		}
+
+		public List<InsumoRequest> getInsumos() {
+			return insumos;
+		}
+
+		public void setInsumos(List<InsumoRequest> insumos) {
+			this.insumos = insumos;
+		}
+		
+		
 	    
 
 }
