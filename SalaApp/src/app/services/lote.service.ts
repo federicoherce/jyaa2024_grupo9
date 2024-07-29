@@ -18,6 +18,7 @@ export interface ItemDeMateriaPrimaDetailed {
 
 export interface Lote {
   id: number;
+  activo: boolean;
   codigo: string;
   nombre: string;
   fechaElaboracion: string;
@@ -28,6 +29,7 @@ export interface Lote {
 
 export interface LoteRequest {
   codigo: string;
+  activo: boolean;
   nombre: string;
   fechaElaboracion: string;
   cantidadProducida: number;

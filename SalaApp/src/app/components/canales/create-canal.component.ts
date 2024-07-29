@@ -19,7 +19,7 @@ export class CreateCanalComponent {
   successMessage: string = '';
   canalId: number | null = null;
 
-  constructor(private canalService: CanalService, private route: ActivatedRoute) { }
+  constructor(private canalService: CanalService, private router: Router) { }
 
 createCanal(form: NgForm) {
     if (form.valid) {
@@ -27,6 +27,7 @@ createCanal(form: NgForm) {
         response => {
             console.log('Canal creado', response);
             this.successMessage = "Canal creado con exito";
+            this.router.navigate(['/canales'], { queryParams: { message: this.successMessage } });
         },
         error => {
             console.error('Error: ', error);

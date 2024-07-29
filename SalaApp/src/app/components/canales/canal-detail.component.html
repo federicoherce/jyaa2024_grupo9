@@ -17,14 +17,18 @@
                         <td>{{ canal.nombre }}</td>
                         <td>{{ canal.ubicacion }}</td>
                         <td>
-                            <a class="btn btn-danger btn-sm" routerLink="/delete-canal/{{ canal.id }}">Eliminar</a>
-                            <a class="btn btn-warning btn-sm me-1" routerLink="/edit-canal/{{ canal.id }}">Editar</a>
                             <a class="btn btn-warning btn-sm me-1" routerLink="/canal-productos/{{ canal.id }}">Ver Productos</a>
+                            <a class="btn btn-warning btn-sm me-1" routerLink="/edit-canal/{{ canal.id }}">Editar</a>
+                            <a class="btn btn-danger btn-sm" routerLink="/delete-canal/{{ canal.id }}">Eliminar</a>
                         </tr>                
                 </tbody>
             </table>
         </div>
     </div>
+    
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
 
     <ng-template #noCanales>
         <div class="alert alert-info text-center" role="alert">

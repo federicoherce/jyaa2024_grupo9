@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, Usuario } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   imports: [CommonModule, RouterModule],
@@ -12,10 +12,14 @@ import { RouterModule } from '@angular/router';
 export class UserListComponent implements OnInit {
   users: Usuario[] = [];
   errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.successMessage = params['message'] || null;
+    });
     this.userService.getUsers().subscribe(
       users => {
         this.users = users;

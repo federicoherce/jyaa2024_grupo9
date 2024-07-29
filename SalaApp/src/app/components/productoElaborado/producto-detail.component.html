@@ -10,11 +10,12 @@
         <p class="card-text"><strong>Costo total</strong> {{ producto.costoTotal | currency }}</p>
         
         
-
-        <div class="mt-3"> 
-          <a class="btn btn-info btn-sm" routerLink="/entregarACanal/{{ producto.id }}">Entregar a canal</a>
-          <a class="btn btn-danger" routerLink="/delete-producto/{{ producto.id }}">Borrar producto</a>
-        </div>
+      <div *ngIf="producto.activo">
+          <div class="mt-3"> 
+            <a class="btn btn-info btn-sm" routerLink="/entregarACanal/{{ producto.id }}">Entregar a canal</a>
+            <a class="btn btn-danger" routerLink="/delete-producto/{{ producto.id }}">Borrar producto</a>
+          </div>
+       </div>
       </div>
     </div>
   

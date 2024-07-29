@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 export interface Producto {
   id: number,
   nombre: string;
+  activo: boolean;
   fechaEnvasado: string;
   fechaVencimiento: string;
   precioVenta: number;
