@@ -71,7 +71,7 @@ public class CanalesDeVentaController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Canales de venta encontrados"),
 			@ApiResponse(responseCode = "404", description = "Canales de venta no encontrados") })
 	public Response getAllCanalesDeVenta() {
-		List<CanalDeVenta> canales = canalesDeVentaDao.findAll();
+		List<CanalDeVenta> canales = canalesDeVentaDao.findAllActives();
 		if (canales == null) {
 			String mensaje = new JSONObject().put("message", "No hay canales de venta disponibles").toString();
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

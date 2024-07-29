@@ -47,7 +47,7 @@ public class Intercepter implements ContainerRequestFilter {
             requestContext.setProperty("userEmail", claims.getSubject());
 
         } catch (Exception e) {
-            String json = new JSONObject().put("message", "Token inválido").toString();
+            String json = new JSONObject().put("message", "Por favor, vuelva a iniciar sesión").toString();
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(json).build());
         }
     }

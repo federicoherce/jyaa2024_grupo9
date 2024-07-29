@@ -60,7 +60,7 @@ public class UsuariosController {
 	    @ApiResponse(responseCode = "404", description = "Usuarios no encontrados")
 	})
     public Response getAllUsers() {
-    	List<Usuario> usuarios = userDao.findAll();
+    	List<Usuario> usuarios = userDao.findAllActives();
         if (usuarios == null) {
         	String mensaje = new JSONObject().put("message", "Usuarios no encontrados").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

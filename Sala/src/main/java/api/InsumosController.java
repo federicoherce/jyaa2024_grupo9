@@ -65,7 +65,7 @@ public class InsumosController {
 	    @ApiResponse(responseCode = "404", description = "Insumos no encontrados")
 	})
     public Response getAllInsumos() {
-    	List<Insumo> insumos = insumoDao.findAll();
+    	List<Insumo> insumos = insumoDao.findAllActives();
         if (insumos == null) {
         	String mensaje = new JSONObject().put("message", "Insumos no encontrados").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

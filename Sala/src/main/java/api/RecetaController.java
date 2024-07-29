@@ -74,7 +74,7 @@ public class RecetaController {
 	    @ApiResponse(responseCode = "404", description = "Recetas Productoras no encontradas")
 	})
     public Response getAllRecetas() {
-    	List<Receta> recetas = recetaDao.findAll();
+    	List<Receta> recetas = recetaDao.findAllActives();
         if (recetas == null) {
         	String mensaje = new JSONObject().put("message", "Recetas no encontradas").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();

@@ -79,13 +79,14 @@ public class LoteController {
 	    @ApiResponse(responseCode = "404", description = "Lote no encontrado")
 	})
     public Response getLoteById(@Parameter(description = "ID del lote", required = true) @PathParam("id") int id) {
-    	Lote lote = loteDao.findActiveById(id);
+    	Lote lote = loteDao.findById(id);
         if (lote == null) {
         	String mensaje= "No se encontró el lote";
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
         }
         return Response.ok(lote).build();
     }
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
