@@ -18,7 +18,7 @@ export class CanalProductsComponent implements OnInit {
   constructor(private canalService: CanalService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    const canalId = Number(this.route.snapshot.paramMap.get('canalId'));
+    const canalId = Number(this.route.snapshot.paramMap.get('id'));
     if (canalId) {
         this.canalService.getProductos(canalId).subscribe(
             productos => {

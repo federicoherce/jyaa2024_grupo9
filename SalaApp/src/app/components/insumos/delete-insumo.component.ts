@@ -44,9 +44,8 @@ export class DeleteInsumoComponent implements OnInit {
       this.insumoService.deleteInsumo(this.insumoId).subscribe(
         () => {
           this.successMessage = "Insumo eliminado con éxito";
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 2000);
+          this.router.navigate(['/insumos'], { queryParams: { message: this.successMessage } });
+
         },
         (error) => {
           console.error('Error: ', error);

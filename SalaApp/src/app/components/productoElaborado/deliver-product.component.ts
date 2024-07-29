@@ -12,7 +12,7 @@ import { Canal, CanalService } from '../../services/canal.service';
   templateUrl: './deliver-product.component.html'
 })
 export class EntregarProductoComponent implements OnInit {
-  productId: string = '1';
+  productId: string = '';
   selectedCanal: number = 0;
   cantidad: number = 1
   canales: any[] = [];
@@ -21,9 +21,12 @@ export class EntregarProductoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private canalesService: CanalService, private productoService: ProductoService) {}
 
   ngOnInit() {
-    const productId = this.route.snapshot.paramMap.get('productId');
+    const productId = this.route.snapshot.paramMap.get('productoId');
     if (productId) {
       this.productId = productId;
+      console.log(this.productId)
+    } else {
+      this.message = 'ID de producto no encontrado';
     }
     this.loadCanales();
   }
@@ -43,12 +46,14 @@ export class EntregarProductoComponent implements OnInit {
     if (entregaForm.valid) {
           this.canalesService.entregarProductos(this.productId, this.selectedCanal, this.cantidad).subscribe(
             response => {
+              console.log(this.productId)
               this.message = "Productos entregados";
               entregaForm.reset();
               this.selectedCanal = 1;
               this.cantidad = 1;
             },
             error => {
+              console.log(this.productId)
               console.error('Error: ', error);
               this.message = error.error.message;
             }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InsumoService, Insumo } from '../../services/insumo.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class EditInsumoComponent implements OnInit {
   successMessage: string = '';
   insumoId: number | null = null;
 
-  constructor(private insumoService: InsumoService, private route: ActivatedRoute) { }
+  constructor(private insumoService: InsumoService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -51,6 +51,8 @@ export class EditInsumoComponent implements OnInit {
         response => {
           console.log('Insumo actualizado', response);
           this.successMessage = "Insumo actualizado con éxito";
+          this.router.navigate(['/insumos'], { queryParams: { message: this.successMessage } });
+
         },
         error => {
           console.error('Error: ', error);

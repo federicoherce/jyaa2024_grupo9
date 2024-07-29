@@ -44,9 +44,7 @@ export class DeleteFamiliaComponent implements OnInit {
       this.familiaProductoraService.deleteFamiliaProductora(this.familiaId).subscribe(
         () => {
           this.successMessage = "Familia Productora eliminada con éxito";
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 2000);
+          this.router.navigate(['/familias'], { queryParams: { message: this.successMessage } });
         },
         (error) => {
           console.error('Error: ', error);

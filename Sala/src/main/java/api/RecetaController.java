@@ -29,6 +29,8 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -91,8 +93,8 @@ public class RecetaController {
 	        schema = @Schema(implementation = Receta.class))),
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
-    public Response createReceta(@Parameter(description = "Datos de la receta", required = true) RecetaRequest receta) {
-		Usuario user = usuarioDao.findActiveByEmail(receta.getUsuarioMail());
+    public Response createReceta(@Parameter(description = "Datos de la receta", required = true) RecetaRequest receta, @Context ContainerRequestContext requestContext) {
+		Usuario user = usuarioDao.findActiveByEmail(requestContext.getProperty("userEmail").toString());
 		if (user == null) {
 			String mensaje = new JSONObject().put("message", "El usuario especificado no existe").toString();
         	return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build(); }

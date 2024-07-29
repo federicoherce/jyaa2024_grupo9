@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   imports: [CommonModule, RouterModule],
@@ -12,10 +13,14 @@ import { RouterModule } from '@angular/router';
 export class FamiliaListComponent implements OnInit {
   familias: FamiliaProductora[] = [];
   errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(private familiaService: FamiliaProductoraService) {}
+  constructor(private familiaService: FamiliaProductoraService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.successMessage = params['message'] || null;
+    });
     this.familiaService.getFamiliasProductoras().subscribe(
       familias => {
         this.familias = familias;

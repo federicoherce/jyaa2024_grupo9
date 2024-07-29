@@ -100,18 +100,33 @@ public class UsuariosController {
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
 	public Response createUser(@Parameter(description = "Datos del nuevo usuario", required = true) UsuarioRequest usuarioRequest) {
-	    Usuario usuario = new Usuario(usuarioRequest.getEmail(), usuarioRequest.getNombre(),
+	    try {
+	    	Usuario u = userDao.findByEmail(usuarioRequest.getEmail());
+	    	if (u != null) {
+	    		if (u.isActivo())
+	    			return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Ese email ya se encuentra registrado").toString()).build();
+	    		else {
+	    			u.setApellido(usuarioRequest.getApellido());
+	    			u.setNombre(usuarioRequest.getNombre());
+	    			u.setPassword(usuarioRequest.getPassword());
+	    			u.setActivo(true);
+	    			userDao.update(u);
+	    		}
+	    	} else {
+	    		u = new Usuario(usuarioRequest.getEmail(), usuarioRequest.getNombre(),
 	    		usuarioRequest.getApellido(), usuarioRequest.getPassword());
-		try {
-        	userDao.persist(usuario);
+	    		userDao.persist(u);
+	    	}
+	    	return Response.status(Response.Status.CREATED).entity(u).build();
     	} catch (PersistenceException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ConstraintViolationException) {
             	String mensaje = new JSONObject().put("message", "Ese email ya se encuentra registrado").toString();
             	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
             }
+            String mensaje = new JSONObject().put("message", "Ocurrió un error en el almacenado del usuario").toString();
+            return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
        }
-    	return Response.status(Response.Status.CREATED).entity(usuario).build();
    }
     
 	

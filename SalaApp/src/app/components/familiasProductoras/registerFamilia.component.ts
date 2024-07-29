@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [FormsModule, CommonModule],
@@ -15,7 +16,7 @@ export class RegisterFamiliaComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private familiaService: FamiliaProductoraService) {}
+  constructor(private familiaService: FamiliaProductoraService, private router: Router) {}
 
   register(registerForm: NgForm) {
     if (registerForm.valid) {
@@ -24,6 +25,7 @@ export class RegisterFamiliaComponent {
         response => {
           console.log('Familia Productora creada', response);
           this.successMessage = "Familia Productora creada con exito";
+          this.router.navigate(['/familias'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

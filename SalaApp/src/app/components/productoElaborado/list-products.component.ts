@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   productos: Producto[] = [];
+  filteredProductos: Producto[] = [];
+  showActive: boolean = true;
   errorMessage: string = '';
 
   constructor(private productoService: ProductoService) {}

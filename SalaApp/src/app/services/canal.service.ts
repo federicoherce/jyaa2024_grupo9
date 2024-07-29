@@ -68,6 +68,7 @@ export class CanalService {
       .set('cantProductos', cantidad.toString()); 
 
     return this.http.post(url, {}, { params: params,  headers: this.headers }); 
+    
   }
 
   getProductos(canalId: number): Observable<Producto[]> {

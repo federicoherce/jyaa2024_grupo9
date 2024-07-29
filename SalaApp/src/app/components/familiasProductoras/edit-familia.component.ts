@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FamiliaProductoraService, FamiliaProductora } from '../../services/familiaproductora.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ export class EditFamiliaComponent implements OnInit {
   successMessage: string = '';
   familiaId: number | null = null;
 
-  constructor(private familiaProductoraService: FamiliaProductoraService, private route: ActivatedRoute) { }
+  constructor(private familiaProductoraService: FamiliaProductoraService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -51,6 +51,7 @@ export class EditFamiliaComponent implements OnInit {
         response => {
           console.log('Familia Productora actualizada', response);
           this.successMessage = "Familia Productora actualizada con éxito";
+          this.router.navigate(['/familias'], { queryParams: { message: this.successMessage } });
         },
         error => {
           console.error('Error: ', error);

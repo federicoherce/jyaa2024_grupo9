@@ -17,6 +17,7 @@ import bd.Usuario;
 import dao.ItemDeMateriaPrimaDAO;
 import dao.LoteDAO;
 import dao.MateriaPrimaDAO;
+import dao.UsuarioDAO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,6 +32,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import requests.ItemDeMateriaPrimaRequest;
@@ -45,6 +48,8 @@ public class LoteController {
 	private MateriaPrimaDAO materiaDao;
 	@Inject
 	private ItemDeMateriaPrimaDAO itemDao;
+	@Inject
+	private UsuarioDAO userDao;
 
 	@GET
 	@Path("/all")
@@ -92,31 +97,48 @@ public class LoteController {
 	        schema = @Schema(implementation = Lote.class))),
 	    @ApiResponse(responseCode = "409", description = "Conflicto de datos")
 	})
-    public Response crearLote(@Parameter(description = "Datos del lote", required = true) LoteRequest lote) {
+    public Response crearLote(@Parameter(description = "Datos del lote", required = true) LoteRequest lote, @Context ContainerRequestContext requestContext) {
 		try {
 			List<ItemDeMateriaPrima> auxLista = new ArrayList<ItemDeMateriaPrima>();
 			MateriaPrima auxMp;
 			ItemDeMateriaPrima auxI;
 			double suma = 0;
-			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), new Usuario("gianq5@gmail.com", "Gianfranco", "Quaranta", "12345"));
+			Lote auxLote = new Lote(lote.getNombre(), lote.getCodigo(), lote.getFechaElaboracion(), lote.getCantidadProducida(), userDao.findActiveByEmail(requestContext.getProperty("userEmail").toString()));
+			//loteDao.persist(auxLote);
+			if (lote.getItemsDeMateriaPrima() == null || lote.getItemsDeMateriaPrima().size() <= 0) {
+				String mensaje = new JSONObject().put("message", "No se seleccionó la materia prima del lote").toString();
+            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
+			}
 			for (ItemDeMateriaPrimaRequest item : lote.getItemsDeMateriaPrima()) {
+				//System.out.println(item.getMateriaPrimaId() + " - " + item.getCantidadEnKg());
 				auxMp = materiaDao.findActiveById(item.getMateriaPrimaId());
 				if (item.getCantidadEnKg() > auxMp.getPeso()) {
 					String mensaje = new JSONObject().put("message", "Cantidad de materia prima '" + auxMp.getNombre() + "' insuficiente").toString();
 	            	return Response.status(Response.Status.CONFLICT).entity(mensaje).build();
 				}
+				//System.out.println("Pre persistencia del item");
 				auxI = new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp);
 				suma = suma + auxI.getCantidadEnKg() * auxI.getMateriaPrima().getCostoPorKg();
+				//itemDao.persist(auxI);
+				//System.out.println("Post persistencia del item y antes de agregar a la lista y setear materia en false");
+				auxLista.add(auxI);
+				if (auxMp.getPeso() == 0)
+					auxMp.setActivo(false);
 				materiaDao.update(auxMp);
-				itemDao.persist(auxI);
-				auxLista.add(new ItemDeMateriaPrima(item.getCantidadEnKg(), auxLote, auxMp));
+				//System.out.println("Post setear en false y antes de cerrar loop");
 			}
+			loteDao.persist(auxLote);
+			for (ItemDeMateriaPrima i : auxLista)
+				itemDao.persist(i);
 			auxLote.setCostoLote(suma);
 			auxLote.setMateriaPrima(auxLista);
-			loteDao.persist(auxLote);
+			//System.out.println("Pre persistencia de lote");
+			loteDao.update(auxLote);
+			//System.out.println("Pos persistencia del lote");
 			return Response.status(Response.Status.CREATED).entity(auxLote).build();
 		} catch (PersistenceException e) {
-        	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+			System.out.println(e.getMessage());
+        	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Hay un error con alguno de los campos").toString()).build();
 		}
 	}
 	

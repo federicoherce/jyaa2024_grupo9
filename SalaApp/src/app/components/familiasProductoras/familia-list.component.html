@@ -3,7 +3,6 @@
     {{ errorMessage }}
   </div>
 
-  
   <a class="btn btn-primary mb-2" routerLink="/registerFamilia">Registrar Nueva Familia Productora</a>
 
   
@@ -18,9 +17,9 @@
       </div>
     </li>
   </ul>
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
 
   
-  <div *ngIf="!familias.length && !errorMessage" class="alert alert-warning mt-3">
-    No se encontraron familias productoras.
-  </div>
 </div>

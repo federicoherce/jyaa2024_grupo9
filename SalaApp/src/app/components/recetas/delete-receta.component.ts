@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class DeleteRecetaComponent implements OnInit {
-  receta: RecetaRequest = { nombre: '', texto: '', usuarioMail: '' };
+  receta: RecetaRequest = { nombre: '', texto: '' };
   errorMessage: string = '';
   successMessage: string = '';
   recetaId: number | null = null;
