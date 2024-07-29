@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductoService, Producto } from '../../services/producto.service';
+import { ProductoService, Producto, ProductoTerminadoRequest } from '../../services/producto.service';
 import { NgForm, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,8 +13,8 @@ import { Insumo, InsumoService } from '../../services/insumo.service';
 })
 
 export class CreateProductComponent {
-  producto: Producto = { activo: true, id: 0, nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0,
-   cantidadProductos: 0, costoTotal: 0, insumos: []}
+  producto: ProductoTerminadoRequest = { nombre: '', fechaEnvasado: '', fechaVencimiento: '', precioVenta: 0,
+   cantidadProductos: 0, insumos: []}
   insumos: Insumo[] = [];
   errorMessage: string = '';
   successMessage: string = '';
@@ -49,7 +49,7 @@ export class CreateProductComponent {
 
   registerProduct(productForm: NgForm) {
     if (productForm.valid && this.loteId) {
-      this.productoService.createProduct(this.producto, this.loteId).subscribe(
+      this.productoService.createProduct(this.loteId, this.producto).subscribe(
         response => {
           this.successMessage = 'Producto creado con éxito';
           productForm.resetForm();

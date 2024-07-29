@@ -16,6 +16,15 @@ export interface Producto {
   insumos: ItemDeInsumo[];
 }
 
+export interface ProductoTerminadoRequest {
+  nombre: string;
+  fechaEnvasado: string;
+  fechaVencimiento: string;
+  precioVenta: number;
+  cantidadProductos: number;
+  insumos: ItemDeInsumo[];
+}
+
 export interface ItemDeInsumo {
   cantidad: number;
   insumo: number;
@@ -31,8 +40,8 @@ export class ProductoService {
   constructor(private http: HttpClient) {
   }
 
-  createProduct(producto: Producto, loteId: string): Observable<Producto> {
-    return this.http.post<Producto>(`${this.apiURL}/${loteId}`, producto, { headers: this.headers })
+  createProduct(idLote: string, prod: ProductoTerminadoRequest): Observable<ProductoTerminadoRequest> {
+    return this.http.post<ProductoTerminadoRequest>(`${this.apiURL}/${idLote}`, prod, { headers: this.headers })
       .pipe(
         catchError(this.handleError)
       );

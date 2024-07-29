@@ -111,7 +111,7 @@ public class ProductoElaboradoController {
     		double suma = 0;
     		Lote lote = loteDao.findActiveById(idLote);
     		if (lote == null)
-    			return Response.status(Response.Status.NOT_FOUND).entity("Lote invalido").build();
+    			return Response.status(Response.Status.NOT_FOUND).entity(new JSONObject().put("message", "Lote invalido").toString()).build();
     		auxStock.setLote(lote);
     		suma = lote.getCostoLote();
     		if (prod.getInsumos() == null || prod.getInsumos().size() <= 0) {
@@ -142,7 +142,7 @@ public class ProductoElaboradoController {
     		loteDao.update(lote);
     		return Response.status(Response.Status.CREATED).entity(auxStock).build();
     	} catch (PersistenceException e) {
-            	return Response.status(Response.Status.CONFLICT).entity("Falta completar campo/s obligatorio/s").build();
+            	return Response.status(Response.Status.CONFLICT).entity(new JSONObject().put("message", "Falta completar campo/s obligatorio/s").toString()).build();
     	} 	
 	}
 	
