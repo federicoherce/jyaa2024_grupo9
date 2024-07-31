@@ -17,7 +17,7 @@
 		<class>bd.Usuario</class>
 		<properties>
 			<property name="hibernate.connection.driver_class"
-				value="com.mysql.cj.jdbc.Driver" />
+				value="com.mysql.cj.jdbc.Driver"/>
 			<property name="hibernate.connection.username" value="jyaa2024_usr9" />
 			<property name="hibernate.connection.password" value="jyaa2024_pwd9" />
 			<property name="hibernate.connection.url"
