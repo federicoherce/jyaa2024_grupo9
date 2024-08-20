@@ -1,0 +1,21 @@
+{
+  "routes": [
+    "/",
+    "/agregarLote",
+    "/canales",
+    "/create-canal",
+    "/create-materia",
+    "/familias",
+    "/insumos",
+    "/login",
+    "/lotes",
+    "/materiasPrimas",
+    "/productos",
+    "/recetas",
+    "/register",
+    "/registerFamilia",
+    "/registerInsumo",
+    "/registerReceta",
+    "/users"
+  ]
+}
