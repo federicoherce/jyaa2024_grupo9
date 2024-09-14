@@ -16,17 +16,17 @@
 		<class>bd.StockProductoTerminado</class>
 		<class>bd.Usuario</class>
 		<properties>
-			<property name="hibernate.connection.driver_class"
-				value="com.mysql.cj.jdbc.Driver"/>
-			<property name="hibernate.connection.username" value="jyaa2024_usr9" />
-			<property name="hibernate.connection.password" value="jyaa2024_pwd9" />
-			<property name="hibernate.connection.url"
-				value="jdbc:mysql://java-db:3306/jyaa2024_grupo9" />
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.show_sql" value="true"/>	
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
- 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://java-db:3306/jyaa2024_grupo9"/>
+			<property name="javax.persistence.jdbc.user" value="jyaa2024_usr9"/>
+			<property name="javax.persistence.jdbc.password" value="jyaa2024_pwd9"/>
+
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+		
+			<property name="hibernate.cache.use_second_level_cache" value="false"/>
+   			<property name="hibernate.cache.use_query_cache" value="false"/>
+
+			 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/> 
 		</properties>
 	</persistence-unit>
 </persistence>
