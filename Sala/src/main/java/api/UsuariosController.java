@@ -36,7 +36,7 @@ import requests.UsuarioRequest;
 
 @OpenAPIDefinition(
 	    info = @Info(title = "API", version = "1.0.0"),
-	    servers = @Server(url = "https://grupo9.java2024.linti.unlp.edu.ar/")   
+	    servers = @Server(url = "https://grupo9.java2024.linti.unlp.edu.ar/api/")   
 	)
 @SecurityScheme(
         name = "bearerAuth",
