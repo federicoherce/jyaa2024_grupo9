@@ -35,6 +35,8 @@ export class UserService {
   
   createUser(user: UsuarioRequest): Observable<Usuario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log(this.apiURL)
+    console.log(environment)
     return this.http.post<Usuario>(this.apiURL, user, { headers: headers })
       .pipe(
         catchError(this.handleError)
