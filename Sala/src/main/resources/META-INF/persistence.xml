@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+r<?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1"
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -24,7 +24,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
-		<!--  <property name="hibernate.hbm2ddl.auto" value="update"/>  -->	
+		    <property name="hibernate.hbm2ddl.auto" value="create"/>  
 		</properties>
 	</persistence-unit>
 </persistence>
