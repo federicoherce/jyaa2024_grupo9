@@ -22,15 +22,12 @@
 			<property name="hibernate.connection.password" value="jyaa2024_pwd9" />
 			<property name="hibernate.connection.url"
 				value="jdbc:mysql://java-db:3306/jyaa2024_grupo9" />
+			<property name="hibernate.default_schema" value="stock" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.show_sql" value="true"/>	
-			<property name="javax.persistence.schema-generation.database.action" value="create"/>
-		
-			<property name="hibernate.cache.use_second_level_cache" value="false"/>
-   			<property name="hibernate.cache.use_query_cache" value="false"/>
-
-		<!--   <property name="hibernate.hbm2ddl.auto" value="create"/> -->	 
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+ 
 		</properties>
 	</persistence-unit>
 </persistence>
